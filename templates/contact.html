@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ t.contact }} — {{ t.brand_name }}
+{% endblock %}
+
+{% block content %}
+<div class="page-header-banner">
+    <div class="container text-center">
+        <span class="sub-title-badge">🤝 {{ t.contact_title }}</span>
+        <h1 class="page-title">{{ t.contact }}</h1>
+        <p class="page-subtitle">{{ t.contact_sub }}</p>
+    </div>
+</div>
+
+<section class="contact-page-section">
+    <div class="container">
+        
+        {% if success %}
+        <div class="success-alert-banner">
+            <i class="fas fa-check-circle"></i>
+            <div>
+                <h4>{{ t.message_sent_success }}</h4>
+                <p>{% if current_lang == 'hi' %}हम 24 घंटे के अंदर आपसे संपर्क करेंगे। खुश रहें और स्वादिष्ट खाना बनाते रहें!{% else %}We will review your inquiry and get in touch within 24-48 business hours.{% endif %}</p>
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="contact-grid-layout">
+            
+            <!-- Contact Form -->
+            <div class="contact-form-column">
+                <div class="form-wrapper-card">
+                    <h3 class="form-title">
+                        {% if current_lang == 'hi' %}संदेश भेजें{% else %}Send a Direct Message{% endif %}
+                    </h3>
+                    <p class="form-subtext">
+                        {% if current_lang == 'hi' %}
+                            चाहे कोई नया ब्रांड सहयोग हो या कुकिंग से जुड़ा सवाल, हमें आपके विचार जानकर खुशी होगी।
+                        {% else %}
+                            Whether you're interested in brand partnerships, culinary workshops, or have a recipe question, we'd love to hear from you.
+                        {% endif %}
+                    </p>
+
+                    <form action="{{ url_for('contact') }}" method="POST" class="styled-contact-form">
+                        <div class="form-group">
+                            <label for="name">{{ t.name_label }} *</label>
+                            <input type="text" id="name" name="name" required placeholder="{% if current_lang == 'hi' %}उदा. रोहन शर्मा{% else %}e.g. John Doe{% endif %}">
+                        </div>
+
+                        <div class="form-row-2">
+                            <div class="form-group">
+                                <label for="email">{{ t.email_label }} *</label>
+                                <input type="email" id="email" name="email" required placeholder="your.name@example.com">
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">{{ t.phone_label }}</label>
+                                <input type="tel" id="phone" name="phone" placeholder="+91 98765 43210">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="subject">{{ t.subject_label }} *</label>
+                            <select id="subject" name="subject" required>
+                                <option value="Brand Collaboration">{{ t.brand_collab }}</option>
+                                <option value="Recipe Question">{{ t.recipe_query }}</option>
+                                <option value="Cooking Workshop">{{ t.event_inquiry }}</option>
+                                <option value="Other">{{ t.other }}</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message">{{ t.message_label }} *</label>
+                            <textarea id="message" name="message" rows="5" required placeholder="{% if current_lang == 'hi' %}यहाँ अपना संदेश लिखें...{% else %}Tell us about your project, timeline, or question...{% endif %}"></textarea>
+                        </div>
+
+                        <button type="submit" class="btn-primary-gradient full-width">
+                            <i class="fas fa-paper-plane"></i> {{ t.send_message }}
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Direct Contact & Social Cards -->
+            <div class="contact-info-column">
+                
+                <!-- Quick WhatsApp & Instagram Card -->
+                <div class="info-card-box highlight">
+                    <span class="info-badge">🚀 Instant Reach</span>
+                    <h3>{% if current_lang == 'hi' %}त्वरित संपर्क के विकल्प{% else %}Quick Connect Options{% endif %}</h3>
+                    <p>{% if current_lang == 'hi' %}इंस्टाग्राम या व्हाट्सएप पर सीधे जुड़ें:{% else %}Connect directly with Vanshika's creator team:{% endif %}</p>
+                    
+                    <div class="connect-action-list">
+                        <a href="https://www.instagram.com/vanshikacooks/" target="_blank" rel="noopener" class="connect-btn ig">
+                            <i class="fab fa-instagram"></i>
+                            <div>
+                                <strong>Instagram DM</strong>
+                                <span>@vanshikacooks</span>
+                            </div>
+                        </a>
+
+                        <a href="https://wa.me/?text=Hi%20Vanshika!%20I%20visited%20your%20website%20and%20would%20love%20to%20connect%20with%20you!" target="_blank" rel="noopener" class="connect-btn wa">
+                            <i class="fab fa-whatsapp"></i>
+                            <div>
+                                <strong>WhatsApp Inquiry</strong>
+                                <span>Quick Business Chat</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Media Kit & Collabs -->
+                <div class="info-card-box">
+                    <i class="fas fa-bullhorn info-icon"></i>
+                    <h4>{% if current_lang == 'hi' %}ब्रांड स्पॉन्सरशिप व मीडिया किट{% else %}Brand Partnerships & Sponsorships{% endif %}</h4>
+                    <p>{% if current_lang == 'hi' %}हम उच्च गुणवत्ता वाले किचन वियर, ऑर्गेनिक मसाले, शुद्ध सामग्री और होम एप्लायंसेज के साथ सहयोग करते हैं।{% else %}We partner with quality kitchenware, organic spices, pantry staples, and home appliances for authentic recipe integration and reels.{% endif %}</p>
+                </div>
+
+                <!-- Location & Response Time -->
+                <div class="info-card-box">
+                    <i class="fas fa-clock info-icon"></i>
+                    <h4>{% if current_lang == 'hi' %}प्रतिक्रिया समय{% else %}Typical Response Time{% endif %}</h4>
+                    <p>{% if current_lang == 'hi' %}हम सभी व्यापारिक पूछताछ का उत्तर 24-48 घंटों के भीतर देते हैं।{% else %}We review and respond to inquiries within 24-48 business hours.{% endif %}</p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</section>
+{% endblock %}

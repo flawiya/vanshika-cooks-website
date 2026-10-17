@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ t.kitchen_tips }} — {{ t.brand_name }}
+{% endblock %}
+
+{% block content %}
+<div class="page-header-banner">
+    <div class="container text-center">
+        <span class="sub-title-badge">💡 {{ t.latest_tips }}</span>
+        <h1 class="page-title">{{ t.kitchen_tips }}</h1>
+        <p class="page-subtitle">
+            {% if current_lang == 'hi' %}
+                सरल किचन ट्रिक्स और वैज्ञानिक नुस्खे जो आपके रोजाना के खाने को साधारण से असाधारण बना दें।
+            {% else %}
+                Everyday culinary science, time-saving hacks, and secret techniques to level up your home cooking.
+            {% endif %}
+        </p>
+    </div>
+</div>
+
+<section class="tips-full-section">
+    <div class="container">
+        <div class="tips-grid-extended">
+            {% for tip in tips %}
+            <article class="tip-card-expanded">
+                <div class="tip-card-top">
+                    <div class="tip-icon-large">
+                        <i class="fas {{ tip.icon }}"></i>
+                    </div>
+                    <span class="tip-badge">{{ tip.category }}</span>
+                </div>
+                <h2 class="tip-title-lg">{{ tip.title }}</h2>
+                <div class="tip-divider"></div>
+                <p class="tip-desc">{{ tip.content }}</p>
+                <div class="tip-card-bottom">
+                    <span class="tip-credit"><i class="fas fa-check-circle"></i> Vanshika's Tested Hack</span>
+                    <button class="btn-copy-tip" onclick="copyTipText(this, '{{ tip.title }}')">
+                        <i class="far fa-copy"></i> {% if current_lang == 'hi' %}कॉपी करें{% else %}Share Tip{% endif %}
+                    </button>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+
+        <!-- Suggest a Hack Banner -->
+        <div class="tips-cta-card">
+            <div class="cta-inner">
+                <i class="fas fa-lightbulb cta-bulb"></i>
+                <div>
+                    <h3>{% if current_lang == 'hi' %}क्या आपके पास भी कोई खास किचन सीक्रेट है?{% else %}Have a Kitchen Hack You Swear By?{% endif %}</h3>
+                    <p>{% if current_lang == 'hi' %}हमें इंस्टाग्राम पर डीएम करें और हम उसे आपके नाम के साथ यहाँ फीचर करेंगे!{% else %}Send it via DM to @vanshikacooks and we'll feature it with your credit!{% endif %}</p>
+                </div>
+                <a href="https://www.instagram.com/vanshikacooks/" target="_blank" rel="noopener" class="btn-primary-gradient">
+                    <i class="fab fa-instagram"></i> DM @vanshikacooks
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

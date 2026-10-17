@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ t.recipes }} — {{ t.brand_name }}
+{% endblock %}
+
+{% block content %}
+<div class="page-header-banner">
+    <div class="container text-center">
+        <span class="sub-title-badge">📖 {% if current_lang == 'hi' %}रेसिपी संग्रह{% else %}Recipe Index{% endif %}</span>
+        <h1 class="page-title">{{ t.recipes }}</h1>
+        <p class="page-subtitle">
+            {% if current_lang == 'hi' %}
+                पारंपरिक स्वाद, आसान विधि और सटीक सामग्री माप के साथ घर पर बनाएं स्वादिष्ट पकवान।
+            {% else %}
+                Explore tested home recipes with exact proportions, step-by-step photos, and foolproof kitchen tips.
+            {% endif %}
+        </p>
+
+        <!-- Search & Filter Bar -->
+        <div class="catalog-search-wrap">
+            <form action="{{ url_for('recipes_list') }}" method="GET" class="catalog-search-form" id="catalogSearchForm">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" name="q" id="catalogSearchInput" value="{{ search_query }}" placeholder="{{ t.search_placeholder }}" class="catalog-input" autocomplete="off">
+                <input type="hidden" name="category" value="{{ selected_category }}" id="catalogCategoryInput">
+                {% if search_query %}
+                <a href="{{ url_for('recipes_list', category=selected_category) }}" class="clear-search-btn" title="Clear Search">&times;</a>
+                {% endif %}
+                <button type="submit" class="btn-search-submit">
+                    {% if current_lang == 'hi' %}खोजें{% else %}Search{% endif %}
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<section class="catalog-content-section">
+    <div class="container">
+        <!-- Category Filter Tabs -->
+        <div class="category-tabs-container">
+            <a href="{{ url_for('recipes_list', q=search_query) }}" class="cat-tab {% if selected_category == 'all' or not selected_category %}active{% endif %}">
+                <i class="fas fa-th-large"></i> {{ t.filter_all }}
+            </a>
+            <a href="{{ url_for('recipes_list', category='breakfast', q=search_query) }}" class="cat-tab {% if selected_category == 'breakfast' %}active{% endif %}">
+                <i class="fas fa-sun"></i> {{ t.filter_breakfast }}
+            </a>
+            <a href="{{ url_for('recipes_list', category='main', q=search_query) }}" class="cat-tab {% if selected_category == 'main' %}active{% endif %}">
+                <i class="fas fa-utensils"></i> {{ t.filter_main }}
+            </a>
+            <a href="{{ url_for('recipes_list', category='snack', q=search_query) }}" class="cat-tab {% if selected_category == 'snack' %}active{% endif %}">
+                <i class="fas fa-cookie-bite"></i> {{ t.filter_snack }}
+            </a>
+            <a href="{{ url_for('recipes_list', category='dessert', q=search_query) }}" class="cat-tab {% if selected_category == 'dessert' %}active{% endif %}">
+                <i class="fas fa-ice-cream"></i> {{ t.filter_dessert }}
+            </a>
+            <a href="{{ url_for('recipes_list', category='quick', q=search_query) }}" class="cat-tab {% if selected_category == 'quick' %}active{% endif %}">
+                <i class="fas fa-bolt"></i> {{ t.filter_quick }}
+            </a>
+            <a href="{{ url_for('recipes_list', category='drinks', q=search_query) }}" class="cat-tab {% if selected_category == 'drinks' %}active{% endif %}">
+                <i class="fas fa-mug-hot"></i> {{ t.filter_drinks }}
+            </a>
+        </div>
+
+        <!-- Recipe Results Header -->
+        <div class="results-meta-row">
+            <span class="results-count">
+                <strong>{{ recipes|length }}</strong> {% if current_lang == 'hi' %}रेसिपीज़ उपलब्ध{% else %}recipes found{% endif %}
+                {% if search_query %}
+                — {% if current_lang == 'hi' %}परिणाम के लिए:{% else %}matching:{% endif %} "<em>{{ search_query }}</em>"
+                {% endif %}
+            </span>
+            <div class="lang-hint">
+                <i class="fas fa-info-circle"></i>
+                <a href="{{ url_for('switch_language', lang=other_lang, next=request.full_path) }}" class="hint-link">
+                    {{ t.switch_to_hindi if current_lang == 'en' else t.switch_to_english }}
+                </a>
+            </div>
+        </div>
+
+        {% if recipes %}
+        <div class="recipes-grid catalog-grid" id="recipesGrid">
+            {% for recipe in recipes %}
+            <article class="recipe-card" data-title="{{ recipe.title | lower }}" data-category="{{ recipe.category }}">
+                <div class="card-image-wrap">
+                    <img src="{{ recipe.image }}" alt="{{ recipe.title }}" loading="lazy" class="card-img">
+                    <span class="diet-badge {{ recipe.category }}">{{ recipe.diet_tag }}</span>
+                    <span class="time-badge"><i class="far fa-clock"></i> {{ recipe.total_time }} {{ t.min }}</span>
+                </div>
+                <div class="card-body">
+                    <div class="card-meta">
+                        <span class="cat-tag">{{ recipe.category_name }}</span>
+                        <span class="diff-tag"><i class="fas fa-signal"></i> {{ recipe.difficulty }}</span>
+                    </div>
+                    <h3 class="card-title">
+                        <a href="{{ url_for('recipe_detail', slug=recipe.slug) }}">{{ recipe.title }}</a>
+                    </h3>
+                    <p class="card-excerpt">{{ recipe.summary }}</p>
+                    
+                    <div class="card-footer">
+                        <div class="servings-info">
+                            <i class="fas fa-user-friends"></i> {{ recipe.servings }} {{ t.servings }}
+                        </div>
+                        <a href="{{ url_for('recipe_detail', slug=recipe.slug) }}" class="btn-read-recipe">
+                            {{ t.view_recipe }} <i class="fas fa-chevron-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="empty-state-box">
+            <div class="empty-icon"><i class="fas fa-search"></i></div>
+            <h3>{{ t.no_recipes_found }}</h3>
+            <p>{% if current_lang == 'hi' %}कोई अन्य सामग्री या व्यंजन का नाम लिखकर खोजें।{% else %}Try searching with different terms or check other categories.{% endif %}</p>
+            <a href="{{ url_for('recipes_list') }}" class="btn-primary-gradient">
+                <i class="fas fa-redo"></i> {% if current_lang == 'hi' %}सभी रेसिपीज़ देखें{% else %}Reset All Filters{% endif %}
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

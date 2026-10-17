@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="{{ current_lang }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{{ t.brand_name }} — {{ t.tagline }}{% endblock %}</title>
+    <meta name="description" content="{% block meta_desc %}{{ t.tagline }}{% endblock %}">
+    
+    <!-- Google Fonts: Poppins (Clean Modern Sans with full Devanagari/Hindi support) & Playfair Display (Artisanal Serif) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,900;1,600&family=Poppins:wght@300;400;500;600;700&family=Rozha+One&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body class="lang-{{ current_lang }}">
+
+    <!-- Announcement & Social Bar -->
+    <div class="top-announcement-bar">
+        <div class="container announcement-inner">
+            <div class="announcement-left">
+                <span class="pulse-dot"></span>
+                <span>✨ {% if current_lang == 'hi' %}नई रेसिपी: रेस्टोरेंट स्टाइल पनीर बटर मसाला लाइव है!{% else %}Fresh Recipe: Restaurant-Style Paneer Butter Masala is live!{% endif %}</span>
+            </div>
+            <div class="announcement-right">
+                <a href="https://www.instagram.com/vanshikacooks/" target="_blank" rel="noopener" class="top-ig-link">
+                    <i class="fab fa-instagram"></i> @vanshikacooks
+                </a>
+                <span class="sep">|</span>
+                <!-- Language Switcher in Top Bar -->
+                <div class="lang-switch-wrap">
+                    <a href="{{ url_for('switch_language', lang='en', next=request.path) }}" class="lang-pill {% if current_lang == 'en' %}active{% endif %}" title="Switch to English">
+                        EN
+                    </a>
+                    <a href="{{ url_for('switch_language', lang='hi', next=request.path) }}" class="lang-pill {% if current_lang == 'hi' %}active{% endif %}" title="हिन्दी में बदलें">
+                        हिन्दी
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Navigation Header -->
+    <header class="site-header">
+        <div class="container header-inner">
+            <!-- Brand Logo -->
+            <a href="{{ url_for('home') }}" class="site-logo">
+                <div class="logo-icon-wrap">
+                    <i class="fas fa-utensils"></i>
+                </div>
+                <div class="logo-text">
+                    <span class="brand-title">{{ t.brand_name }}</span>
+                    <span class="brand-handle">@vanshikacooks</span>
+                </div>
+            </a>
+
+            <!-- Desktop Navigation Links -->
+            <nav class="desktop-nav">
+                <a href="{{ url_for('home') }}" class="nav-link {% if request.endpoint == 'home' %}active{% endif %}">
+                    {{ t.home }}
+                </a>
+                <a href="{{ url_for('recipes_list') }}" class="nav-link {% if request.endpoint == 'recipes_list' %}active{% endif %}">
+                    {{ t.recipes }}
+                </a>
+                <a href="{{ url_for('kitchen_tips') }}" class="nav-link {% if request.endpoint == 'kitchen_tips' %}active{% endif %}">
+                    {{ t.kitchen_tips }}
+                </a>
+                <a href="{{ url_for('reels') }}" class="nav-link {% if request.endpoint == 'reels' %}active{% endif %}">
+                    <i class="fab fa-instagram" style="color: #e1306c;"></i> {{ t.reels }}
+                </a>
+                <a href="{{ url_for('about') }}" class="nav-link {% if request.endpoint == 'about' %}active{% endif %}">
+                    {{ t.about }}
+                </a>
+                <a href="{{ url_for('contact') }}" class="nav-link {% if request.endpoint == 'contact' %}active{% endif %}">
+                    {{ t.contact }}
+                </a>
+            </nav>
+
+            <!-- Header Action Controls -->
+            <div class="header-actions">
+                <!-- Search Button Trigger -->
+                <a href="{{ url_for('recipes_list') }}" class="search-trigger-btn" title="{{ t.search_placeholder }}">
+                    <i class="fas fa-search"></i>
+                </a>
+
+                <!-- Prominent Language Toggle Pill -->
+                <div class="lang-toggle-badge">
+                    <a href="{{ url_for('switch_language', lang=other_lang, next=request.path) }}" class="lang-toggle-link" title="Toggle language to {{ other_lang_label }}">
+                        <i class="fas fa-globe"></i>
+                        <span class="lang-switch-text">{{ other_lang_label }}</span>
+                    </a>
+                </div>
+
+                <!-- Follow Button -->
+                <a href="https://www.instagram.com/vanshikacooks/" target="_blank" rel="noopener" class="btn-primary-gradient header-follow-btn">
+                    <i class="fab fa-instagram"></i>
+                    <span>Follow</span>
+                </a>
+
+                <!-- Mobile Hamburger Toggle -->
+                <button class="mobile-menu-toggle" id="mobileMenuBtn" aria-label="Toggle Navigation">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Drawer Menu -->
+    <div class="mobile-nav-drawer" id="mobileDrawer">
+        <div class="drawer-header">
+            <div class="logo-text">
+                <span class="brand-title">{{ t.brand_name }}</span>
+            </div>
+            <button class="drawer-close-btn" id="drawerCloseBtn">&times;</button>
+        </div>
+        <div class="drawer-body">
+            <!-- Mobile Language Switcher -->
+            <div class="drawer-lang-selector">
+                <label><i class="fas fa-language"></i> Language / भाषा:</label>
+                <div class="lang-buttons-group">
+                    <a href="{{ url_for('switch_language', lang='en', next=request.path) }}" class="btn-lang {% if current_lang == 'en' %}active{% endif %}">
+                        🇬🇧 English
+                    </a>
+                    <a href="{{ url_for('switch_language', lang='hi', next=request.path) }}" class="btn-lang {% if current_lang == 'hi' %}active{% endif %}">
+                        🇮🇳 हिन्दी
+                    </a>
+                </div>
+            </div>
+
+            <nav class="drawer-links">
+                <a href="{{ url_for('home') }}" class="drawer-link"><i class="fas fa-home"></i> {{ t.home }}</a>
+                <a href="{{ url_for('recipes_list') }}" class="drawer-link"><i class="fas fa-book-open"></i> {{ t.recipes }}</a>
+                <a href="{{ url_for('kitchen_tips') }}" class="drawer-link"><i class="fas fa-lightbulb"></i> {{ t.kitchen_tips }}</a>
+                <a href="{{ url_for('reels') }}" class="drawer-link"><i class="fab fa-instagram"></i> {{ t.reels }}</a>
+                <a href="{{ url_for('about') }}" class="drawer-link"><i class="fas fa-user-circle"></i> {{ t.about }}</a>
+                <a href="{{ url_for('contact') }}" class="drawer-link"><i class="fas fa-envelope"></i> {{ t.contact }}</a>
+            </nav>
+
+            <div class="drawer-footer">
+                <a href="https://www.instagram.com/vanshikacooks/" target="_blank" rel="noopener" class="btn-primary-gradient full-width">
+                    <i class="fab fa-instagram"></i> @vanshikacooks
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="drawer-backdrop" id="drawerBackdrop"></div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container footer-content">
+            <div class="footer-grid">
+                <!-- Col 1: Brand & Bio -->
+                <div class="footer-col brand-col">
+                    <div class="footer-logo">
+                        <i class="fas fa-utensils"></i>
+                        <span>{{ t.brand_name }}</span>
+                    </div>
+                    <p class="footer-desc">{{ t.about_bio_short }}</p>
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/vanshikacooks/" target="_blank" rel="noopener" class="social-icon-btn ig" title="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://www.youtube.com" target="_blank" rel="noopener" class="social-icon-btn yt" title="YouTube">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                        <a href="https://wa.me/?text=Check%20out%20Vanshika%20Cooks%20for%20authentic%20recipes!" target="_blank" rel="noopener" class="social-icon-btn wa" title="WhatsApp">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Col 2: Quick Links -->
+                <div class="footer-col">
+                    <h4 class="footer-heading">{% if current_lang == 'hi' %}नेविगेशन{% else %}Explore{% endif %}</h4>
+                    <ul class="footer-links-list">
+                        <li><a href="{{ url_for('home') }}">{{ t.home }}</a></li>
+                        <li><a href="{{ url_for('recipes_list') }}">{{ t.recipes }}</a></li>
+                        <li><a href="{{ url_for('kitchen_tips') }}">{{ t.kitchen_tips }}</a></li>
+                        <li><a href="{{ url_for('reels') }}">{{ t.reels }}</a></li>
+                        <li><a href="{{ url_for('about') }}">{{ t.about }}</a></li>
+                        <li><a href="{{ url_for('contact') }}">{{ t.contact }}</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 3: Categories -->
+                <div class="footer-col">
+                    <h4 class="footer-heading">{{ t.categories }}</h4>
+                    <ul class="footer-links-list">
+                        <li><a href="{{ url_for('recipes_list', category='breakfast') }}">{{ t.filter_breakfast }}</a></li>
+                        <li><a href="{{ url_for('recipes_list', category='main') }}">{{ t.filter_main }}</a></li>
+                        <li><a href="{{ url_for('recipes_list', category='snack') }}">{{ t.filter_snack }}</a></li>
+                        <li><a href="{{ url_for('recipes_list', category='dessert') }}">{{ t.filter_dessert }}</a></li>
+                        <li><a href="{{ url_for('recipes_list', category='quick') }}">{{ t.filter_quick }}</a></li>
+                        <li><a href="{{ url_for('recipes_list', category='drinks') }}">{{ t.filter_drinks }}</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 4: Newsletter -->
+                <div class="footer-col newsletter-col">
+                    <h4 class="footer-heading">{{ t.newsletter_title }}</h4>
+                    <p class="newsletter-desc">{{ t.newsletter_sub }}</p>
+                    <form id="footerNewsletterForm" class="footer-newsletter-form">
+                        <div class="input-group">
+                            <input type="email" id="newsletterEmail" placeholder="{% if current_lang == 'hi' %}अपना ईमेल लिखें...{% else %}Enter your email...{% endif %}" required>
+                            <button type="submit" class="newsletter-submit-btn">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                        <div id="newsletterAlert" class="newsletter-feedback"></div>
+                    </form>
+
+                    <!-- Language Switcher in Footer -->
+                    <div class="footer-lang-box">
+                        <span><i class="fas fa-globe"></i> Language:</span>
+                        <a href="{{ url_for('switch_language', lang='en', next=request.path) }}" class="{% if current_lang == 'en' %}active{% endif %}">English</a>
+                        <span class="sep">•</span>
+                        <a href="{{ url_for('switch_language', lang='hi', next=request.path) }}" class="{% if current_lang == 'hi' %}active{% endif %}">हिन्दी</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 <strong>{{ t.brand_name }}</strong> (@vanshikacooks). All Rights Reserved. Crafted with love for good food.</p>
+                <p class="sub-credit">Bilingual Experience: English & हिन्दी | Pan-Indian & Global Food Community</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Global Toast Container -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <!-- Core Scripts -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ t.reels }} — {{ t.brand_name }} (@vanshikacooks)
+{% endblock %}
+
+{% block content %}
+<div class="page-header-banner">
+    <div class="container text-center">
+        <span class="sub-title-badge"><i class="fab fa-instagram"></i> @vanshikacooks</span>
+        <h1 class="page-title">{{ t.reels }}</h1>
+        <p class="page-subtitle">
+            {% if current_lang == 'hi' %}
+                झटपट 60-सेकंड की कुकिंग रील्स, पर्दे के पीछे की मस्ती और वायरल रेसिपीज़।
+            {% else %}
+                Catch bite-sized 60-second video recipes, viral plating, and behind-the-scenes moments from our kitchen!
+            {% endif %}
+        </p>
+    </div>
+</div>
+
+<section class="reels-page-section">
+    <div class="container">
+        
+        <div class="reels-header-cta">
+            <div class="cta-profile-badge">
+                <div class="profile-avatar">
+                    <i class="fas fa-utensils"></i>
+                </div>
+                <div class="profile-text">
+                    <h3>vanshikacooks</h3>
+                    <p>{% if current_lang == 'hi' %}होम शेफ • आसान रेसिपीज़ • फूड क्रिएटर{% else %}Home Chef • Simple & Delicious Recipes • Food Creator{% endif %}</p>
+                </div>
+            </div>
+            <a href="https://www.instagram.com/vanshikacooks/" target="_blank" rel="noopener" class="btn-instagram-glow">
+                <i class="fab fa-instagram"></i> Follow on Instagram
+            </a>
+        </div>
+
+        <div class="reels-catalog-grid">
+            {% for r in recipes %}
+            <div class="reel-item-card">
+                <div class="reel-video-mockup">
+                    <img src="{{ r.image }}" alt="{{ r.title }}" class="reel-mockup-img">
+                    <div class="reel-tint-overlay">
+                        <a href="{{ r.instagram_reel }}" target="_blank" rel="noopener" class="reel-play-btn" title="Watch on Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                    <span class="reel-length-badge"><i class="fas fa-play"></i> 0:60</span>
+                </div>
+                <div class="reel-card-meta">
+                    <span class="reel-cat">{{ r.category_name }}</span>
+                    <h3 class="reel-title">{{ r.title }}</h3>
+                    <div class="reel-btn-row">
+                        <a href="{{ url_for('recipe_detail', slug=r.slug) }}" class="btn-sm-text">
+                            <i class="fas fa-file-alt"></i> {{ t.view_recipe }}
+                        </a>
+                        <a href="{{ r.instagram_reel }}" target="_blank" rel="noopener" class="btn-sm-ig">
+                            <i class="fab fa-instagram"></i> Open Reel
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Tag to Feature Banner -->
+        <div class="reels-feature-card">
+            <div class="feature-icon-box">
+                <i class="fas fa-camera-retro"></i>
+            </div>
+            <div class="feature-content">
+                <h3>{% if current_lang == 'hi' %}क्या आपने हमारी कोई रेसिपी बनाई?{% else %}Show Us Your Kitchen Creations!{% endif %}</h3>
+                <p>
+                    {% if current_lang == 'hi' %}
+                        अपनी बनाई हुई डिश की तस्वीर या वीडियो इंस्टाग्राम पर पोस्ट करते समय <strong>@vanshikacooks</strong> को टैग करें और हैशटैग <strong>#VanshikaCooks</strong> इस्तेमाल करें। हम आपकी डिश को अपनी स्टोरी पर फीचर करेंगे!
+                    {% else %}
+                        Snap a photo or reel of your dish, tag <strong>@vanshikacooks</strong>, and use the hashtag <strong>#VanshikaCooks</strong> on Instagram. We repost our favorite community recreations every week!
+                    {% endif %}
+                </p>
+            </div>
+            <a href="https://www.instagram.com/vanshikacooks/" target="_blank" rel="noopener" class="btn-primary-gradient">
+                <i class="fab fa-instagram"></i> Tag @vanshikacooks
+            </a>
+        </div>
+
+    </div>
+</section>
+{% endblock %}
