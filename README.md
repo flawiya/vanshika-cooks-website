@@ -10,7 +10,7 @@ An artisanal, modern festive food and e-commerce selling website offering authen
 1. **Dedicated Diwali Faral & Sweets Selling Platform:**
    - Handcrafted traditional festive foods: *Bhajani Chakli, Pure Desi Ghee Besan Ladoo, Fresh Coconut Karanji, Poha Chivda, Shankarpali, Tikha Lasun Sev, Motichoor Ladoo, and Authentic Anarse*.
    - Pack selection with clear weight-based pricing: **250g, 500g, and 1kg**.
-   - Currency switcher supporting Indian Rupees (₹ INR) and British Pounds (£ GBP).
+   - Currency supporting Indian Rupees (₹ INR).
 
 2. **Delivery Location & Flat ₹60 Shipping Rule:**
    - **Local Direct Delivery:** Exclusively across **Chhatrapati Sambhaji Nagar (Aurangabad), Maharashtra** with a flat **₹60.00** delivery charge.
