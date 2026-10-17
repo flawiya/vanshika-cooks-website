@@ -4,18 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{{ t.brand_name }} — {{ t.tagline }}{% endblock %}</title>
-    <meta name="description" content="{{ t.sub_tagline }}">
-
+    <meta name="description" content="Authentic Homemade Diwali Faral & Festive Sweets by @vanshikacooks. Freshly handcrafted Bhajani Chakli, Danedar Besan Ladoo, Coconut Karanji & Gift Hampers with doorstep delivery in Chhatrapati Sambhaji Nagar (Aurangabad) and courier across India.">
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Font Awesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&family=Yatra+One&family=Rozha+One&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Custom Store Stylesheet -->
+    <!-- Custom Stylesheet -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="icon" type="image/jpeg" href="{{ url_for('static', filename='images/vanshika_profile.jpg') }}">
     {% block extra_css %}{% endblock %}
 </head>
 <body class="lang-{{ current_lang }}">
@@ -25,7 +23,14 @@
         <div class="container announcement-inner">
             <div class="announcement-left">
                 <span class="diya-icon">🪔</span>
-                <span><strong>{{ t.booking_banner_title }}</strong> {{ t.sub_tagline }}</span>
+                <span>
+                    <strong>{{ t.booking_banner_title }}</strong>
+                    {% if current_lang == 'hi' %}
+                    थेट घरपोच डिलिव्हरी <strong>फक्त छत्रपती संभाजीनगर (औरंगाबाद), MH</strong> मध्ये (फ्लॅट ₹६०) • ५०% ॲडव्हान्ससह COD उपलब्ध • <a href="{{ url_for('outstation_inquiry') }}" class="underline text-yellow-200 hover:text-white">इतर शहरे? येथे क्लिक करा</a>
+                    {% else %}
+                    Direct Delivery in <strong>Chhatrapati Sambhaji Nagar (Aurangabad), MH only</strong> (Flat ₹60) • COD with 50% Advance • <a href="{{ url_for('outstation_inquiry') }}" class="underline text-yellow-200 hover:text-white">Other Cities? Click here</a>
+                    {% endif %}
+                </span>
             </div>
             <div class="announcement-right">
                 <a href="https://www.instagram.com/vanshikacooks/" target="_blank" rel="noopener" class="top-ig-link">
@@ -69,6 +74,14 @@
                 <a href="{{ url_for('hampers_page') }}" class="nav-link {% if request.endpoint == 'hampers_page' %}active{% endif %}">
                     {{ t.hampers }}
                 </a>
+                <a href="{{ url_for('checkout') }}" class="nav-link nav-btn-order {% if request.endpoint == 'checkout' %}active{% endif %}">
+                    <i class="fas fa-shopping-bag text-orange-500"></i>
+                    <span>{{ t.order_now }}</span>
+                </a>
+                <a href="{{ url_for('outstation_inquiry') }}" class="nav-link {% if request.endpoint == 'outstation_inquiry' %}active{% endif %}">
+                    <i class="fas fa-truck text-amber-600"></i>
+                    <span>{% if current_lang == 'hi' %}संभाजीनगरबाहेरील डिलिव्हरी{% else %}Outstation Delivery{% endif %}</span>
+                </a>
                 <a href="{{ url_for('about') }}" class="nav-link {% if request.endpoint == 'about' %}active{% endif %}">
                     {{ t.about }}
                 </a>
@@ -91,7 +104,7 @@
                 </div>
 
                 <!-- WhatsApp Quick Order -->
-                <a href="{{ url_for('order_whatsapp', item='Assorted Diwali Faral Hamper') }}" target="_blank" rel="noopener" class="btn-whatsapp-header" title="Order on WhatsApp">
+                <a href="https://api.whatsapp.com/send?phone=918623865447&text=🪔%20Namaste%20Vanshika!%20I%20would%20like%20to%20order%20Diwali%20Faral%20in%20Chhatrapati%20Sambhaji%20Nagar." target="_blank" rel="noopener" class="btn-whatsapp-header" title="Order on WhatsApp">
                     <i class="fab fa-whatsapp"></i>
                     <span>{{ t.order_whatsapp }}</span>
                 </a>
@@ -127,18 +140,25 @@
             </div>
 
             <nav class="drawer-links">
+                <a href="{{ url_for('checkout') }}" class="drawer-link font-bold text-orange-600"><i class="fas fa-shopping-bag"></i> {{ t.order_now }} (Faral Box)</a>
                 <a href="{{ url_for('home') }}" class="drawer-link"><i class="fas fa-home"></i> {{ t.home }}</a>
                 <a href="{{ url_for('faral_menu') }}" class="drawer-link"><i class="fas fa-cookie"></i> {{ t.faral_menu }}</a>
                 <a href="{{ url_for('hampers_page') }}" class="drawer-link"><i class="fas fa-gift"></i> {{ t.hampers }}</a>
+                <a href="{{ url_for('outstation_inquiry') }}" class="drawer-link"><i class="fas fa-truck"></i> {% if current_lang == 'hi' %}संभाजीनगरबाहेरील डिलिव्हरी{% else %}Outstation Delivery{% endif %}</a>
                 <a href="{{ url_for('about') }}" class="drawer-link"><i class="fas fa-heart"></i> {{ t.about }}</a>
                 <a href="{{ url_for('reels') }}" class="drawer-link"><i class="fab fa-instagram"></i> {{ t.reels }}</a>
                 <a href="{{ url_for('contact') }}" class="drawer-link"><i class="fas fa-phone-alt"></i> {{ t.contact }}</a>
             </nav>
 
             <div class="drawer-footer">
-                <a href="{{ url_for('order_whatsapp', item='Diwali Faral Assorted Box') }}" target="_blank" rel="noopener" class="btn-whatsapp-header full-width">
-                    <i class="fab fa-whatsapp"></i> {{ t.order_whatsapp }}
-                </a>
+                <div class="flex flex-col gap-2">
+                    <a href="https://api.whatsapp.com/send?phone=918623865447&text=🪔%20Namaste%20Vanshika!%20I%20would%20like%20to%20order%20Diwali%20Faral." target="_blank" rel="noopener" class="btn-whatsapp-header full-width">
+                        <i class="fab fa-whatsapp"></i> WhatsApp: +91 8623865447
+                    </a>
+                    <a href="https://api.whatsapp.com/send?phone=918999585283&text=🪔%20Namaste%20Vanshika!%20I%20would%20like%20to%20order%20Diwali%20Faral." target="_blank" rel="noopener" class="btn-whatsapp-header full-width" style="background: #128c7e;">
+                        <i class="fab fa-whatsapp"></i> WhatsApp: +91 8999585283
+                    </a>
+                </div>
             </div>
         </div>
     </div>
@@ -153,18 +173,25 @@
     <footer class="site-footer">
         <div class="container footer-content">
             <div class="footer-grid">
-                <!-- Col 1: Brand & Promise -->
+                <!-- Col 1: Brand & Delivery Rules -->
                 <div class="footer-col brand-col">
                     <div class="footer-logo">
                         <img src="{{ url_for('static', filename='images/vanshika_profile.jpg') }}" alt="Vanshika Swadisht Faral" style="width: 40px; height: 40px; border-radius: 10px; object-fit: cover; margin-right: 8px;">
                         <span>{{ t.brand_name }}</span>
                     </div>
                     <p class="footer-desc">{{ t.tagline }}. {{ t.sub_tagline }}.</p>
-                    <div class="delivery-pills">
-                        <span><i class="fas fa-truck"></i> Mumbai</span>
-                        <span><i class="fas fa-truck"></i> Pune</span>
-                        <span><i class="fas fa-truck"></i> Nashik</span>
-                        <span><i class="fas fa-globe"></i> Pan-India</span>
+                    
+                    <div class="delivery-policy-footer-note mt-3 p-3 bg-amber-900 bg-opacity-30 rounded border border-amber-800 text-xs">
+                        <strong>📍 {% if current_lang == 'hi' %}डिलिव्हरी व पेमेंट नियम:{% else %}Delivery & Payment Rules:{% endif %}</strong>
+                        <p class="mt-1">
+                            {% if current_lang == 'hi' %}
+                            थेट घरपोच डिलिव्हरी <strong>फक्त छत्रपती संभाजीनगर (औरंगाबाद), MH</strong> मध्ये (फ्लॅट <strong>₹६०</strong> डिलिव्हरी शुल्क). ५०% ॲडव्हान्स बुकिंगसह कॅश ऑन डिलिव्हरी उपलब्ध.
+                            <br><a href="{{ url_for('outstation_inquiry') }}" class="underline text-yellow-300">इतर शहरांसाठी पार्सल कुरिअर चौकशी येथे करा &rarr;</a>
+                            {% else %}
+                            Direct doorstep delivery in <strong>Chhatrapati Sambhaji Nagar (Aurangabad), MH only</strong> (Flat <strong>₹60</strong> delivery fee). Cash on Delivery with 50% advance booking.
+                            <br><a href="{{ url_for('outstation_inquiry') }}" class="underline text-yellow-300">Outside Sambhaji Nagar? Click for courier inquiry &rarr;</a>
+                            {% endif %}
+                        </p>
                     </div>
                 </div>
 
@@ -187,20 +214,26 @@
                     <ul class="footer-links-list">
                         <li><a href="{{ url_for('hampers_page') }}">1.5kg Sampoorna Faral Hamper</a></li>
                         <li><a href="{{ url_for('hampers_page') }}">1.0kg Corporate & Family Box</a></li>
-                        <li><a href="{{ url_for('contact') }}">Custom Corporate Bulk Orders</a></li>
+                        <li><a href="{{ url_for('checkout') }}">Order Faral Online (ऑर्डर करा)</a></li>
+                        <li><a href="{{ url_for('outstation_inquiry') }}">Outstation Courier Delivery</a></li>
                         <li><a href="https://www.instagram.com/vanshikacooks/" target="_blank">Instagram @vanshikacooks</a></li>
                     </ul>
                 </div>
 
                 <!-- Col 4: Quick Order on WhatsApp -->
                 <div class="footer-col whatsapp-box-col">
-                    <h4 class="footer-heading">🪔 Direct Order & Booking</h4>
-                    <p class="footer-desc">Connect directly on WhatsApp to check fresh batch availability, custom weights, and dispatch dates.</p>
-                    <a href="{{ url_for('order_whatsapp', item='Diwali Faral Inquiry') }}" target="_blank" rel="noopener" class="btn-whatsapp-footer">
-                        <i class="fab fa-whatsapp"></i> Chat & Order on WhatsApp
-                    </a>
+                    <h4 class="footer-heading">🪔 Direct Order & Owners WhatsApp</h4>
+                    <p class="footer-desc">Connect directly with the kitchen owners to place orders, confirm delivery slots, or make 50% advance payments:</p>
+                    <div class="flex flex-col gap-2 mt-3">
+                        <a href="https://api.whatsapp.com/send?phone=918623865447&text=🪔%20Namaste%20Vanshika!%20I%20would%20like%20to%20order%20Diwali%20Faral." target="_blank" rel="noopener" class="btn-whatsapp-footer">
+                            <i class="fab fa-whatsapp"></i> WhatsApp: +91 8623865447
+                        </a>
+                        <a href="https://api.whatsapp.com/send?phone=918999585283&text=🪔%20Namaste%20Vanshika!%20I%20would%20like%20to%20order%20Diwali%20Faral." target="_blank" rel="noopener" class="btn-whatsapp-footer" style="background: #128c7e;">
+                            <i class="fab fa-whatsapp"></i> WhatsApp: +91 8999585283
+                        </a>
+                    </div>
                     
-                    <div class="footer-lang-box">
+                    <div class="footer-lang-box mt-4">
                         <span><i class="fas fa-globe"></i> Language:</span>
                         <a href="{{ url_for('switch_language', lang='en', next=request.path) }}" class="{% if current_lang == 'en' %}active{% endif %}">English</a>
                         <span class="sep">•</span>
@@ -210,8 +243,8 @@
             </div>
 
             <div class="footer-bottom">
-                <p>&copy; 2026 <strong>{{ t.brand_name }}</strong> (@vanshikacooks). All Rights Reserved. Crafted with love for festive homes.</p>
-                <p class="sub-credit">Authentic Homemade Diwali Faral & Sweets | Pan-India & Global Express Shipping</p>
+                <p>&copy; 2026 <strong>{{ t.brand_name }}</strong> (@vanshikacooks). All Rights Reserved. Handcrafted in Chhatrapati Sambhaji Nagar, Maharashtra.</p>
+                <p class="sub-credit">Authentic Homemade Diwali Faral & Sweets | Direct Sambhaji Nagar Delivery & Outstation Courier</p>
             </div>
         </div>
     </footer>

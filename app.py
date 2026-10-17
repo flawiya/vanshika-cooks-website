@@ -2,7 +2,10 @@
 Vanshika Swadisht Faral (वंशिका स्वादिष्ट फराळ 🪔)
 Official E-Commerce Selling Platform for @vanshikacooks
 Selling authentic homemade traditional Diwali snacks, pure desi ghee sweets & gift hampers.
-Dual Language: English & हिन्दी (with authentic Maharashtrian Marathi festive touch).
+Dual Language: English & हिन्दी / मराठी.
+Direct Delivery Zone: Chhatrapati Sambhaji Nagar (Aurangabad), MH (Flat ₹60 Delivery Fee)
+Payment Terms: Cash on Delivery with 50% initial advance payment.
+Owner WhatsApp Inquiries: +91 8623865447 / +91 8999585283
 """
 
 from flask import Flask, render_template, request, redirect, url_for, session, jsonify, make_response
@@ -10,6 +13,9 @@ import sqlite3
 import json
 import urllib.parse
 import os
+import random
+import string
+from datetime import datetime
 
 app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY", "vanshika-faral-store-secret-2026")
@@ -17,8 +23,11 @@ app.secret_key = os.environ.get("SECRET_KEY", "vanshika-faral-store-secret-2026"
 DB_PATH = os.path.join(os.path.dirname(__file__), "vanshika_cooks.db")
 SUPPORTED_LANGUAGES = ["en", "hi"]
 
-# Secure contact number representation (WhatsApp inquiry gateway)
-WHATSAPP_CONTACT = "919876543210"
+# Official Owner WhatsApp Contact Numbers
+WHATSAPP_NUMBER_1 = "918623865447"
+WHATSAPP_NUMBER_2 = "918999585283"
+DELIVERY_CHARGE_AURANGABAD = 60
+LOCAL_DELIVERY_CITY = "Chhatrapati Sambhaji Nagar (Aurangabad), MH"
 
 TRANSLATIONS = {
     "en": {
@@ -30,9 +39,10 @@ TRANSLATIONS = {
         "home": "Home",
         "faral_menu": "Faral Menu",
         "hampers": "Gift Hampers",
+        "order_now": "Order Faral",
         "about": "Our Tradition",
         "reels": "Watch Making",
-        "contact": "Pre-Order / Bulk",
+        "contact": "Contact & Bulk",
         "cart": "My Faral Box",
         "filter_all": "All Faral Items",
         "filter_snacks": "Crispy Snacks",
@@ -57,10 +67,10 @@ TRANSLATIONS = {
         "trust_2_desc": "Never stale or factory-mass-produced. Made in small hygienic kitchen batches right before shipping.",
         "trust_3_title": "Airtight Festive Packaging",
         "trust_3_desc": "Packed in food-grade airtight containers so your chaklis and karanjis arrive 100% crisp and unbroken.",
-        "trust_4_title": "Doorstep Delivery Before Diwali",
-        "trust_4_desc": "Carefully dispatched to Mumbai, Pune, Nashik, across India and international UK orders on time.",
+        "trust_4_title": "Prompt Doorstep Delivery",
+        "trust_4_desc": "Direct home delivery across Chhatrapati Sambhaji Nagar (Aurangabad) and courier parcel shipping elsewhere.",
         "booking_banner_title": "🪔 Diwali 2026 Pre-Orders Are Now Officially Open!",
-        "booking_banner_sub": "Avoid the last-minute festival rush! Book early to ensure guaranteed fresh delivery for your family.",
+        "booking_banner_sub": "Direct delivery in Chhatrapati Sambhaji Nagar (Aurangabad), MH (Flat ₹60 delivery fee). COD with 50% advance.",
         "view_menu": "Explore Faral Menu",
         "view_hampers": "View Gift Hampers",
         "switch_to_hindi": "मराठी / हिन्दी मध्ये पहा",
@@ -71,7 +81,18 @@ TRANSLATIONS = {
         "custom_inquiry": "Need Corporate or Custom Gifting?",
         "custom_sub": "We deliver customized boxes with company branding and diwali cards for corporate teams.",
         "submit_inquiry": "Submit Booking Request",
-        "inquiry_sent_success": "Thank you! Your pre-order request has been received. Vanshika will confirm your booking via WhatsApp shortly."
+        "inquiry_sent_success": "Thank you! Your pre-order request has been received. Vanshika will confirm your booking via WhatsApp shortly.",
+        "delivery_notice_pill": "📍 Delivery in Chhatrapati Sambhaji Nagar (Aurangabad), MH only | Flat ₹60 Delivery | Outside? Contact for courier",
+        "cod_terms_notice": "💰 Cash on Delivery with 50% advance booking payment. 50% advance required via UPI to confirm fresh preparation slot.",
+        "delivery_fee_label": "Delivery Charge (Sambhaji Nagar / Aurangabad):",
+        "order_id_label": "Order ID",
+        "customer_name_label": "Customer Full Name",
+        "phone_label": "WhatsApp / Phone Number",
+        "address_label": "Complete Delivery Address & Landmark",
+        "date_needed_label": "Requested Delivery Date",
+        "send_whatsapp_1": "📲 Send Order to WhatsApp (+91 8623865447)",
+        "send_whatsapp_2": "📲 Send Order to WhatsApp (+91 8999585283)",
+        "outstation_link_text": "Need delivery outside Sambhaji Nagar? Click here for Outstation Inquiry"
     },
     "hi": {
         "lang_code": "hi",
@@ -82,6 +103,7 @@ TRANSLATIONS = {
         "home": "होम",
         "faral_menu": "फराळ मेन्यू",
         "hampers": "दिवाळी गिफ्ट बॉक्सेस",
+        "order_now": "फराळ ऑर्डर करा",
         "about": "आमची परंपरा",
         "reels": "बनवताना पहा",
         "contact": "ऑर्डर व चौकशी",
@@ -109,10 +131,10 @@ TRANSLATIONS = {
         "trust_2_desc": "फॅक्टरीचे जुने पॅकिंग नाही. तुमची ऑर्डर आल्यावर ताज्या बॅचमध्ये तयार करून पाठवले जाते.",
         "trust_3_title": "हवाबंद दर्जेदार पॅकिंग",
         "trust_3_desc": "चकली व करंजी न तुटता एकदम कुरकुरीत राहावी म्हणून खास हवाबंद बॉक्समध्ये सुरक्षित पॅकिंग.",
-        "trust_4_title": "दिवाळीपूर्वी वेळेवर घरपोच डिलिव्हरी",
-        "trust_4_desc": "मुंबई, पुणे, नाशिक, संपूर्ण भारत तसेच आंतरराष्ट्रीय स्तरावर वेळेत घरपोच डिलिव्हरी.",
+        "trust_4_title": "वेळेवर घरपोच डिलिव्हरी",
+        "trust_4_desc": "छत्रपती संभाजीनगर (औरंगाबाद) मध्ये थेट घरपोच डिलिव्हरी आणि इतर शहरांसाठी खास कुरिअर पार्सल व्यवस्था.",
         "booking_banner_title": "🪔 दिवाळी २०२६ चे प्री-बुकिंग सुरू झाले आहे!",
-        "booking_banner_sub": "सणासुदीच्या ऐनवेळच्या गर्दीपासून वाचा! आजच आपले बुकिंग निश्चित करा आणि ताजी चव मिळवा.",
+        "booking_banner_sub": "थेट घरपोच डिलिव्हरी फक्त छत्रपती संभाजीनगर (औरंगाबाद) मध्ये (फ्लॅट ₹६० डिलिव्हरी शुल्क). ५०% ॲडव्हान्ससह COD उपलब्ध.",
         "view_menu": "फराळ मेन्यू पहा",
         "view_hampers": "गिफ्ट बॉक्सेस पहा",
         "switch_to_hindi": "मराठी / हिन्दी मध्ये पहा",
@@ -123,7 +145,18 @@ TRANSLATIONS = {
         "custom_inquiry": "कॉर्पोरेट किंवा मोठ्या प्रमाणावर गिफ्टिंग हवी आहे?",
         "custom_sub": "कंपनी भेटवस्तू, संस्था किंवा फॅमिलीसाठी खास कस्टमाईज्ड गिफ्ट बॉक्सेस उपलब्ध आहेत.",
         "submit_inquiry": "बुकिंग विनंती पाठवा",
-        "inquiry_sent_success": "धन्यवाद! तुमची फराळ ऑर्डर चौकशी प्राप्त झाली आहे. वंशिका लवकरच व्हॉट्सॲपवर संपर्क करतील."
+        "inquiry_sent_success": "धन्यवाद! तुमची फराळ ऑर्डर चौकशी प्राप्त झाली आहे. वंशिका लवकरच व्हॉट्सॲपवर संपर्क करतील.",
+        "delivery_notice_pill": "📍 डिलिव्हरी फक्त छत्रपती संभाजीनगर (औरंगाबाद), महाराष्ट्र येथे | फ्लॅट ₹६० डिलिव्हरी | इतर शहरांसाठी कुरिअर चौकशी",
+        "cod_terms_notice": "💰 कॅश ऑन डिलिव्हरी (५०% आगाऊ रक्कमेसह). साजूक तुपातील ताजी तयारी सुरू करण्यासाठी ५०% ॲडव्हान्स UPI द्वारे आवश्यक आहे.",
+        "delivery_fee_label": "डिलिव्हरी शुल्क (संभाजीनगर / औरंगाबाद):",
+        "order_id_label": "ऑर्डर क्रमांक (Order ID)",
+        "customer_name_label": "ग्राहकाचे पूर्ण नाव",
+        "phone_label": "व्हॉट्सॲप / संपर्क क्रमांक",
+        "address_label": "घरपोच पत्ता व लँडमार्क",
+        "date_needed_label": "हवी असलेली डिलिव्हरी तारीख",
+        "send_whatsapp_1": "📲 व्हॉट्सॲप १ वर पाठवा (+91 8623865447)",
+        "send_whatsapp_2": "📲 व्हॉट्सॲप २ वर पाठवा (+91 8999585283)",
+        "outstation_link_text": "संभाजीनगरबाहेरील इतर शहरांसाठी डिलिव्हरी हवी आहे? येथे क्लिक करा"
     }
 }
 
@@ -134,6 +167,9 @@ def get_db_connection():
             test_conn = sqlite3.connect(DB_PATH)
             cur = test_conn.cursor()
             cur.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='faral_products'")
+            if not cur.fetchone():
+                needs_init = True
+            cur.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='orders'")
             if not cur.fetchone():
                 needs_init = True
             test_conn.close()
@@ -163,6 +199,69 @@ def get_current_lang():
         session["lang"] = cookie_lang
         return cookie_lang
     return "en"
+
+def generate_order_id(is_outstation=False):
+    """Generates an unique human-readable Order ID e.g. #VSF-2026-8A4F or #VSF-OUT-9B2C."""
+    prefix = "VSF-OUT" if is_outstation else "VSF-2026"
+    chars = string.ascii_uppercase + string.digits
+    conn = get_db_connection()
+    while True:
+        suffix = "".join(random.choices(chars, k=4))
+        order_id = f"#{prefix}-{suffix}"
+        row = conn.execute("SELECT id FROM orders WHERE order_id = ?", (order_id,)).fetchone()
+        if not row:
+            conn.close()
+            return order_id
+
+def build_order_whatsapp_message(order, items_list):
+    """Formats complete WhatsApp order notification message for owners."""
+    is_outstation = (order["order_type"] == "outstation")
+    city_display = order["city"] if is_outstation else "Chhatrapati Sambhaji Nagar (Aurangabad), MH"
+
+    if is_outstation:
+        msg = f"🪔 *OUTSTATION DIWALI FARAL INQUIRY*\n"
+        msg += f"==============================\n"
+        msg += f"🆔 *Inquiry ID:* {order['order_id']}\n"
+        msg += f"👤 *Customer Name:* {order['customer_name']}\n"
+        msg += f"📞 *Contact Number:* {order['phone']}\n"
+        msg += f"📍 *Delivery Address:* {order['address']}\n"
+        msg += f"🏙️ *Destination City/Location:* {city_display}\n"
+        msg += f"📅 *Requested Delivery Date:* {order['delivery_date']}\n\n"
+        msg += f"📦 *REQUESTED ITEMS & QUANTITY:*\n"
+        for item in items_list:
+            msg += f"• {item.get('qty', 1)}x {item.get('name', '')} ({item.get('pack', '')}) - ₹{item.get('subtotal', item.get('price', 0))}\n"
+        msg += f"\n💰 *ESTIMATED FARAL SUBTOTAL:* ₹{int(order['subtotal'])}\n"
+        msg += f"📦 *Courier Shipping Charge:* (To be quoted on WhatsApp)\n"
+        if order.get("special_notes"):
+            msg += f"\n💬 *Customer Note:* {order['special_notes']}\n"
+        msg += f"==============================\n"
+        msg += f"🔔 *Action Needed:* Please contact customer, quote parcel courier charges, and confirm dispatch."
+    else:
+        msg = f"🪔 *NEW DIWALI FARAL ORDER PLACED!*\n"
+        msg += f"==============================\n"
+        msg += f"🆔 *Order ID:* {order['order_id']}\n"
+        msg += f"👤 *Customer Name:* {order['customer_name']}\n"
+        msg += f"📞 *Contact Number:* {order['phone']}\n"
+        msg += f"📍 *Delivery Address:* {order['address']}\n"
+        msg += f"🏙️ *Delivery Location:* Chhatrapati Sambhaji Nagar (Aurangabad), MH\n"
+        msg += f"📅 *Order Needed Date:* {order['delivery_date']}\n\n"
+        msg += f"📦 *ORDER QUANTITY & ITEMS:*\n"
+        for item in items_list:
+            msg += f"• {item.get('qty', 1)}x {item.get('name', '')} ({item.get('pack', '')}) - ₹{item.get('subtotal', item.get('price', 0))}\n"
+        msg += f"\n💰 *BILL BREAKDOWN:*\n"
+        msg += f"• Faral Subtotal: ₹{int(order['subtotal'])}\n"
+        msg += f"• Delivery Fee (Sambhaji Nagar/Aurangabad): ₹{int(order['delivery_fee'])}\n"
+        msg += f"• *Total Order Value:* ₹{int(order['total_amount'])}\n"
+        msg += f"------------------------------\n"
+        msg += f"💳 *PAYMENT TERMS (COD with 50% Advance):*\n"
+        msg += f"• *50% Initial Advance to Pay:* ₹{int(order['advance_amount'])}\n"
+        msg += f"• *50% Cash on Delivery (Balance):* ₹{int(order['cod_balance'])}\n"
+        if order.get("special_notes"):
+            msg += f"\n💬 *Customer Note:* {order['special_notes']}\n"
+        msg += f"==============================\n"
+        msg += f"🔔 *Action Needed:* Verify fresh preparation slot, confirm order with customer, and send UPI details for 50% initial advance payment."
+
+    return msg
 
 class FaralProduct:
     def __init__(self, row, lang="en"):
@@ -226,7 +325,11 @@ def inject_translations():
         "current_lang": lang,
         "t": t,
         "other_lang": "hi" if lang == "en" else "en",
-        "other_lang_label": "मराठी / हिन्दी" if lang == "en" else "English"
+        "other_lang_label": "मराठी / हिन्दी" if lang == "en" else "English",
+        "whatsapp_1": WHATSAPP_NUMBER_1,
+        "whatsapp_2": WHATSAPP_NUMBER_2,
+        "delivery_charge": DELIVERY_CHARGE_AURANGABAD,
+        "local_city": LOCAL_DELIVERY_CITY
     }
 
 # ----------------- ROUTES -----------------
@@ -294,7 +397,6 @@ def product_detail(slug):
     row = conn.execute("SELECT * FROM faral_products WHERE slug = ?", (slug,)).fetchone()
     if row:
         product = FaralProduct(row, lang)
-        # Related items
         related_rows = conn.execute("SELECT * FROM faral_products WHERE slug != ? ORDER BY RANDOM() LIMIT 3", (slug,)).fetchall()
         related = [FaralProduct(r, lang) for r in related_rows]
         conn.close()
@@ -305,7 +407,7 @@ def product_detail(slug):
     if h_row:
         hamper = FaralHamper(h_row, lang)
         conn.close()
-        return render_template("hamper_detail.html", hamper=hamper)
+        return render_template("hampers.html", hampers=[hamper], highlight_slug=slug)
 
     conn.close()
     return redirect(url_for("faral_menu"))
@@ -319,9 +421,190 @@ def hampers_page():
     conn.close()
     return render_template("hampers.html", hampers=hampers)
 
+# ----------------- CHECKOUT & ORDERING -----------------
+
 @app.route("/cart")
-def cart_page():
-    return render_template("cart.html")
+@app.route("/checkout")
+@app.route("/order")
+def checkout():
+    lang = get_current_lang()
+    conn = get_db_connection()
+    products_rows = conn.execute("SELECT * FROM faral_products ORDER BY id ASC").fetchall()
+    products = [FaralProduct(r, lang) for r in products_rows]
+
+    hampers_rows = conn.execute("SELECT * FROM faral_hampers ORDER BY id ASC").fetchall()
+    hampers = [FaralHamper(r, lang) for r in hampers_rows]
+    conn.close()
+
+    prefill_slug = request.args.get("item", "")
+    prefill_pack = request.args.get("pack", "500g")
+    prefill_qty = int(request.args.get("qty", 1))
+
+    return render_template(
+        "checkout.html",
+        products=products,
+        hampers=hampers,
+        prefill_slug=prefill_slug,
+        prefill_pack=prefill_pack,
+        prefill_qty=prefill_qty
+    )
+
+@app.route("/place-order", methods=["POST"])
+def place_order():
+    """Processes customer order, calculates 50% advance + ₹60 delivery fee, creates unique order ID, and logs order."""
+    is_json = request.is_json
+    data = request.get_json() if is_json else request.form
+
+    customer_name = (data.get("customer_name") or "").strip()
+    phone = (data.get("phone") or "").strip()
+    delivery_zone = (data.get("delivery_zone") or "aurangabad").strip()
+    other_city = (data.get("other_city") or "").strip()
+    address = (data.get("address") or "").strip()
+    delivery_date = (data.get("delivery_date") or "").strip()
+    special_notes = (data.get("special_notes") or "").strip()
+
+    # Raw items
+    raw_items = data.get("items")
+    items_list = []
+    if isinstance(raw_items, str):
+        try:
+            items_list = json.loads(raw_items)
+        except Exception:
+            items_list = []
+    elif isinstance(raw_items, list):
+        items_list = raw_items
+
+    # Fallback to single item form inputs if items_list is empty
+    if not items_list:
+        single_item = data.get("item_name")
+        single_pack = data.get("item_pack", "500g")
+        single_price = float(data.get("item_price", 0))
+        single_qty = int(data.get("item_qty", 1))
+        if single_item and single_price > 0:
+            items_list.append({
+                "name": single_item,
+                "pack": single_pack,
+                "price": single_price,
+                "qty": single_qty,
+                "subtotal": single_price * single_qty
+            })
+
+    if not customer_name or not phone or not address or not delivery_date or not items_list:
+        if is_json:
+            return jsonify({"status": "error", "message": "Please fill in all required fields (Name, Phone, Address, Delivery Date, and at least one Faral item)."}), 400
+        return redirect(url_for("checkout", error="missing_fields"))
+
+    is_outstation = (delivery_zone == "outstation")
+    city = other_city if is_outstation and other_city else LOCAL_DELIVERY_CITY
+
+    # Calculate financials
+    subtotal = sum(float(item.get("subtotal", float(item.get("price", 0)) * int(item.get("qty", 1)))) for item in items_list)
+    delivery_fee = 0 if is_outstation else DELIVERY_CHARGE_AURANGABAD
+    total_amount = subtotal + delivery_fee
+    advance_amount = round(total_amount / 2.0)
+    cod_balance = total_amount - advance_amount
+
+    order_id = generate_order_id(is_outstation=is_outstation)
+    order_type = "outstation" if is_outstation else "local"
+
+    items_summary_lines = []
+    for it in items_list:
+        items_summary_lines.append(f"{it.get('qty', 1)}x {it.get('name')} ({it.get('pack')})")
+    items_summary = ", ".join(items_summary_lines)
+
+    conn = get_db_connection()
+    conn.execute("""
+    INSERT INTO orders (
+        order_id, order_type, customer_name, phone, address, city,
+        delivery_date, items_json, items_summary, subtotal, delivery_fee,
+        total_amount, advance_amount, cod_balance, payment_terms,
+        status, special_notes
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    """, (
+        order_id, order_type, customer_name, phone, address, city,
+        delivery_date, json.dumps(items_list, ensure_ascii=False), items_summary,
+        subtotal, delivery_fee, total_amount, advance_amount, cod_balance,
+        "COD with 50% Advance", "Pending 50% Advance Confirmation", special_notes
+    ))
+    conn.commit()
+    conn.close()
+
+    if is_json:
+        return jsonify({
+            "status": "success",
+            "order_id": order_id,
+            "redirect_url": url_for("order_success", order_id=order_id)
+        })
+
+    return redirect(url_for("order_success", order_id=order_id))
+
+@app.route("/order-success/<order_id>")
+def order_success(order_id):
+    """Displays order confirmation receipt, unique Order ID, and instant WhatsApp dispatch buttons to both owners."""
+    lang = get_current_lang()
+    conn = get_db_connection()
+    order_row = conn.execute("SELECT * FROM orders WHERE order_id = ?", (order_id,)).fetchone()
+    conn.close()
+
+    if not order_row:
+        return redirect(url_for("home"))
+
+    order = dict(order_row)
+    try:
+        items_list = json.loads(order["items_json"])
+    except Exception:
+        items_list = []
+
+    wa_message = build_order_whatsapp_message(order, items_list)
+    encoded_wa = urllib.parse.quote(wa_message)
+
+    wa_url_1 = f"https://api.whatsapp.com/send?phone={WHATSAPP_NUMBER_1}&text={encoded_wa}"
+    wa_url_2 = f"https://api.whatsapp.com/send?phone={WHATSAPP_NUMBER_2}&text={encoded_wa}"
+
+    return render_template(
+        "order_success.html",
+        order=order,
+        items=items_list,
+        wa_url_1=wa_url_1,
+        wa_url_2=wa_url_2,
+        wa_message=wa_message
+    )
+
+@app.route("/outstation-inquiry", methods=["GET", "POST"])
+def outstation_inquiry():
+    """Dedicated page for customers outside Chhatrapati Sambhaji Nagar to request parcel/courier Faral delivery."""
+    lang = get_current_lang()
+    if request.method == "POST":
+        name = request.form.get("name", "").strip()
+        phone = request.form.get("phone", "").strip()
+        city = request.form.get("city", "").strip()
+        address = request.form.get("address", "").strip()
+        delivery_date = request.form.get("delivery_date", "").strip()
+        items_text = request.form.get("items", "").strip()
+        notes = request.form.get("notes", "").strip()
+
+        if name and phone and city and items_text:
+            items_list = [{"name": items_text, "pack": "Custom Quantity", "qty": 1, "price": 0, "subtotal": 0}]
+            order_id = generate_order_id(is_outstation=True)
+
+            conn = get_db_connection()
+            conn.execute("""
+            INSERT INTO orders (
+                order_id, order_type, customer_name, phone, address, city,
+                delivery_date, items_json, items_summary, subtotal, delivery_fee,
+                total_amount, advance_amount, cod_balance, payment_terms,
+                status, special_notes
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """, (
+                order_id, "outstation", name, phone, address or city, city,
+                delivery_date or "Flexible", json.dumps(items_list, ensure_ascii=False), items_text,
+                0, 0, 0, 0, 0, "Custom Outstation Courier", "Awaiting Courier Quote", notes
+            ))
+            conn.commit()
+            conn.close()
+            return redirect(url_for("order_success", order_id=order_id))
+
+    return render_template("outstation.html")
 
 @app.route("/about")
 def about():
@@ -372,24 +655,29 @@ def switch_language(lang):
     resp.set_cookie("vanshika_lang", lang, max_age=30*24*60*60)
     return resp
 
-# ----------------- WHATSAPP ORDER GENERATOR -----------------
+# ----------------- DIRECT WHATSAPP GATEWAY -----------------
 
 @app.route("/order-whatsapp")
 def order_whatsapp():
-    """Generates direct pre-filled WhatsApp link with ordered product, weight, and delivery inquiry."""
+    """Universal WhatsApp order router directing inquiries to +91 8623865447 or +91 8999585283."""
     item = request.args.get("item", "Diwali Faral Assorted Box")
     pack = request.args.get("pack", "500g")
     price = request.args.get("price", "")
+    target_phone = request.args.get("phone", WHATSAPP_NUMBER_1)
 
-    msg = f"🪔 *Namaste Vanshika!* I would like to order Diwali Faral:\n\n"
+    if target_phone not in [WHATSAPP_NUMBER_1, WHATSAPP_NUMBER_2]:
+        target_phone = WHATSAPP_NUMBER_1
+
+    msg = f"🪔 *Namaste Vanshika Swadisht Faral!* I would like to order Diwali Faral:\n\n"
     msg += f"• *Item:* {item}\n"
     msg += f"• *Pack Size:* {pack}\n"
     if price:
         msg += f"• *Price:* ₹{price}\n"
-    msg += f"\nPlease share availability and delivery timeframe. Thank you!"
+    msg += f"\n📍 *Delivery Location:* Chhatrapati Sambhaji Nagar (Aurangabad), MH\n"
+    msg += f"Please confirm fresh batch availability and delivery schedule. Thank you!"
 
     encoded_msg = urllib.parse.quote(msg)
-    wa_url = f"https://api.whatsapp.com/send?text={encoded_msg}"
+    wa_url = f"https://api.whatsapp.com/send?phone={target_phone}&text={encoded_msg}"
     return redirect(wa_url)
 
 if __name__ == "__main__":

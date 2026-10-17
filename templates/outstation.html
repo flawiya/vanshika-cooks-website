@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+
+{% block title %}
+{% if current_lang == 'hi' %}संभाजीनगरबाहेरील डिलिव्हरी चौकशी | वंशिका स्वादिष्ट फराळ{% else %}Outstation Delivery Inquiry | Vanshika Swadisht Faral{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="outstation-page-wrap py-10">
+    <div class="container max-w-3xl mx-auto">
+        <!-- Top Banner -->
+        <div class="outstation-banner-card text-center">
+            <span class="outstation-icon">📦</span>
+            <h1 class="text-3xl font-extrabold text-amber-950 mb-3">
+                {% if current_lang == 'hi' %}संभाजीनगरबाहेरील फराळ डिलिव्हरी चौकशी{% else %}Outstation Faral Delivery Inquiry{% endif %}
+            </h1>
+            <p class="text-gray-700 max-w-xl mx-auto text-base">
+                {% if current_lang == 'hi' %}
+                आमची थेट घरपोच डिलिव्हरी सध्या <strong>फक्त छत्रपती संभाजीनगर (औरंगाबाद), महाराष्ट्र</strong> येथे (फ्लॅट ₹६० डिलिव्हरी शुल्क) उपलब्ध आहे. इतर सर्व शहरांसाठी (उदा. पुणे, मुंबई, नाशिक, जालना, नागपूर, किंवा संपूर्ण भारत) आम्ही खास <strong>एक्सप्रेस पार्सल कुरिअरने</strong> फराळ पाठवतो!
+                {% else %}
+                Our direct local doorstep delivery is currently available within <strong>Chhatrapati Sambhaji Nagar (Aurangabad), MH only</strong> (Flat ₹60 delivery fee). For all other cities (Pune, Mumbai, Nashik, Jalna, Nagpur, or across India), we ship authentic Faral via <strong>express courier parcel</strong>!
+                {% endif %}
+            </p>
+        </div>
+
+        <!-- Form Card -->
+        <div class="checkout-card mt-8">
+            <div class="card-header-festive">
+                <span class="step-num">🪔</span>
+                <h3>{% if current_lang == 'hi' %}तुमचा पत्ता व फराळ ऑर्डर तपशील कळवा{% else %}Share Your City & Desired Faral Items{% endif %}</h3>
+            </div>
+            <div class="card-body">
+                <form action="{{ url_for('outstation_inquiry') }}" method="POST">
+                    <div class="form-grid-2">
+                        <div class="form-group">
+                            <label class="form-label">
+                                <i class="fas fa-user text-orange-600"></i>
+                                {% if current_lang == 'hi' %}तुमचे पूर्ण नाव *{% else %}Your Full Name *{% endif %}
+                            </label>
+                            <input type="text" name="name" class="form-control" placeholder="e.g. Snehal Kulkarni" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">
+                                <i class="fab fa-whatsapp text-green-600"></i>
+                                {% if current_lang == 'hi' %}व्हॉट्सॲप / फोन नंबर *{% else %}WhatsApp / Contact Phone *{% endif %}
+                            </label>
+                            <input type="tel" name="phone" class="form-control" placeholder="e.g. 9822XXXXXX" pattern="[0-9]{10}" title="10-digit mobile number" required>
+                        </div>
+                    </div>
+
+                    <div class="form-grid-2 mt-4">
+                        <div class="form-group">
+                            <label class="form-label">
+                                <i class="fas fa-city text-orange-600"></i>
+                                {% if current_lang == 'hi' %}डिलिव्हरी शहर व राज्य *{% else %}Destination City & State *{% endif %}
+                            </label>
+                            <input type="text" name="city" class="form-control" placeholder="e.g. Pune, MH / Mumbai, MH / Nashik, MH" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">
+                                <i class="fas fa-calendar-alt text-orange-600"></i>
+                                {% if current_lang == 'hi' %}हवी असलेली तारीख (Order Needed Date) *{% else %}Date Needed (Before Diwali) *{% endif %}
+                            </label>
+                            <input type="date" name="delivery_date" class="form-control" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group mt-4">
+                        <label class="form-label">
+                            <i class="fas fa-map-marker-alt text-red-600"></i>
+                            {% if current_lang == 'hi' %}कुरिअरसाठी संपूर्ण घरपोच पत्ता व पिनकोड *{% else %}Complete Courier Address with Pincode *{% endif %}
+                        </label>
+                        <textarea name="address" rows="2" class="form-control" placeholder="House/Flat No., Society, Landmark, Pincode" required></textarea>
+                    </div>
+
+                    <div class="form-group mt-4">
+                        <label class="form-label">
+                            <i class="fas fa-boxes text-amber-700"></i>
+                            {% if current_lang == 'hi' %}कोणते फराळ आयटम्स व किती वजन हवे आहेत? *{% else %}Which Faral Items & Quantities do you need? *{% endif %}
+                        </label>
+                        <textarea name="items" rows="3" class="form-control" placeholder="e.g. 2x Bhajani Chakli (500g), 1x Besan Ladoo (1kg), 1x Sampoorna Hamper (1.5kg)" required></textarea>
+                    </div>
+
+                    <div class="form-group mt-4">
+                        <label class="form-label">
+                            <i class="fas fa-comment-alt text-gray-500"></i>
+                            {% if current_lang == 'hi' %}काही विशेष सूचना (ऐच्छिक){% else %}Special Notes / Packaging Requirements (Optional){% endif %}
+                        </label>
+                        <input type="text" name="notes" class="form-control" placeholder="e.g. Diwali gift wrapping, please check express speed post">
+                    </div>
+
+                    <div class="mt-6">
+                        <button type="submit" class="btn-place-order">
+                            <i class="fab fa-whatsapp text-xl mr-2"></i>
+                            <span>{% if current_lang == 'hi' %}चौकशी नोंदवा व व्हॉट्सॲपवर पाठवा{% else %}Submit Inquiry & Open WhatsApp{% endif %}</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Direct WhatsApp Contact Box -->
+        <div class="direct-wa-box text-center mt-6 p-6 bg-orange-50 border border-orange-200 rounded-xl">
+            <h4 class="font-bold text-gray-800 mb-2">
+                {% if current_lang == 'hi' %}किंवा आमच्या मालकांशी थेट व्हॉट्सॲपवर संपर्क करा:{% else %}Or Message Our Owners Directly on WhatsApp:{% endif %}
+            </h4>
+            <div class="flex justify-center gap-4 flex-wrap mt-3">
+                <a href="https://api.whatsapp.com/send?phone=918623865447&text=Hello%20Vanshika%2C%20I%20need%20outstation%20Diwali%20Faral%20delivery." target="_blank" rel="noopener" class="btn-wa-pill">
+                    <i class="fab fa-whatsapp"></i> +91 8623865447
+                </a>
+                <a href="https://api.whatsapp.com/send?phone=918999585283&text=Hello%20Vanshika%2C%20I%20need%20outstation%20Diwali%20Faral%20delivery." target="_blank" rel="noopener" class="btn-wa-pill">
+                    <i class="fab fa-whatsapp"></i> +91 8999585283
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -361,7 +361,7 @@ def init_faral_db():
     """)
 
     cursor.execute("""
-    CREATE TABLE order_inquiries (
+    CREATE TABLE IF NOT EXISTS order_inquiries (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         customer_name TEXT NOT NULL,
         phone TEXT NOT NULL,
@@ -370,6 +370,30 @@ def init_faral_db():
         items_ordered TEXT NOT NULL,
         total_estimate INTEGER NOT NULL,
         special_instructions TEXT,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    )
+    """)
+
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS orders (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        order_id TEXT UNIQUE NOT NULL,
+        order_type TEXT NOT NULL DEFAULT 'local',
+        customer_name TEXT NOT NULL,
+        phone TEXT NOT NULL,
+        address TEXT NOT NULL,
+        city TEXT NOT NULL,
+        delivery_date TEXT NOT NULL,
+        items_json TEXT NOT NULL,
+        items_summary TEXT NOT NULL,
+        subtotal REAL NOT NULL,
+        delivery_fee REAL NOT NULL,
+        total_amount REAL NOT NULL,
+        advance_amount REAL NOT NULL,
+        cod_balance REAL NOT NULL,
+        payment_terms TEXT DEFAULT 'COD with 50% Advance',
+        status TEXT DEFAULT 'Pending 50% Advance Confirmation',
+        special_notes TEXT,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     )
     """)

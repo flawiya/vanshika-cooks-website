@@ -87,14 +87,25 @@
                         </div>
                     </div>
 
-                    <!-- Direct WhatsApp Ordering Button -->
+                    <!-- Direct Checkout & WhatsApp Ordering Actions -->
                     <div class="order-action-box">
-                        <a href="{{ url_for('order_whatsapp', item=product.name, pack='250g', price=product.price_250g) }}" id="dynamicWhatsAppBtn" target="_blank" rel="noopener" class="btn-whatsapp-order-big">
-                            <i class="fab fa-whatsapp"></i>
-                            <span>{{ t.order_whatsapp }}</span>
-                        </a>
-                        <p class="order-note-sub">
-                            <i class="fas fa-lock"></i> Direct chat with Vanshika's kitchen. We confirm dispatch date and share tracking.
+                        <div class="flex flex-col gap-3">
+                            <a href="{{ url_for('checkout', item=product.slug, pack='250g') }}" id="dynamicCheckoutBtn" class="btn-checkout-order-big" style="display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #ea580c 0%, #c2410c 100%); color: #ffffff; padding: 14px 20px; border-radius: 12px; font-weight: 800; font-size: 1.05rem; text-decoration: none; box-shadow: 0 4px 14px rgba(234, 88, 12, 0.3);">
+                                <i class="fas fa-shopping-bag mr-2"></i>
+                                <span>{% if current_lang == 'hi' %}आताच ऑर्डर करा (Order Online){% else %}Order Now (Cash on Delivery + 50% Adv){% endif %}</span>
+                            </a>
+                            <a href="{{ url_for('order_whatsapp', item=product.name, pack='250g', price=product.price_250g) }}" id="dynamicWhatsAppBtn" target="_blank" rel="noopener" class="btn-whatsapp-order-big">
+                                <i class="fab fa-whatsapp"></i>
+                                <span>{{ t.order_whatsapp }}</span>
+                            </a>
+                        </div>
+                        <p class="order-note-sub mt-2">
+                            <i class="fas fa-truck text-orange-600"></i>
+                            {% if current_lang == 'hi' %}
+                            थेट घरपोच डिलिव्हरी <strong>फक्त छत्रपती संभाजीनगर (औरंगाबाद), MH</strong> मध्ये (फ्लॅट ₹६०). इतर शहरांसाठी कुरिअर सुविधा.
+                            {% else %}
+                            Direct delivery in <strong>Chhatrapati Sambhaji Nagar (Aurangabad), MH only</strong> (Flat ₹60). Outstation courier available.
+                            {% endif %}
                         </p>
                     </div>
                 </div>
@@ -188,12 +199,18 @@ function selectPack(pack, price, el) {
     
     document.getElementById('displayPrice').textContent = price;
     
+    // Update dynamic checkout link
+    const chkBtn = document.getElementById('dynamicCheckoutBtn');
+    if (chkBtn) {
+        chkBtn.href = `{{ url_for('checkout') }}?item={{ product.slug }}&pack=${pack}`;
+    }
+
     // Update dynamic WhatsApp link
     const waBtn = document.getElementById('dynamicWhatsAppBtn');
-    const productName = encodeURIComponent("{{ product.name }}");
-    const packSize = encodeURIComponent(pack);
-    const msg = encodeURIComponent(`🪔 *Namaste Vanshika!* I would like to order:\n\n• *Item:* {{ product.name }}\n• *Pack Size:* ${pack}\n• *Price:* ₹${price}\n\nPlease share availability and delivery timeframe. Thank you!`);
-    waBtn.href = `https://api.whatsapp.com/send?text=${msg}`;
+    if (waBtn) {
+        const msg = encodeURIComponent(`🪔 *Namaste Vanshika Swadisht Faral!* I would like to order:\n\n• *Item:* {{ product.name }}\n• *Pack Size:* ${pack}\n• *Price:* ₹${price}\n• *Delivery Zone:* Chhatrapati Sambhaji Nagar (Aurangabad), MH\n\nPlease share fresh batch availability. Thank you!`);
+        waBtn.href = `https://api.whatsapp.com/send?phone=918623865447&text=${msg}`;
+    }
 }
 </script>
 {% endblock %}

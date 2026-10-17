@@ -1,0 +1,216 @@
+{% extends "base.html" %}
+
+{% block title %}
+{% if current_lang == 'hi' %}ऑर्डर पावती {{ order.order_id }} - वंशिका स्वादिष्ट फराळ{% else %}Order Confirmed {{ order.order_id }} | Vanshika Swadisht Faral{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="order-success-page">
+    <div class="container py-10 max-w-4xl mx-auto">
+        <!-- Success Celebration Card -->
+        <div class="success-top-card text-center">
+            <div class="success-diya-glow">🪔</div>
+            <span class="order-registered-pill">
+                <i class="fas fa-check-circle"></i> {% if current_lang == 'hi' %}ऑर्डर यशस्वीरित्या नोंदवली गेली!{% else %}Order Successfully Registered!{% endif %}
+            </span>
+            <h1 class="success-title">
+                {% if current_lang == 'hi' %}धन्यवाद, {{ order.customer_name }}!{% else %}Thank You, {{ order.customer_name }}!{% endif %}
+            </h1>
+            <p class="success-subtitle">
+                {% if current_lang == 'hi' %}
+                तुमची अस्सल दिवाळी फराळ ऑर्डर आमच्या स्वयंपाकघरामध्ये नोंदवली गेली आहे. खालील अनोखा ऑर्डर आयडी सुरक्षित ठेवा.
+                {% else %}
+                Your authentic Diwali Faral order has been registered in our kitchen. Please save your unique Order ID below.
+                {% endif %}
+            </p>
+
+            <!-- Prominent Unique Order ID Box -->
+            <div class="order-id-badge-wrap">
+                <span class="order-id-label">{% if current_lang == 'hi' %}युनिक ऑर्डर क्रमांक (Unique Order ID):{% else %}Your Unique Order ID:{% endif %}</span>
+                <span class="order-id-code">{{ order.order_id }}</span>
+                <button type="button" class="btn-copy-id" onclick="navigator.clipboard.writeText('{{ order.order_id }}'); alert('Order ID Copied: {{ order.order_id }}');">
+                    <i class="far fa-copy"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- WhatsApp Urgent Action Box -->
+        <div class="whatsapp-dispatch-card mt-8">
+            <div class="wa-card-header">
+                <div class="wa-icon-large">
+                    <i class="fab fa-whatsapp"></i>
+                </div>
+                <div>
+                    <h3 class="wa-card-title">
+                        {% if current_lang == 'hi' %}महत्त्वाचे: ऑर्डर पक्की करण्यासाठी व्हॉट्सॲपवर पाठवा{% else %}Important: Send to WhatsApp to Confirm Booking{% endif %}
+                    </h3>
+                    <p class="wa-card-desc">
+                        {% if current_lang == 'hi' %}
+                        ५०% ॲडव्हान्स स्वीकारण्यासाठी व डिलिव्हरी स्लॉट पक्का करण्यासाठी कृपया खालीलपैकी एका व्हॉट्सॲप नंबरवर ही ऑर्डर पाठवा:
+                        {% else %}
+                        Please send your order receipt to either owner on WhatsApp below to confirm your fresh preparation slot and receive UPI QR details for the 50% initial payment:
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+
+            <!-- Two Dual WhatsApp Action Buttons -->
+            <div class="wa-buttons-grid">
+                <a href="{{ wa_url_1 }}" target="_blank" rel="noopener" class="btn-wa-dispatch btn-wa-owner1">
+                    <div class="wa-btn-content">
+                        <i class="fab fa-whatsapp"></i>
+                        <div>
+                            <span class="btn-wa-main">{% if current_lang == 'hi' %}व्हॉट्सॲप १ वर पाठवा{% else %}Send to WhatsApp (Owner 1){% endif %}</span>
+                            <span class="btn-wa-sub">+91 8623865447</span>
+                        </div>
+                    </div>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+
+                <a href="{{ wa_url_2 }}" target="_blank" rel="noopener" class="btn-wa-dispatch btn-wa-owner2">
+                    <div class="wa-btn-content">
+                        <i class="fab fa-whatsapp"></i>
+                        <div>
+                            <span class="btn-wa-main">{% if current_lang == 'hi' %}व्हॉट्सॲप २ वर पाठवा{% else %}Send to WhatsApp (Owner 2){% endif %}</span>
+                            <span class="btn-wa-sub">+91 8999585283</span>
+                        </div>
+                    </div>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+
+            <!-- Auto Open Prompt Note -->
+            <div class="wa-next-steps">
+                <div class="step-bullet">
+                    <span class="num">१</span>
+                    <span><strong>{% if current_lang == 'hi' %}व्हॉट्सॲप मेसेज पाठवा:{% else %}Send WhatsApp Message:{% endif %}</strong> {% if current_lang == 'hi' %}वर क्लिक केल्यावर संपूर्ण ऑर्डर मेसेज आपोआप टाईप झालेला दिसेल.{% else %}Clicking above opens WhatsApp with your complete order pre-filled.{% endif %}</span>
+                </div>
+                <div class="step-bullet">
+                    <span class="num">२</span>
+                    <span><strong>{% if current_lang == 'hi' %}५०% ॲडव्हान्स UPI ने भरा:{% else %}Pay 50% Advance via UPI:{% endif %}</strong> {% if current_lang == 'hi' %}वंशिकाची टीम तुम्हाला अधिकृत UPI QR किंवा नंबर पाठवून ५०% आगाऊ रक्कम स्वीकारेल.{% else %}The owners will reply with UPI details/QR to receive your 50% advance booking payment.{% endif %}</span>
+                </div>
+                <div class="step-bullet">
+                    <span class="num">३</span>
+                    <span><strong>{% if current_lang == 'hi' %}घरपोच डिलिव्हरीवर उर्वरित ५०% (COD):{% else %}Pay Remaining 50% on Delivery (COD):{% endif %}</strong> {% if current_lang == 'hi' %}उर्वरित ५०% रक्कम ताजी फराळ पेटी छत्रपती संभाजीनगरमध्ये हातात आल्यावर रोख द्या!{% else %}Pay the remaining 50% balance in Cash on Delivery when your fresh Faral arrives!{% endif %}</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Printable Order Receipt Card -->
+        <div class="invoice-card mt-8" id="printableReceipt">
+            <div class="invoice-header">
+                <div>
+                    <span class="invoice-brand">वंशिका स्वादिष्ट फराळ 🪔</span>
+                    <span class="invoice-sub">Official Diwali Faral Order Receipt</span>
+                </div>
+                <div class="text-right">
+                    <span class="invoice-status-tag">{% if current_lang == 'hi' %}५०% ॲडव्हान्स प्रलंबित{% else %}Pending 50% Advance{% endif %}</span>
+                    <div class="invoice-date text-xs text-gray-500 mt-1">Logged: {{ order.created_at }}</div>
+                </div>
+            </div>
+
+            <!-- Customer & Delivery Summary -->
+            <div class="invoice-customer-grid">
+                <div class="cust-info-block">
+                    <span class="label">{% if current_lang == 'hi' %}ग्राहक तपशील:{% else %}Customer Details:{% endif %}</span>
+                    <strong>{{ order.customer_name }}</strong>
+                    <div class="text-sm text-gray-700"><i class="fab fa-whatsapp text-green-600"></i> {{ order.phone }}</div>
+                </div>
+                <div class="cust-info-block">
+                    <span class="label">{% if current_lang == 'hi' %}डिलिव्हरी पत्ता व शहर:{% else %}Delivery Address & Zone:{% endif %}</span>
+                    <div class="text-sm font-semibold text-gray-800">{{ order.city }}</div>
+                    <div class="text-xs text-gray-600">{{ order.address }}</div>
+                </div>
+                <div class="cust-info-block">
+                    <span class="label">{% if current_lang == 'hi' %}हवी असलेली डिलिव्हरी तारीख:{% else %}Requested Delivery Date:{% endif %}</span>
+                    <div class="text-sm font-bold text-orange-700">📅 {{ order.delivery_date }}</div>
+                    <div class="text-xs text-gray-500">{% if current_lang == 'hi' %}ऑर्डरनुसार ताजी तयार करून पोहोचवली जाईल.{% else %}Prepared fresh for this date.{% endif %}</div>
+                </div>
+            </div>
+
+            <!-- Items Table -->
+            <div class="invoice-table-wrap">
+                <table class="invoice-table">
+                    <thead>
+                        <tr>
+                            <th>{% if current_lang == 'hi' %}फराळ आयटम{% else %}Faral Item{% endif %}</th>
+                            <th>{% if current_lang == 'hi' %}पॅक वजन{% else %}Pack Size{% endif %}</th>
+                            <th>{% if current_lang == 'hi' %}नग (Qty){% else %}Quantity{% endif %}</th>
+                            <th class="text-right">{% if current_lang == 'hi' %}रक्कम (₹){% else %}Amount (₹){% endif %}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in items %}
+                        <tr>
+                            <td class="font-semibold">{{ item.name }}</td>
+                            <td><span class="pack-badge">{{ item.pack }}</span></td>
+                            <td>{{ item.qty }}</td>
+                            <td class="text-right font-semibold">₹{{ item.subtotal or (item.price * item.qty) }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Financial Totals Table -->
+            <div class="invoice-totals-box">
+                <div class="inv-row">
+                    <span>{% if current_lang == 'hi' %}फराळ उपएकूण (Subtotal):{% else %}Faral Items Subtotal:{% endif %}</span>
+                    <span>₹{{ order.subtotal|round|int }}</span>
+                </div>
+                <div class="inv-row">
+                    <span>
+                        {% if current_lang == 'hi' %}डिलिव्हरी शुल्क (छत्रपती संभाजीनगर):{% else %}Delivery Fee (Chhatrapati Sambhaji Nagar):{% endif %}
+                    </span>
+                    <span>₹{{ order.delivery_fee|round|int }}</span>
+                </div>
+                <div class="inv-row inv-total-row">
+                    <span>{% if current_lang == 'hi' %}एकूण बिल रक्कम (Total Amount):{% else %}Total Amount:{% endif %}</span>
+                    <span class="text-xl font-bold text-gray-900">₹{{ order.total_amount|round|int }}</span>
+                </div>
+                <div class="inv-row inv-highlight-advance">
+                    <span>
+                        <i class="fas fa-check-circle text-green-600"></i>
+                        <strong>{% if current_lang == 'hi' %}५०% ॲडव्हान्स रक्कम (UPI ने भरावी):{% else %}50% Advance Booking (Pay via UPI):{% endif %}</strong>
+                    </span>
+                    <strong class="text-lg text-green-700">₹{{ order.advance_amount|round|int }}</strong>
+                </div>
+                <div class="inv-row inv-highlight-cod">
+                    <span>
+                        <i class="fas fa-hand-holding-usd text-amber-700"></i>
+                        <strong>{% if current_lang == 'hi' %}५०% घरपोच डिलिव्हरीवर रोख (COD):{% else %}50% Cash on Delivery (Balance):{% endif %}</strong>
+                    </span>
+                    <strong class="text-lg text-amber-800">₹{{ order.cod_balance|round|int }}</strong>
+                </div>
+            </div>
+
+            {% if order.special_notes %}
+            <div class="invoice-notes-block">
+                <span class="font-bold">{% if current_lang == 'hi' %}विशेष सूचना:{% else %}Special Notes:{% endif %}</span>
+                <span>{{ order.special_notes }}</span>
+            </div>
+            {% endif %}
+
+            <div class="invoice-footer">
+                <p class="text-xs text-gray-500 text-center">
+                    {% if current_lang == 'hi' %}
+                    वंशिका स्वादिष्ट फराळ • अस्सल गाईच्या साजूक तुपातील घरगुती दिवाळी फराळ • संपर्क: +91 8623865447 / +91 8999585283
+                    {% else %}
+                    Vanshika Swadisht Faral • Pure Desi Cow Ghee Homemade Traditional Sweets & Snacks • Contact: +91 8623865447 / +91 8999585283
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="receipt-actions-footer mt-6 flex justify-center gap-4">
+            <button type="button" class="btn-print-receipt" onclick="window.print();">
+                <i class="fas fa-print"></i> {% if current_lang == 'hi' %}पावती प्रिंट करा{% else %}Print Receipt{% endif %}
+            </button>
+            <a href="{{ url_for('faral_menu') }}" class="btn-more-faral">
+                <i class="fas fa-shopping-basket"></i> {% if current_lang == 'hi' %}आणखी फराळ पहा{% else %}Browse More Faral{% endif %}
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

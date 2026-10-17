@@ -35,14 +35,17 @@
 
         <!-- Hero CTA Buttons -->
         <div class="hero-cta-group">
-            <a href="{{ url_for('faral_menu') }}" class="btn-primary-gradient btn-lg">
-                <i class="fas fa-cookie"></i> {{ t.view_menu }}
+            <a href="{{ url_for('checkout') }}" class="btn-primary-gradient btn-lg">
+                <i class="fas fa-shopping-bag"></i> {{ t.order_now }} (COD + 50% Adv)
             </a>
-            <a href="{{ url_for('order_whatsapp', item='Diwali Faral Pre-Order') }}" target="_blank" rel="noopener" class="btn-whatsapp-hero btn-lg">
-                <i class="fab fa-whatsapp"></i> {{ t.order_whatsapp }}
+            <a href="{{ url_for('faral_menu') }}" class="btn-outline-hero btn-lg">
+                <i class="fas fa-cookie"></i> {{ t.view_menu }}
             </a>
             <a href="{{ url_for('hampers_page') }}" class="btn-outline-hero btn-lg">
                 <i class="fas fa-gift"></i> {{ t.view_hampers }}
+            </a>
+            <a href="https://api.whatsapp.com/send?phone=918623865447&text=🪔%20Namaste%20Vanshika!%20I%20would%20like%20to%20order%20Diwali%20Faral." target="_blank" rel="noopener" class="btn-whatsapp-hero btn-lg">
+                <i class="fab fa-whatsapp"></i> {{ t.order_whatsapp }}
             </a>
         </div>
 
@@ -94,6 +97,31 @@
         </div>
     </div>
 </section>
+
+<!-- Direct Delivery Zone Banner -->
+<div class="container my-6">
+    <div style="background: #fffbeb; border: 2px solid #fed7aa; border-left: 6px solid #ea580c; border-radius: 12px; padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
+        <div style="display: flex; align-items: center; gap: 12px;">
+            <span style="font-size: 1.6rem;">🛵</span>
+            <div>
+                <strong style="color: #7c2d12; font-size: 1rem;">
+                    {% if current_lang == 'hi' %}थेट घरपोच डिलिव्हरी फक्त छत्रपती संभाजीनगर (औरंगाबाद), महाराष्ट्र मध्ये (फ्लॅट ₹६०){% else %}Direct Home Delivery in Chhatrapati Sambhaji Nagar (Aurangabad), MH Only (Flat ₹60 Fee){% endif %}
+                </strong>
+                <p style="margin: 0; color: #9a3412; font-size: 0.85rem;">
+                    {% if current_lang == 'hi' %}५०% ॲडव्हान्ससह कॅश ऑन डिलिव्हरी उपलब्ध. इतर शहरांसाठी (पुणे, मुंबई, नाशिक इ.) कुरिअर पार्सल सुविधा.{% else %}Cash on Delivery with 50% initial advance. For other cities (Pune, Mumbai, Nashik, etc.) express courier is available.{% endif %}
+                </p>
+            </div>
+        </div>
+        <div style="display: flex; gap: 8px;">
+            <a href="{{ url_for('checkout') }}" style="background: #ea580c; color: #ffffff; padding: 8px 16px; border-radius: 8px; font-weight: 700; font-size: 0.85rem; text-decoration: none;">
+                <i class="fas fa-shopping-bag"></i> {% if current_lang == 'hi' %}ऑर्डर करा{% else %}Order Online{% endif %}
+            </a>
+            <a href="{{ url_for('outstation_inquiry') }}" style="background: #fff7ed; color: #9a3412; border: 1px solid #fed7aa; padding: 8px 14px; border-radius: 8px; font-weight: 700; font-size: 0.85rem; text-decoration: none;">
+                <i class="fas fa-truck"></i> {% if current_lang == 'hi' %}इतर शहरे?{% else %}Outstation?{% endif %}
+            </a>
+        </div>
+    </div>
+</div>
 
 <!-- Faral Products Catalog Section -->
 <section class="section-featured-recipes">
@@ -155,12 +183,12 @@
                     </div>
 
                     <!-- Card Actions -->
-                    <div class="faral-card-actions">
-                        <a href="{{ url_for('order_whatsapp', item=p.name, pack='500g', price=p.price_500g) }}" target="_blank" rel="noopener" class="btn-whatsapp-card full-width">
-                            <i class="fab fa-whatsapp"></i> {{ t.order_whatsapp }}
+                    <div class="faral-card-actions" style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                        <a href="{{ url_for('checkout', item=p.slug, pack='500g') }}" class="btn-primary-card" style="display: flex; align-items: center; justify-content: center; gap: 6px; background: #ea580c; color: #ffffff; padding: 10px 8px; border-radius: 8px; font-weight: 700; text-decoration: none; font-size: 0.85rem;">
+                            <i class="fas fa-shopping-bag"></i> {% if current_lang == 'hi' %}ऑर्डर करा{% else %}Order Now{% endif %}
                         </a>
-                        <a href="{{ url_for('product_detail', slug=p.slug) }}" class="btn-view-details">
-                            {% if current_lang == 'hi' %}तपशील पहा{% else %}View Details{% endif %} &rarr;
+                        <a href="{{ url_for('product_detail', slug=p.slug) }}" class="btn-view-details" style="display: flex; align-items: center; justify-content: center; border: 1px solid #fed7aa; padding: 10px 8px; border-radius: 8px; color: #7c2d12; font-weight: 700; text-decoration: none; font-size: 0.85rem;">
+                            {% if current_lang == 'hi' %}तपशील{% else %}Details{% endif %} &rarr;
                         </a>
                     </div>
                 </div>

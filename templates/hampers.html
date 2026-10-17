@@ -49,9 +49,14 @@
                             <span class="cost-amount">{{ h.price_inr }}</span>
                             <span class="cost-gbp">/ £{{ h.price_gbp }}</span>
                         </div>
-                        <a href="{{ url_for('order_whatsapp', item=h.name, pack=h.weight, price=h.price_inr) }}" target="_blank" rel="noopener" class="btn-whatsapp-header">
-                            <i class="fab fa-whatsapp"></i> {{ t.order_whatsapp }}
-                        </a>
+                        <div class="flex gap-2 items-center flex-wrap">
+                            <a href="{{ url_for('checkout', item=h.slug, pack=h.weight) }}" class="btn-primary-gradient" style="display: inline-flex; align-items: center; gap: 6px; padding: 10px 18px; border-radius: 8px; font-weight: 700; text-decoration: none; font-size: 0.9rem;">
+                                <i class="fas fa-shopping-bag"></i> {% if current_lang == 'hi' %}ऑर्डर करा (COD){% else %}Order Online{% endif %}
+                            </a>
+                            <a href="{{ url_for('order_whatsapp', item=h.name, pack=h.weight, price=h.price_inr) }}" target="_blank" rel="noopener" class="btn-whatsapp-header">
+                                <i class="fab fa-whatsapp"></i> {{ t.order_whatsapp }}
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
