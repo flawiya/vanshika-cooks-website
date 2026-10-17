@@ -87,6 +87,9 @@
             <a href="{{ url_for('recipes_list') }}" class="pill-btn active">
                 <i class="fas fa-fire"></i> {{ t.filter_all }}
             </a>
+            <a href="{{ url_for('recipes_list', category='faral') }}" class="pill-btn" style="background: #fff7ed; border-color: #fdba74; color: #c2410c; font-weight: 600;">
+                <i class="fas fa-cookie"></i> {{ t.filter_faral }}
+            </a>
             <a href="{{ url_for('recipes_list', category='breakfast') }}" class="pill-btn">
                 <i class="fas fa-sun"></i> {{ t.filter_breakfast }}
             </a>

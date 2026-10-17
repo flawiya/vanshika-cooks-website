@@ -41,6 +41,9 @@
             <a href="{{ url_for('recipes_list', q=search_query) }}" class="cat-tab {% if selected_category == 'all' or not selected_category %}active{% endif %}">
                 <i class="fas fa-th-large"></i> {{ t.filter_all }}
             </a>
+            <a href="{{ url_for('recipes_list', category='faral', q=search_query) }}" class="cat-tab {% if selected_category == 'faral' %}active{% endif %}">
+                <i class="fas fa-cookie"></i> {{ t.filter_faral }}
+            </a>
             <a href="{{ url_for('recipes_list', category='breakfast', q=search_query) }}" class="cat-tab {% if selected_category == 'breakfast' %}active{% endif %}">
                 <i class="fas fa-sun"></i> {{ t.filter_breakfast }}
             </a>

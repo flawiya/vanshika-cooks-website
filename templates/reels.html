@@ -24,12 +24,12 @@
         
         <div class="reels-header-cta">
             <div class="cta-profile-badge">
-                <div class="profile-avatar">
-                    <i class="fas fa-utensils"></i>
+                <div class="profile-avatar" style="overflow: hidden; padding: 0; border: 2px solid #fdba74;">
+                    <img src="{{ url_for('static', filename='images/vanshika_profile.jpg') }}" alt="vanshikacooks" style="width: 100%; height: 100%; object-fit: cover;">
                 </div>
                 <div class="profile-text">
                     <h3>vanshikacooks</h3>
-                    <p>{% if current_lang == 'hi' %}होम शेफ • आसान रेसिपीज़ • फूड क्रिएटर{% else %}Home Chef • Simple & Delicious Recipes • Food Creator{% endif %}</p>
+                    <p>{% if current_lang == 'hi' %}वंशिका स्वादिष्ट फराळ 🪔 • घरगुती पारंपरिक फराळ व मिठाई{% else %}Vanshika Swadisht Faral 🪔 • Traditional Festive Snacks & Sweets{% endif %}</p>
                 </div>
             </div>
             <a href="https://www.instagram.com/vanshikacooks/" target="_blank" rel="noopener" class="btn-instagram-glow">
