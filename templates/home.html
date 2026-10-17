@@ -316,8 +316,57 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="items">{% if current_lang == 'hi' %}हवे असलेले फराळ पदार्थ व वजन *{% else %}Items & Quantity Required *{% endif %}</label>
-                        <textarea id="items" name="items" rows="3" required placeholder="{% if current_lang == 'hi' %}उदा. १ किलो भाजणी चकली, ५०० ग्रॅम बेसन लाडू, ५०० ग्रॅम करंजी...{% else %}e.g. 1kg Bhajani Chakli, 500g Besan Ladoo, 500g Karanji...{% endif %}"></textarea>
+                        <label>{% if current_lang == 'hi' %}हवे असलेले फराळ पदार्थ व वजन (ड्रॉपडाऊनमधून निवडा) *{% else %}Which Faral Items & Quantities do you need? (Select from dropdown) *{% endif %}</label>
+                        
+                        <div style="background: #fffbeb; border: 1.5px solid #fed7aa; border-radius: 10px; padding: 12px; margin-bottom: 8px;">
+                            <div style="display: grid; grid-template-columns: 2fr 1fr 1fr auto; gap: 8px; align-items: end;">
+                                <div>
+                                    <label style="font-size: 0.75rem; font-weight: 700; color: #7c2d12; display: block; margin-bottom: 2px;">
+                                        {% if current_lang == 'hi' %}फराळ निवडा:{% else %}Faral Item:{% endif %}
+                                    </label>
+                                    <select id="homeItemSelect" class="form-control" style="font-size: 0.85rem; padding: 6px 8px; background: #ffffff;">
+                                        <option value="Bhajani Chakli (भाजणी चकली)">Bhajani Chakli (भाजणी चकली)</option>
+                                        <option value="Shahi Besan Ladoo (शाही बेसन लाडू)">Shahi Besan Ladoo (शाही बेसन लाडू)</option>
+                                        <option value="Coconut Mawa Karanji (नारळ करंजी)">Coconut Mawa Karanji (नारळ करंजी)</option>
+                                        <option value="Poha Chivda (पातळ पोहा चिवडा)">Poha Chivda (पातळ पोहा चिवडा)</option>
+                                        <option value="Sweet Shankarpali (गोड शंकरपाळी)">Sweet Shankarpali (गोड शंकरपाळी)</option>
+                                        <option value="Tikhat Lasun Sev (तिखट लसूण शेव)">Tikhat Lasun Sev (तिखट लसूण शेव)</option>
+                                        <option value="Desi Ghee Motichoor Ladoo (मोतीचूर लाडू)">Desi Ghee Motichoor Ladoo (मोतीचूर लाडू)</option>
+                                        <option value="Traditional Anarse (पारंपरिक अनारसे)">Traditional Anarse (पारंपरिक अनारसे)</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label style="font-size: 0.75rem; font-weight: 700; color: #7c2d12; display: block; margin-bottom: 2px;">
+                                        {% if current_lang == 'hi' %}वजन:{% else %}Pack:{% endif %}
+                                    </label>
+                                    <select id="homePackSelect" class="form-control" style="font-size: 0.85rem; padding: 6px 8px; background: #ffffff;">
+                                        <option value="500g" selected>500g</option>
+                                        <option value="250g">250g</option>
+                                        <option value="1kg">1 kg</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label style="font-size: 0.75rem; font-weight: 700; color: #7c2d12; display: block; margin-bottom: 2px;">
+                                        {% if current_lang == 'hi' %}प्रमाण:{% else %}Qty:{% endif %}
+                                    </label>
+                                    <select id="homeQtySelect" class="form-control" style="font-size: 0.85rem; padding: 6px 8px; background: #ffffff;">
+                                        <option value="1" selected>1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <button type="button" id="btnHomeAddItem" style="background: #ea580c; color: #ffffff; border: none; padding: 7px 14px; border-radius: 6px; font-weight: 700; font-size: 0.85rem; cursor: pointer; height: 35px;">
+                                        + {% if current_lang == 'hi' %}जोडा{% else %}Add{% endif %}
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div id="homeSelectedItemsList" style="margin-top: 10px; display: flex; flex-direction: column; gap: 6px;"></div>
+                        </div>
+                        <input type="hidden" id="items" name="items" required>
                     </div>
 
                     <button type="submit" class="btn-primary-gradient full-width">
@@ -328,4 +377,63 @@
         </div>
     </div>
 </section>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    let homeItems = [
+        { name: "Bhajani Chakli (भाजणी चकली)", pack: "500g", qty: 1 }
+    ];
+
+    const listContainer = document.getElementById("homeSelectedItemsList");
+    const hiddenField = document.getElementById("items");
+    const addBtn = document.getElementById("btnHomeAddItem");
+    const itemSel = document.getElementById("homeItemSelect");
+    const packSel = document.getElementById("homePackSelect");
+    const qtySel = document.getElementById("homeQtySelect");
+
+    function renderHomeItems() {
+        if (!listContainer || !hiddenField) return;
+        listContainer.innerHTML = "";
+        if (homeItems.length === 0) {
+            listContainer.innerHTML = `<span style="font-size: 0.8rem; color: #9ca3af;">{% if current_lang == 'hi' %}किमान एक फराळ निवडून जोडा.{% else %}Please select an item and click Add.{% endif %}</span>`;
+            hiddenField.value = "";
+            return;
+        }
+
+        homeItems.forEach((it, idx) => {
+            const el = document.createElement("div");
+            el.style.cssText = "display: flex; align-items: center; justify-content: space-between; background: #ffffff; border: 1px solid #fed7aa; border-radius: 6px; padding: 6px 10px; font-size: 0.85rem;";
+            el.innerHTML = `
+                <span><strong>${it.name}</strong> (${it.pack}) × <strong>${it.qty}</strong></span>
+                <button type="button" data-idx="${idx}" class="btn-rem-home" style="background: none; border: none; color: #dc2626; cursor: pointer; font-size: 1.1rem; line-height: 1;">&times;</button>
+            `;
+            listContainer.appendChild(el);
+        });
+
+        hiddenField.value = homeItems.map(it => `${it.qty}x ${it.name} (${it.pack})`).join(", ");
+
+        document.querySelectorAll(".btn-rem-home").forEach(btn => {
+            btn.onclick = function() {
+                const idx = parseInt(this.getAttribute("data-idx"));
+                homeItems.splice(idx, 1);
+                renderHomeItems();
+            };
+        });
+    }
+
+    if (addBtn) {
+        addBtn.onclick = function() {
+            const name = itemSel.value;
+            const pack = packSel.value;
+            const qty = parseInt(qtySel.value);
+            const ex = homeItems.find(it => it.name === name && it.pack === pack);
+            if (ex) ex.qty += qty;
+            else homeItems.push({ name, pack, qty });
+            renderHomeItems();
+        };
+    }
+
+    renderHomeItems();
+});
+</script>
 {% endblock %}

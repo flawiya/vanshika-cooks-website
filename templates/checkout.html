@@ -291,18 +291,7 @@
                             </span>
                         </button>
 
-                        <div class="owners-contact-info">
-                            <span>{% if current_lang == 'hi' %}थेट संपर्क व ऑर्डर हेल्पलाईन:{% else %}Owner Direct WhatsApp Helplines:{% endif %}</span>
-                            <div class="owner-phones">
-                                <a href="{{ url_for('order_whatsapp', channel=1) }}" target="_blank" rel="noopener">
-                                    <i class="fab fa-whatsapp text-green-600"></i> {% if current_lang == 'hi' %}व्हॉट्सॲप हेल्पलाईन १{% else %}WhatsApp Helpline 1{% endif %}
-                                </a>
-                                <span class="sep">•</span>
-                                <a href="{{ url_for('order_whatsapp', channel=2) }}" target="_blank" rel="noopener">
-                                    <i class="fab fa-whatsapp text-green-600"></i> {% if current_lang == 'hi' %}व्हॉट्सॲप हेल्पलाईन २{% else %}WhatsApp Helpline 2{% endif %}
-                                </a>
-                            </div>
-                        </div>
+
 
                         <!-- Trust Guarantees -->
                         <div class="summary-trust-badges">

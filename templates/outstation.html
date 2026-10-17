@@ -75,9 +75,69 @@
                     <div class="form-group mt-4">
                         <label class="form-label">
                             <i class="fas fa-boxes text-amber-700"></i>
-                            {% if current_lang == 'hi' %}कोणते फराळ आयटम्स व किती वजन हवे आहेत? *{% else %}Which Faral Items & Quantities do you need? *{% endif %}
+                            {% if current_lang == 'hi' %}कोणते फराळ आयटम्स व किती वजन हवे आहेत? (ड्रॉपडाऊनमधून निवडा) *{% else %}Which Faral Items & Quantities do you need? (Select from dropdown) *{% endif %}
                         </label>
-                        <textarea name="items" rows="3" class="form-control" placeholder="e.g. 2x Bhajani Chakli (500g), 1x Besan Ladoo (1kg), 500g Karanji" required></textarea>
+
+                        <!-- Faral Dropdown Item Selector Box -->
+                        <div class="item-dropdown-builder" style="background: #fffbeb; border: 1.5px solid #fed7aa; border-radius: 12px; padding: 16px; margin-top: 6px;">
+                            <div class="builder-inputs-grid" style="display: grid; grid-template-columns: 2fr 1fr 1fr auto; gap: 10px; align-items: end;">
+                                <div>
+                                    <label style="font-size: 0.8rem; font-weight: 700; color: #7c2d12; margin-bottom: 4px; display: block;">
+                                        {% if current_lang == 'hi' %}फराळ निवडा (Faral Item):{% else %}Select Faral Item:{% endif %}
+                                    </label>
+                                    <select id="builderItemSelect" class="form-control" style="font-weight: 600; background: #ffffff;">
+                                        <option value="Bhajani Chakli (भाजणी चकली)">Bhajani Chakli (भाजणी चकली)</option>
+                                        <option value="Shahi Besan Ladoo (शाही बेसन लाडू)">Shahi Besan Ladoo (शाही बेसन लाडू)</option>
+                                        <option value="Coconut Mawa Karanji (नारळ करंजी)">Coconut Mawa Karanji (नारळ करंजी)</option>
+                                        <option value="Poha Chivda (पातळ पोहा चिवडा)">Poha Chivda (पातळ पोहा चिवडा)</option>
+                                        <option value="Sweet Shankarpali (गोड शंकरपाळी)">Sweet Shankarpali (गोड शंकरपाळी)</option>
+                                        <option value="Tikhat Lasun Sev (तिखट लसूण शेव)">Tikhat Lasun Sev (तिखट लसूण शेव)</option>
+                                        <option value="Desi Ghee Motichoor Ladoo (मोतीचूर लाडू)">Desi Ghee Motichoor Ladoo (मोतीचूर लाडू)</option>
+                                        <option value="Traditional Anarse (पारंपरिक अनारसे)">Traditional Anarse (पारंपरिक अनारसे)</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label style="font-size: 0.8rem; font-weight: 700; color: #7c2d12; margin-bottom: 4px; display: block;">
+                                        {% if current_lang == 'hi' %}पॅक वजन (Pack):{% else %}Pack Size:{% endif %}
+                                    </label>
+                                    <select id="builderPackSelect" class="form-control" style="font-weight: 600; background: #ffffff;">
+                                        <option value="500g" selected>500g</option>
+                                        <option value="250g">250g</option>
+                                        <option value="1kg">1 kg</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label style="font-size: 0.8rem; font-weight: 700; color: #7c2d12; margin-bottom: 4px; display: block;">
+                                        {% if current_lang == 'hi' %}प्रमाण (Quantity):{% else %}Quantity:{% endif %}
+                                    </label>
+                                    <select id="builderQtySelect" class="form-control" style="font-weight: 600; background: #ffffff;">
+                                        <option value="1" selected>1 Pack</option>
+                                        <option value="2">2 Packs</option>
+                                        <option value="3">3 Packs</option>
+                                        <option value="4">4 Packs</option>
+                                        <option value="5">5 Packs</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <button type="button" id="btnAddDropdownItem" style="background: #ea580c; color: #ffffff; border: none; padding: 10px 18px; border-radius: 8px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 6px; white-space: nowrap; height: 42px;">
+                                        <i class="fas fa-plus"></i> {% if current_lang == 'hi' %}जोडा{% else %}Add Item{% endif %}
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Selected Items List -->
+                            <div style="margin-top: 14px;">
+                                <strong style="font-size: 0.85rem; color: #9a3412;">
+                                    {% if current_lang == 'hi' %}निवडलेले फराळ आयटम्स (Selected Items in Box):{% else %}Selected Faral Items in Box:{% endif %}
+                                </strong>
+                                <div id="selectedItemsContainer" style="display: flex; flex-direction: column; gap: 8px; margin-top: 8px;">
+                                    <!-- Rendered dynamically -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Hidden input to submit items string -->
+                        <input type="hidden" name="items" id="itemsInputHidden" required>
                     </div>
 
                     <div class="form-group mt-4">
@@ -97,21 +157,87 @@
                 </form>
             </div>
         </div>
-
-        <!-- Direct WhatsApp Contact Box -->
-        <div class="direct-wa-box text-center mt-6 p-6 bg-orange-50 border border-orange-200 rounded-xl">
-            <h4 class="font-bold text-gray-800 mb-2">
-                {% if current_lang == 'hi' %}किंवा आमच्याशी थेट व्हॉट्सॲपवर संपर्क करा:{% else %}Or Message Our Team Directly on WhatsApp:{% endif %}
-            </h4>
-            <div class="flex justify-center gap-4 flex-wrap mt-3">
-                <a href="{{ url_for('order_whatsapp', channel=1, item='Outstation Diwali Faral Inquiry') }}" target="_blank" rel="noopener" class="btn-wa-pill">
-                    <i class="fab fa-whatsapp"></i> {% if current_lang == 'hi' %}व्हॉट्सॲप सपोर्ट १{% else %}WhatsApp Support 1{% endif %}
-                </a>
-                <a href="{{ url_for('order_whatsapp', channel=2, item='Outstation Diwali Faral Inquiry') }}" target="_blank" rel="noopener" class="btn-wa-pill">
-                    <i class="fab fa-whatsapp"></i> {% if current_lang == 'hi' %}व्हॉट्सॲप सपोर्ट २{% else %}WhatsApp Support 2{% endif %}
-                </a>
-            </div>
-        </div>
     </div>
 </div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    let selectedItems = [
+        { name: "Bhajani Chakli (भाजणी चकली)", pack: "500g", qty: 1 },
+        { name: "Shahi Besan Ladoo (शाही बेसन लाडू)", pack: "500g", qty: 1 }
+    ];
+
+    const container = document.getElementById("selectedItemsContainer");
+    const hiddenInput = document.getElementById("itemsInputHidden");
+    const addBtn = document.getElementById("btnAddDropdownItem");
+    const itemSelect = document.getElementById("builderItemSelect");
+    const packSelect = document.getElementById("builderPackSelect");
+    const qtySelect = document.getElementById("builderQtySelect");
+
+    function renderList() {
+        container.innerHTML = "";
+        if (selectedItems.length === 0) {
+            container.innerHTML = `<p style="font-size: 0.85rem; color: #9ca3af; margin: 4px 0;">{% if current_lang == 'hi' %}कृपया वरील ड्रॉपडाऊनमधून फराळ निवडून "जोडा" वर क्लिक करा.{% else %}Please select an item and click "Add Item" above.{% endif %}</p>`;
+            hiddenInput.value = "";
+            return;
+        }
+
+        selectedItems.forEach((it, idx) => {
+            const row = document.createElement("div");
+            row.style.cssText = "display: flex; align-items: center; justify-content: space-between; background: #ffffff; border: 1px solid #fed7aa; border-radius: 8px; padding: 8px 12px;";
+            row.innerHTML = `
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <span style="font-size: 1.1rem;">🪔</span>
+                    <div>
+                        <strong style="color: #7c2d12; font-size: 0.95rem;">${it.name}</strong>
+                        <span style="display: inline-block; background: #ffedd5; color: #c2410c; font-size: 0.75rem; font-weight: 700; padding: 2px 8px; border-radius: 6px; margin-left: 6px;">${it.pack}</span>
+                    </div>
+                </div>
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <strong style="color: #4b5563; font-size: 0.9rem;">Qty: ${it.qty}</strong>
+                    <button type="button" data-idx="${idx}" class="btn-remove-item" style="background: none; border: none; color: #dc2626; cursor: pointer; font-size: 1.2rem; line-height: 1; padding: 2px 6px;" title="Remove">&times;</button>
+                </div>
+            `;
+            container.appendChild(row);
+        });
+
+        hiddenInput.value = selectedItems.map(it => `${it.qty}x ${it.name} (${it.pack})`).join(", ");
+
+        document.querySelectorAll(".btn-remove-item").forEach(btn => {
+            btn.onclick = function() {
+                const idx = parseInt(this.getAttribute("data-idx"));
+                selectedItems.splice(idx, 1);
+                renderList();
+            };
+        });
+    }
+
+    addBtn.onclick = function() {
+        const name = itemSelect.value;
+        const pack = packSelect.value;
+        const qty = parseInt(qtySelect.value);
+
+        const existing = selectedItems.find(it => it.name === name && it.pack === pack);
+        if (existing) {
+            existing.qty += qty;
+        } else {
+            selectedItems.push({ name, pack, qty });
+        }
+        renderList();
+    };
+
+    const form = document.querySelector("form");
+    if (form) {
+        form.onsubmit = function(e) {
+            if (selectedItems.length === 0) {
+                e.preventDefault();
+                alert("{% if current_lang == 'hi' %}कृपया किमान एक फराळ आयटम ड्रॉपडाऊनमधून जोडा.{% else %}Please add at least one Faral item from the dropdown.{% endif %}");
+                return false;
+            }
+        };
+    }
+
+    renderList();
+});
+</script>
 {% endblock %}
