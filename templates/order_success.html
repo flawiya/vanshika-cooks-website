@@ -161,8 +161,17 @@
                 <div class="inv-row">
                     <span>
                         {% if current_lang == 'hi' %}डिलिव्हरी शुल्क (औरंगाबाद / संभाजीनगर):{% else %}Delivery Fee (Aurangabad/Sambhajinagar):{% endif %}
+                        <small class="block text-xs text-gray-500" style="font-weight: normal;">
+                            {% if current_lang == 'hi' %}(डिलिव्हरी शुल्क: ₹७०० च्या खाली ₹६०, ₹७०० व त्यापुढे मोफत डिलिव्हरी){% else %}(Delivery fee: ₹60 below ₹700, FREE Delivery for ₹700 and above){% endif %}
+                        </small>
                     </span>
-                    <span>₹{{ order.delivery_fee|round|int }}</span>
+                    <span>
+                        {% if order.delivery_fee|round|int == 0 %}
+                        <span class="text-green-700 font-bold">FREE (₹0)</span>
+                        {% else %}
+                        ₹{{ order.delivery_fee|round|int }}
+                        {% endif %}
+                    </span>
                 </div>
                 <div class="inv-row inv-total-row">
                     <span>{% if current_lang == 'hi' %}एकूण बिल रक्कम (Total Amount):{% else %}Total Amount:{% endif %}</span>

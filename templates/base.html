@@ -26,9 +26,9 @@
                 <span>
                     <strong>{{ t.booking_banner_title }}</strong>
                     {% if current_lang == 'hi' %}
-                    <strong>औरंगाबाद / छत्रपती संभाजीनगर, महाराष्ट्र, भारत मध्ये थेट घरपोच डिलिव्हरी</strong> (डिलिव्हरी: ₹७०० खाली ₹६० | ₹७००+ वर मोफत डिलिव्हरी!) • ५०% ॲडव्हान्ससह COD उपलब्ध • <a href="{{ url_for('outstation_inquiry') }}" class="underline text-yellow-200 hover:text-white">इतर शहरे? येथे संपर्क करा</a>
+                    <strong>औरंगाबाद / छत्रपती संभाजीनगर, महाराष्ट्र, भारत मध्ये थेट घरपोच डिलिव्हरी</strong> (डिलिव्हरी शुल्क: ₹७०० च्या खाली ₹६०, ₹७०० व त्यापुढे मोफत डिलिव्हरी!) • ५०% ॲडव्हान्ससह COD उपलब्ध • <a href="{{ url_for('outstation_inquiry') }}" class="underline text-yellow-200 hover:text-white">इतर शहरे? येथे संपर्क करा</a>
                     {% else %}
-                    <strong>Doorstep delivery across Aurangabad/Chhatrapati Sambhajinagar, Maharashtra, India.</strong> (Delivery: ₹60 below ₹700 | FREE Delivery for orders ₹700+) • COD with 50% Advance • <a href="{{ url_for('outstation_inquiry') }}" class="underline text-yellow-200 hover:text-white">Other Cities? Contact here</a>
+                    <strong>Doorstep delivery across Aurangabad/Chhatrapati Sambhajinagar, Maharashtra, India.</strong> (Delivery fee: ₹60 below ₹700, FREE Delivery for ₹700 and above) • COD with 50% Advance • <a href="{{ url_for('outstation_inquiry') }}" class="underline text-yellow-200 hover:text-white">Other Cities? Contact here</a>
                     {% endif %}
                 </span>
             </div>
@@ -172,7 +172,7 @@
                         <strong>📍 {% if current_lang == 'hi' %}डिलिव्हरी व पेमेंट नियम:{% else %}Delivery & Payment Rules:{% endif %}</strong>
                         <p class="mt-1">
                             {% if current_lang == 'hi' %}
-                            <strong>औरंगाबाद / छत्रपती संभाजीनगर, महाराष्ट्र, भारत मध्ये थेट घरपोच डिलिव्हरी</strong> (डिलिव्हरी शुल्क: ₹७०० च्या आत <strong>₹६०</strong>, ₹७०० व त्यापुढे <strong>मोफत डिलिव्हरी!</strong>). ५०% ॲडव्हान्स बुकिंगसह कॅश ऑन डिलिव्हरी उपलब्ध.
+                            <strong>औरंगाबाद / छत्रपती संभाजीनगर, महाराष्ट्र, भारत मध्ये थेट घरपोच डिलिव्हरी</strong> (डिलिव्हरी शुल्क: ₹७०० च्या खाली <strong>₹६०</strong>, ₹७०० व त्यापुढे <strong>मोफत डिलिव्हरी (FREE Delivery)</strong>). ५०% ॲडव्हान्स बुकिंगसह कॅश ऑन डिलिव्हरी उपलब्ध.
                             <br><a href="{{ url_for('outstation_inquiry') }}" class="underline text-yellow-300">इतर शहरांसाठी पार्सल कुरिअर चौकशी येथे करा &rarr;</a>
                             {% else %}
                             <strong>Doorstep delivery across Aurangabad/Chhatrapati Sambhajinagar, Maharashtra, India.</strong> (Delivery fee: <strong>₹60</strong> below ₹700, <strong>FREE Delivery</strong> for ₹700 and above). Cash on Delivery with 50% advance booking.

@@ -73,9 +73,9 @@ TRANSLATIONS = {
         "trust_3_title": "Airtight Festive Packaging",
         "trust_3_desc": "Packed in food-grade airtight containers so your chaklis and karanjis arrive 100% crisp and unbroken.",
         "trust_4_title": "Doorstep Delivery",
-        "trust_4_desc": "Doorstep delivery across Aurangabad/Chhatrapati Sambhajinagar, Maharashtra, India. ₹60 fee below ₹700, and FREE Delivery above ₹700!",
+        "trust_4_desc": "Doorstep delivery across Aurangabad/Chhatrapati Sambhajinagar, Maharashtra, India. Delivery fee: ₹60 below ₹700, FREE Delivery for ₹700 and above.",
         "booking_banner_title": "🪔 Diwali 2026 Pre-Orders Are Now Officially Open!",
-        "booking_banner_sub": "Doorstep delivery across Aurangabad/Chhatrapati Sambhajinagar, Maharashtra, India. ₹60 below ₹700, FREE Delivery above ₹700. COD with 50% advance.",
+        "booking_banner_sub": "Doorstep delivery across Aurangabad/Chhatrapati Sambhajinagar, Maharashtra, India. Delivery fee: ₹60 below ₹700, FREE Delivery for ₹700 and above. COD with 50% advance.",
         "view_menu": "Explore Faral Menu",
         "switch_to_hindi": "मराठी / हिन्दी मध्ये पहा",
         "switch_to_english": "View in English",
@@ -86,7 +86,7 @@ TRANSLATIONS = {
         "custom_sub": "We deliver customized boxes with company branding and diwali cards for corporate teams.",
         "submit_inquiry": "Submit Booking Request",
         "inquiry_sent_success": "Thank you! Your pre-order request has been received. Vanshika will confirm your booking via WhatsApp shortly.",
-        "delivery_notice_pill": "📍 Doorstep delivery across Aurangabad/Chhatrapati Sambhajinagar, Maharashtra, India. (₹60 below ₹700 | FREE Delivery above ₹700) • Outside? Contact for courier",
+        "delivery_notice_pill": "📍 Doorstep delivery across Aurangabad/Chhatrapati Sambhajinagar, Maharashtra, India. (Delivery fee: ₹60 below ₹700, FREE Delivery for ₹700 and above) • Outside? Contact for courier",
         "cod_terms_notice": "💰 Cash on Delivery with 50% advance booking payment. 50% advance required via UPI to confirm fresh batch preparation.",
         "delivery_fee_label": "Delivery Charge (Aurangabad/Sambhaji Nagar):",
         "order_id_label": "Order ID",
@@ -132,9 +132,9 @@ TRANSLATIONS = {
         "trust_3_title": "हवाबंद दर्जेदार पॅकिंग",
         "trust_3_desc": "चकली व करंजी न तुटता एकदम कुरकुरीत राहावी म्हणून खास हवाबंद बॉक्समध्ये सुरक्षित पॅकिंग.",
         "trust_4_title": "थेट घरपोच डिलिव्हरी",
-        "trust_4_desc": "औरंगाबाद / छत्रपती संभाजीनगर, महाराष्ट्र, भारत मध्ये थेट घरपोच डिलिव्हरी. ₹७०० खाली ₹६०, आणि ₹७००+ वर मोफत डिलिव्हरी (FREE Delivery)!",
+        "trust_4_desc": "औरंगाबाद / छत्रपती संभाजीनगर, महाराष्ट्र, भारत मध्ये थेट घरपोच डिलिव्हरी. डिलिव्हरी शुल्क: ₹७०० च्या खाली ₹६०, ₹७०० व त्यापुढे मोफत डिलिव्हरी (FREE Delivery)!",
         "booking_banner_title": "🪔 दिवाळी २०२६ चे प्री-बुकिंग सुरू झाले आहे!",
-        "booking_banner_sub": "Doorstep delivery across Aurangabad/Chhatrapati Sambhajinagar, Maharashtra, India. ₹७०० खाली ₹६० शुल्क, ₹७००+ वर मोफत डिलिव्हरी. ५०% ॲडव्हान्ससह COD उपलब्ध.",
+        "booking_banner_sub": "Doorstep delivery across Aurangabad/Chhatrapati Sambhajinagar, Maharashtra, India. डिलिव्हरी शुल्क: ₹७०० च्या खाली ₹६०, ₹७०० व त्यापुढे मोफत डिलिव्हरी. ५०% ॲडव्हान्ससह COD उपलब्ध.",
         "view_menu": "फराळ मेन्यू पहा",
         "switch_to_hindi": "मराठी / हिन्दी मध्ये पहा",
         "switch_to_english": "View in English",
@@ -145,7 +145,7 @@ TRANSLATIONS = {
         "custom_sub": "कंपनी भेटवस्तू, संस्था किंवा फॅमिलीसाठी खास कस्टमाईज्ड गिफ्ट बॉक्सेस उपलब्ध आहेत.",
         "submit_inquiry": "बुकिंग विनंती पाठवा",
         "inquiry_sent_success": "धन्यवाद! तुमची फराळ ऑर्डर चौकशी प्राप्त झाली आहे. वंशिका लवकरच व्हॉट्सॲपवर संपर्क करतील.",
-        "delivery_notice_pill": "📍 Doorstep delivery across Aurangabad/Chhatrapati Sambhajinagar, Maharashtra, India. (₹७०० खाली ₹६० | ₹७००+ वर मोफत डिलिव्हरी) • इतर शहरांसाठी कुरिअर चौकशी",
+        "delivery_notice_pill": "📍 Doorstep delivery across Aurangabad/Chhatrapati Sambhajinagar, Maharashtra, India. (डिलिव्हरी शुल्क: ₹७०० च्या खाली ₹६०, ₹७०० व त्यापुढे मोफत डिलिव्हरी) • इतर शहरांसाठी कुरिअर चौकशी",
         "cod_terms_notice": "💰 कॅश ऑन डिलिव्हरी (५०% आगाऊ रक्कमेसह). साजूक तुपातील ताजी तयारी सुरू करण्यासाठी ५०% ॲडव्हान्स UPI द्वारे आवश्यक आहे.",
         "delivery_fee_label": "डिलिव्हरी शुल्क (औरंगाबाद / संभाजीनगर):",
         "order_id_label": "ऑर्डर क्रमांक (Order ID)",
@@ -252,7 +252,7 @@ def build_order_whatsapp_message(order, items_list):
         if int(order['delivery_fee']) == 0:
             msg += f"• Delivery Fee: ₹0 (FREE DELIVERY - Cart ₹700+)\n"
         else:
-            msg += f"• Delivery Fee: ₹{int(order['delivery_fee'])} (Rate: ₹60 below ₹700, FREE above ₹700)\n"
+            msg += f"• Delivery Fee: ₹{int(order['delivery_fee'])} (Delivery fee: ₹60 below ₹700, FREE Delivery for ₹700 and above)\n"
         msg += f"• *Total Order Value:* ₹{int(order['total_amount'])}\n"
         msg += f"------------------------------\n"
         msg += f"💳 *PAYMENT TERMS (COD with 50% Advance):*\n"
