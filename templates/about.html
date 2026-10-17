@@ -7,13 +7,13 @@
 {% block content %}
 <div class="page-header-banner">
     <div class="container text-center">
-        <span class="sub-title-badge">👩‍🍳 {{ t.about_sub }}</span>
-        <h1 class="page-title">{{ t.about_heading }}</h1>
+        <span class="sub-title-badge">🪔 {{ t.about }}</span>
+        <h1 class="page-title">{% if current_lang == 'hi' %}आमची परंपरा आणि घरगुती चव{% else %}Our Heritage & Traditional Purity{% endif %}</h1>
         <p class="page-subtitle">
             {% if current_lang == 'hi' %}
-                @vanshikacooks के पीछे की कहानी, कुकिंग का जुनून और घर के असली स्वाद का सफर।
+                @vanshikacooks — घरच्या साजूक तुपातील अस्सल दिवाळी फराळाची गोष्ट.
             {% else %}
-                The story, culinary philosophy, and passionate heart behind the @vanshikacooks kitchen.
+                The story and devotion behind Vanshika Swadisht Faral (@vanshikacooks).
             {% endif %}
         </p>
     </div>
@@ -22,97 +22,95 @@
 <section class="about-full-section">
     <div class="container">
         
-        <!-- Story Grid -->
         <div class="about-story-grid">
             <div class="about-image-column">
                 <div class="about-portrait-wrapper">
-                    <img src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=900&q=80" alt="Vanshika in Kitchen" class="portrait-img">
+                    <img src="{{ url_for('static', filename='images/vanshika_profile.jpg') }}" alt="Vanshika Swadisht Faral" class="portrait-img faral-hero-thumb">
                     <div class="portrait-stamp">
-                        <span class="stamp-title">Vanshika Cooks</span>
-                        <span class="stamp-sub">EST. 2024</span>
+                        <span class="stamp-title">वंशिका स्वादिष्ट फराळ</span>
+                        <span class="stamp-sub">HOMEMADE TRADITION</span>
                     </div>
                 </div>
 
                 <div class="stats-mini-card">
                     <div class="stat-box">
-                        <strong>50+</strong>
-                        <span>{% if current_lang == 'hi' %}टेस्टेड रेसिपीज़{% else %}Recipes Tested{% endif %}</span>
-                    </div>
-                    <div class="stat-box">
                         <strong>100%</strong>
-                        <span>{% if current_lang == 'hi' %}शुद्ध सामग्री{% else %}Pure Homemade{% endif %}</span>
+                        <span>साजूक तूप</span>
                     </div>
                     <div class="stat-box">
-                        <strong>100K+</strong>
-                        <span>{% if current_lang == 'hi' %}फूड लवर्स{% else %}Community{% endif %}</span>
+                        <strong>0%</strong>
+                        <span>पामतेल / भेसळ</span>
+                    </div>
+                    <div class="stat-box">
+                        <strong>ताजे</strong>
+                        <span>ऑर्डरनुसार</span>
                     </div>
                 </div>
             </div>
 
             <div class="about-text-column">
-                <span class="section-lead-badge">🌱 {% if current_lang == 'hi' %}मेरी कहानी{% else %}My Culinary Journey{% endif %}</span>
+                <span class="section-lead-badge">🪔 आमचा संकल्प</span>
                 <h2 class="about-section-heading">
                     {% if current_lang == 'hi' %}
-                        "खाना सिर्फ पेट भरने के लिए नहीं, बल्कि अपनों को एक साथ लाने का सबसे मीठा बहाना है।"
+                        "दिवाळी म्हणजे फक्त फटाके नाहीत, तर घरच्या साजूक तुपाचा दरवळणारा सुवास आहे!"
                     {% else %}
-                        "Cooking isn't a chore—it is the warmest way to show love to the people you cherish."
+                        "Diwali is defined by the heavenly aroma of pure desi ghee roasting in a loving home kitchen."
                     {% endif %}
                 </h2>
 
                 <div class="prose-content">
                     {% if current_lang == 'hi' %}
                     <p>
-                        नमस्ते! मैं हूँ <strong>वंशिका</strong>। मेरी कुकिंग की शुरुआत बचपन में मां की रसोई से उड़ती सौंधी हींग और तड़के की खुशबू से हुई थी। धीरे-धीरे यह शौक मेरा सबसे बड़ा पैशन बन गया।
+                        आजच्या धकाधकीच्या युगात बहुतांश दुकानांमध्ये आणि बेकऱ्यांमध्ये मिळणारा फराळ हा महिन्यांपूर्वी कारखान्यात तयार केलेला असतो. त्यात स्वस्त पामतेल, वनस्पती तूप आणि टिकवून ठेवण्यासाठी केमिकल्स वापरली जातात, ज्यामुळे घसा खवखवतो आणि पारंपरिक सणाचा आनंद हिरावून घेतला जातो.
                     </p>
                     <p>
-                        मैंने देखा कि अक्सर नई पीढ़ी या खाना बनाने वाले लोग इस बात से डरते हैं कि पारंपरिक भारतीय खाना बनाना बहुत मुश्किल और समय लेने वाला काम है। रेसिपीज में अक्सर "स्वादानुसार" या अंदाजे से चीजें बता दी जाती हैं, जिससे पहली बार बनाने वालों का खाना बिगड़ जाता है।
+                        म्हणूनच आम्ही <strong>वंशिका स्वादिष्ट फराळ (@vanshikacooks)</strong> ची सुरुवात केली. आमचा नियम एकच आहे: <em>"जे आम्ही आमच्या स्वतःच्या कुटुंबाला आणि मुलांना खायला देऊ, तेच तुमच्या घरापर्यंत पोहोचवणे."</em>
                     </p>
                     <p>
-                        इसीलिए मैंने <strong>@vanshikacooks</strong> की शुरुआत की—जहाँ हर रेसिपी का माप सटीक (ग्राम और कप में) होता है, हर स्टेप के पीछे का वैज्ञानिक कारण आसान भाषा में समझाया जाता है, और सबसे बड़ी बात: यह पूरा अनुभव <strong>अंग्रेजी और हिन्दी दोनों</strong> में उपलब्ध है ताकि परिवार का हर सदस्य आसानी से कुकिंग सीख सके!
+                        आम्ही चकलीसाठी स्वतः धान्य निवडून, धुवून, वाळवून आणि खमंग भाजून पारंपरिक <strong>भाजणी</strong> तयार करतो. लाडूसाठी <strong>शुद्ध गाईचे साजूक तूप</strong> वापरून मंद आचेवर ४० मिनिटे डाळीचे पीठ भाजतो. करंजीची पारी कडकडीत तुपाच्या मोहनाने मळली जाते आणि सुक्या खोबऱ्याचे समृद्ध सारण भरले जाते.
                     </p>
                     {% else %}
                     <p>
-                        Hi, I'm <strong>Vanshika</strong>! My culinary love story started years ago in my mother's kitchen, mesmerized by the crackle of mustard seeds in hot ghee and the intoxicating aroma of slow-simmering weekend curries.
+                        In today's fast-paced world, most store-bought festive snacks are mass-produced in industrial factories weeks in advance using cheap palm oil, artificial essences, and chemical preservatives that strip away the festive spirit.
                     </p>
                     <p>
-                        As I grew older and watched friends struggle with cooking, I noticed a common frustration: most traditional recipes rely on vague terms like "add salt as per taste" or "cook until done," leaving beginner cooks guessing and anxious.
+                        At <strong>Vanshika Swadisht Faral (@vanshikacooks)</strong>, we made a solemn commitment: to revive the authentic, soulful warmth of grandmother's kitchen. We only serve what we proudly feed our own family.
                     </p>
                     <p>
-                        That is why I created <strong>@vanshikacooks</strong>: a warm, modern culinary sanctuary where recipes are broken down with mathematical precision (grams, cups, exact minutes), culinary secrets are demystified, and every single dish is available in both <strong>English and Hindi</strong> so that delicious food brings generations together.
+                        Every grain of rice and pulse for our <strong>Bhajani Chakli</strong> is hand-picked, washed, sun-dried, and roasted with cumin, coriander, and carom seeds. Our <strong>Besan Ladoos</strong> are patiently roasted for 45 minutes in 100% pure country cow ghee, giving them that exquisite melt-in-the-mouth danedar texture.
                     </p>
                     {% endif %}
                 </div>
 
-                <!-- 4 Pillars -->
                 <div class="pillars-grid">
                     <div class="pillar-card">
-                        <i class="fas fa-balance-scale"></i>
-                        <h4>{% if current_lang == 'hi' %}सटीक माप{% else %}Exact Ratios{% endif %}</h4>
-                        <p>{% if current_lang == 'hi' %}कोई अनुमान नहीं—हर सामग्री का सही ग्राम और कप माप।{% else %}No vague guesses. Scientifically measured for consistent perfection.{% endif %}</p>
+                        <i class="fas fa-check-double"></i>
+                        <h4>{% if current_lang == 'hi' %}पारंपरिक भाजणी{% else %}Handmade Bhajani{% endif %}</h4>
+                        <p>{% if current_lang == 'hi' %}रेडीमेड पीठ नाही—घरीच भाजणी तयार करून केलेली काटेरी चकली.{% else %}No shortcuts. Multigrains roasted in-house for signature crunch.{% endif %}</p>
                     </div>
                     <div class="pillar-card">
-                        <i class="fas fa-language"></i>
-                        <h4>{% if current_lang == 'hi' %}पूर्ण द्विभाषी{% else %}Bilingual First{% endif %}</h4>
-                        <p>{% if current_lang == 'hi' %}हर रेसिपी अंग्रेजी और हिन्दी दोनों में तुरंत उपलब्ध।{% else %}Instantly switch between English and Hindi across the entire platform.{% endif %}</p>
+                        <i class="fas fa-burn"></i>
+                        <h4>{% if current_lang == 'hi' %}१००% साजूक तूप{% else %}Pure Cow Ghee{% endif %}</h4>
+                        <p>{% if current_lang == 'hi' %}डाळडा किंवा वनस्पती नाही—फक्त अस्सल गाईचे साजूक तूप.{% else %}Zero vanaspati or hydrogenated fats. Pure natural goodness.{% endif %}</p>
                     </div>
                     <div class="pillar-card">
-                        <i class="fas fa-heartbeat"></i>
-                        <h4>{% if current_lang == 'hi' %}स्वास्थ्य व स्वाद{% else %}Wholesome Taste{% endif %}</h4>
-                        <p>{% if current_lang == 'hi' %}बिना किसी कृत्रिम रंग या प्रिजर्वेटिव के शुद्ध घर का खाना।{% else %}Real pantry ingredients, no artificial coloring or shortcuts.{% endif %}</p>
+                        <i class="fas fa-shield-virus"></i>
+                        <h4>{% if current_lang == 'hi' %}हायजिनिक किचन{% else %}Sterilized Hygiene{% endif %}</h4>
+                        <p>{% if current_lang == 'hi' %}अतिशय स्वच्छ वातावरणात आणि लहान बॅचेसमध्ये बनवलेले.{% else %}Prepared in clean, small artisanal batches under strict hygiene.{% endif %}</p>
                     </div>
                     <div class="pillar-card">
-                        <i class="fas fa-video"></i>
-                        <h4>{% if current_lang == 'hi' %}वीडियो रील्स{% else %}Reel Tutorials{% endif %}</h4>
-                        <p>{% if current_lang == 'hi' %}हर रेसिपी का आसान वीडियो इंस्टाग्राम @vanshikacooks पर।{% else %}Watch accompanying video reels directly on Instagram.{% endif %}</p>
+                        <i class="fas fa-box"></i>
+                        <h4>{% if current_lang == 'hi' %}हवाबंद सुरक्षित बॉक्स{% else %}Airtight Packing{% endif %}</h4>
+                        <p>{% if current_lang == 'hi' %}फराळ न तुटता एकदम कुरकुरीत पोहोचण्याची १००% खात्री.{% else %}Food-grade sealed cartons that keep faral crisp for over a month.{% endif %}</p>
                     </div>
                 </div>
 
                 <div class="about-action-row">
-                    <a href="https://www.instagram.com/vanshikacooks/" target="_blank" rel="noopener" class="btn-primary-gradient">
-                        <i class="fab fa-instagram"></i> Join on Instagram
+                    <a href="{{ url_for('faral_menu') }}" class="btn-primary-gradient">
+                        <i class="fas fa-cookie"></i> {{ t.view_menu }}
                     </a>
-                    <a href="{{ url_for('contact') }}" class="btn-outline-text">
-                        {{ t.contact }} <i class="fas fa-arrow-right"></i>
+                    <a href="https://www.instagram.com/vanshikacooks/" target="_blank" class="btn-outline-text">
+                        <i class="fab fa-instagram"></i> Follow @vanshikacooks
                     </a>
                 </div>
             </div>

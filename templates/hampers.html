@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ t.hampers }} — {{ t.brand_name }}
+{% endblock %}
+
+{% block content %}
+<div class="page-header-banner">
+    <div class="container text-center">
+        <span class="sub-title-badge">🎁 {% if current_lang == 'hi' %}दिवाळी भेटवस्तू व कॉर्पोरेट बॉक्सेस{% else %}Festive Gifting & Corporate Hampers{% endif %}</span>
+        <h1 class="page-title">{{ t.hampers }}</h1>
+        <p class="page-subtitle">
+            {% if current_lang == 'hi' %}
+                नातेवाईक, मित्रपरिवार आणि ऑफिसच्या सहकाऱ्यांसाठी परिपूर्ण भेट. आकर्षक शाही पॅकिंग, शुभदिवाळी ग्रीटिंग आणि पणतीसह!
+            {% else %}
+                Celebrate the joy of Diwali with curated gift boxes packed with pure desi ghee sweets, crispy savory faral, and traditional festive greetings.
+            {% endif %}
+        </p>
+    </div>
+</div>
+
+<section class="hampers-page-section">
+    <div class="container">
+        
+        <div class="hampers-grid">
+            {% for h in hampers %}
+            <div class="hamper-card expanded-hamper">
+                <div class="hamper-image-col">
+                    <img src="{{ h.image }}" alt="{{ h.name }}" class="hamper-img">
+                    <span class="hamper-badge">{{ h.badge }}</span>
+                </div>
+                <div class="hamper-info-col">
+                    <span class="hamper-weight-pill"><i class="fas fa-weight-hanging"></i> {{ h.weight }}</span>
+                    <h2 class="hamper-title">{{ h.name }}</h2>
+                    <p class="hamper-desc">{{ h.description }}</p>
+
+                    <div class="hamper-items-list">
+                        <strong>{{ t.items_included }}</strong>
+                        <ul>
+                            {% for item in h.items_included %}
+                            <li><i class="fas fa-check-circle" style="color: #ea580c;"></i> {{ item }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+
+                    <div class="hamper-price-row">
+                        <div class="hamper-cost">
+                            <span class="cost-currency">₹</span>
+                            <span class="cost-amount">{{ h.price_inr }}</span>
+                            <span class="cost-gbp">/ £{{ h.price_gbp }}</span>
+                        </div>
+                        <a href="{{ url_for('order_whatsapp', item=h.name, pack=h.weight, price=h.price_inr) }}" target="_blank" rel="noopener" class="btn-whatsapp-header">
+                            <i class="fab fa-whatsapp"></i> {{ t.order_whatsapp }}
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Custom Corporate Bulk Order Section -->
+        <div class="corporate-banner-box">
+            <div class="corporate-inner">
+                <div class="corporate-text">
+                    <span class="sub-title-badge">🏢 Corporate & Bulk Gifting</span>
+                    <h2>{% if current_lang == 'hi' %}कंपनी किंवा मोठ्या परिवारासाठी कस्टमाईज्ड बॉक्सेस{% else %}Customized Corporate & Team Gifting{% endif %}</h2>
+                    <p>
+                        {% if current_lang == 'hi' %}
+                            तुमच्या कंपनीचा लोगो, ब्रँडिंग आणि खास दिवाळी शुभेच्छा पत्रासह हॅम्पर तयार करून हवे आहेत का? आम्ही विशेष सवलतीच्या दरात कॉर्पोरेट ऑर्डर्स स्वीकारतो.
+                        {% else %}
+                            Looking to gift your employees, clients, or large family gatherings? We offer customized packaging with company branding, custom sweets selection, and pan-India multi-location courier delivery.
+                        {% endif %}
+                    </p>
+                    <div class="corp-features">
+                        <span><i class="fas fa-check"></i> Customized Faral Weight & Item Choice</span>
+                        <span><i class="fas fa-check"></i> Company Logo & Greeting Card Insert</span>
+                        <span><i class="fas fa-check"></i> Volume Discount on 10+ Hampers</span>
+                    </div>
+                </div>
+                <div class="corporate-action">
+                    <a href="{{ url_for('contact') }}" class="btn-primary-gradient btn-lg">
+                        <i class="fas fa-file-invoice"></i> {% if current_lang == 'hi' %}कोटेशन / चौकशी पाठवा{% else %}Request Corporate Quote{% endif %}
+                    </a>
+                    <a href="{{ url_for('order_whatsapp', item='Corporate Bulk Faral Inquiry') }}" target="_blank" class="btn-whatsapp-hero btn-lg">
+                        <i class="fab fa-whatsapp"></i> WhatsApp Direct
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+{% endblock %}

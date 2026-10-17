@@ -6,152 +6,161 @@
 
 {% block content %}
 <!-- Hero Section -->
-<section class="hero-section">
+<section class="hero-section faral-hero">
     <div class="hero-bg-shapes">
         <div class="shape shape-1"></div>
         <div class="shape shape-2"></div>
     </div>
     <div class="container hero-container">
         <div class="hero-badge">
-            <i class="fab fa-instagram"></i>
-            <span>@vanshikacooks Official Recipe Hub</span>
+            <span class="diya-glow">🪔</span>
+            <span>{% if current_lang == 'hi' %}अस्सल घरगुती दिवाळी फराळ २०२६ | प्री-बुकिंग सुरू{% else %}Authentic Homemade Diwali Faral 2026 | Pre-Orders Open{% endif %}</span>
         </div>
         
         <h1 class="hero-headline">
             {% if current_lang == 'hi' %}
-                घर का <span class="highlight">असली स्वाद</span>, आसान कुकिंग और लाजवाब रेसिपीज़
+                साजूक तुपातील <span class="highlight">खमंग फराळ व मिठाई</span> थेट तुमच्या दारात!
             {% else %}
-                Cooking Made <span class="highlight">Joyful, Authentic</span> & Deeply Flavorful
+                Pure Desi Ghee <span class="highlight">Festive Faral & Sweets</span> Delivered Fresh to Your Home
             {% endif %}
         </h1>
         
         <p class="hero-subtext">
             {% if current_lang == 'hi' %}
-                पारंपरिक भारतीय व्यंजनों से लेकर आधुनिक स्ट्रीट फूड तक—सरल कदम, वैज्ञानिक किचन टिप्स और लाखों कुक्स द्वारा आजमाई गई स्वादिष्ट रेसिपीज़।
+                पारंपरिक भाजणीची कुरकुरीत चकली, तोंडात विरघळणारे साजूक तूप बेसन लाडू, खुसखुशीत करंजी आणि खमंग चिवडा. भेसळमुक्त, १००% हायजिनिक आणि ऑर्डरनुसार ताजे तयार.
             {% else %}
-                From rich heritage curries to crisp street chaat and quick weekday dinners—step-by-step foolproof recipes crafted for passionate home cooks.
+                Crafted with love by Vanshika (@vanshikacooks) using cherished heritage family recipes. Zero palm oil, zero preservatives, and freshly prepared upon your order in pure cow ghee.
             {% endif %}
         </p>
 
-        <!-- Hero Live Search Box -->
-        <div class="hero-search-wrapper">
-            <form action="{{ url_for('recipes_list') }}" method="GET" class="hero-search-form">
-                <i class="fas fa-search search-icon"></i>
-                <input type="text" name="q" placeholder="{{ t.search_placeholder }}" class="hero-search-input" autocomplete="off">
-                <button type="submit" class="hero-search-submit">
-                    <span>{% if current_lang == 'hi' %}खोजें{% else %}Find Recipe{% endif %}</span>
-                    <i class="fas fa-arrow-right"></i>
-                </button>
-            </form>
-            
-            <!-- Quick Trend Tags -->
-            <div class="quick-tags">
-                <span class="tags-label">{% if current_lang == 'hi' %}लोकप्रिय:{% else %}Popular Now:{% endif %}</span>
-                <a href="{{ url_for('recipes_list', q='paneer') }}" class="tag-pill">🧀 Paneer</a>
-                <a href="{{ url_for('recipes_list', q='dosa') }}" class="tag-pill">🥞 Dosa</a>
-                <a href="{{ url_for('recipes_list', q='dal') }}" class="tag-pill">🍲 Dal Makhani</a>
-                <a href="{{ url_for('recipes_list', q='chai') }}" class="tag-pill">☕ Masala Chai</a>
-                <a href="{{ url_for('recipes_list', q='gulab jamun') }}" class="tag-pill">🍯 Gulab Jamun</a>
-            </div>
+        <!-- Hero CTA Buttons -->
+        <div class="hero-cta-group">
+            <a href="{{ url_for('faral_menu') }}" class="btn-primary-gradient btn-lg">
+                <i class="fas fa-cookie"></i> {{ t.view_menu }}
+            </a>
+            <a href="{{ url_for('order_whatsapp', item='Diwali Faral Pre-Order') }}" target="_blank" rel="noopener" class="btn-whatsapp-hero btn-lg">
+                <i class="fab fa-whatsapp"></i> {{ t.order_whatsapp }}
+            </a>
+            <a href="{{ url_for('hampers_page') }}" class="btn-outline-hero btn-lg">
+                <i class="fas fa-gift"></i> {{ t.view_hampers }}
+            </a>
         </div>
 
-        <!-- Metric Badges -->
-        <div class="hero-metrics-bar">
+        <!-- Trust Badges Bar -->
+        <div class="hero-metrics-bar faral-trust-bar">
             <div class="metric-item">
-                <span class="metric-num">50+</span>
-                <span class="metric-label">{% if current_lang == 'hi' %}परखे हुए व्यंजन{% else %}Tested Recipes{% endif %}</span>
+                <i class="fas fa-check-circle" style="color: #ea580c; font-size: 1.3rem;"></i>
+                <span class="metric-num">100% साजूक तूप</span>
+                <span class="metric-label">{% if current_lang == 'hi' %}शुद्ध गाईचे तूप{% else %}Pure Cow Ghee{% endif %}</span>
             </div>
             <div class="metric-sep"></div>
             <div class="metric-item">
-                <span class="metric-num">100%</span>
-                <span class="metric-label">{% if current_lang == 'hi' %}घर का असली स्वाद{% else %}Foolproof & Homemade{% endif %}</span>
+                <i class="fas fa-seedling" style="color: #16a34a; font-size: 1.3rem;"></i>
+                <span class="metric-num">शून्य भेसळ</span>
+                <span class="metric-label">{% if current_lang == 'hi' %}केमिकल विरहित{% else %}Zero Preservatives{% endif %}</span>
             </div>
             <div class="metric-sep"></div>
             <div class="metric-item">
-                <span class="metric-num">EN / हिं</span>
-                <span class="metric-label">{% if current_lang == 'hi' %}पूर्ण द्विभाषी विकल्प{% else %}Bilingual Recipes{% endif %}</span>
+                <i class="fas fa-box" style="color: #f59e0b; font-size: 1.3rem;"></i>
+                <span class="metric-num">हवाबंद पॅकिंग</span>
+                <span class="metric-label">{% if current_lang == 'hi' %}कुरकुरीत राहण्याची हमी{% else %}Airtight Fresh Box{% endif %}</span>
             </div>
             <div class="metric-sep"></div>
             <div class="metric-item">
-                <span class="metric-num">★ 4.9</span>
-                <span class="metric-label">{% if current_lang == 'hi' %}कम्युनिटी रेटिंग{% else %}Cooks Rating{% endif %}</span>
+                <i class="fas fa-truck" style="color: #2563eb; font-size: 1.3rem;"></i>
+                <span class="metric-num">वेळेत डिलिव्हरी</span>
+                <span class="metric-label">{% if current_lang == 'hi' %}दिवाळीपूर्वी घरपोच{% else %}Doorstep Dispatch{% endif %}</span>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Category Navigation Carousel / Pills -->
+<!-- Category Bar -->
 <section class="category-pills-section">
     <div class="container">
         <div class="pills-scroll-wrapper">
-            <a href="{{ url_for('recipes_list') }}" class="pill-btn active">
+            <a href="{{ url_for('faral_menu') }}" class="pill-btn active">
                 <i class="fas fa-fire"></i> {{ t.filter_all }}
             </a>
-            <a href="{{ url_for('recipes_list', category='faral') }}" class="pill-btn" style="background: #fff7ed; border-color: #fdba74; color: #c2410c; font-weight: 600;">
-                <i class="fas fa-cookie"></i> {{ t.filter_faral }}
+            <a href="{{ url_for('faral_menu', category='snack') }}" class="pill-btn">
+                <i class="fas fa-cookie-bite"></i> {{ t.filter_snacks }}
             </a>
-            <a href="{{ url_for('recipes_list', category='breakfast') }}" class="pill-btn">
-                <i class="fas fa-sun"></i> {{ t.filter_breakfast }}
+            <a href="{{ url_for('faral_menu', category='sweet') }}" class="pill-btn">
+                <i class="fas fa-ice-cream"></i> {{ t.filter_sweets }}
             </a>
-            <a href="{{ url_for('recipes_list', category='main') }}" class="pill-btn">
-                <i class="fas fa-utensils"></i> {{ t.filter_main }}
-            </a>
-            <a href="{{ url_for('recipes_list', category='snack') }}" class="pill-btn">
-                <i class="fas fa-cookie-bite"></i> {{ t.filter_snack }}
-            </a>
-            <a href="{{ url_for('recipes_list', category='dessert') }}" class="pill-btn">
-                <i class="fas fa-ice-cream"></i> {{ t.filter_dessert }}
-            </a>
-            <a href="{{ url_for('recipes_list', category='quick') }}" class="pill-btn">
-                <i class="fas fa-bolt"></i> {{ t.filter_quick }}
-            </a>
-            <a href="{{ url_for('recipes_list', category='drinks') }}" class="pill-btn">
-                <i class="fas fa-mug-hot"></i> {{ t.filter_drinks }}
+            <a href="{{ url_for('hampers_page') }}" class="pill-btn" style="background: #fff7ed; border-color: #fdba74; color: #c2410c; font-weight: 700;">
+                <i class="fas fa-gift"></i> {{ t.filter_hampers }}
             </a>
         </div>
     </div>
 </section>
 
-<!-- Featured Signature Recipes -->
+<!-- Faral Products Catalog Section -->
 <section class="section-featured-recipes">
     <div class="container">
         <div class="section-header">
             <div>
-                <span class="sub-title-badge">👑 {{ t.featured_recipes }}</span>
+                <span class="sub-title-badge">🪔 {{ t.faral_menu }}</span>
                 <h2 class="section-title">
-                    {% if current_lang == 'hi' %}वंशिका की खास पसंदीदा रेसिपीज़{% else %}Tried & Loved by Home Cooks{% endif %}
+                    {% if current_lang == 'hi' %}घरगुती खमंग फराळ व मिठाई{% else %}Handcrafted Diwali Delicacies{% endif %}
                 </h2>
-                <p class="section-subtitle">{{ t.featured_sub }}</p>
+                <p class="section-subtitle">
+                    {% if current_lang == 'hi' %}
+                        प्रत्येक पदार्थ अस्सल दर्जेदार साहित्य, घरची पद्धत आणि १००% स्वच्छतेने तयार केलेला आहे.
+                    {% else %}
+                        Prepared in hygienic kitchen batches using pure desi ghee and traditional heritage recipes.
+                    {% endif %}
+                </p>
             </div>
-            <a href="{{ url_for('recipes_list') }}" class="btn-outline-text">
-                {{ t.explore_more }} <i class="fas fa-arrow-right"></i>
+            <a href="{{ url_for('faral_menu') }}" class="btn-outline-text">
+                {{ t.view_menu }} <i class="fas fa-arrow-right"></i>
             </a>
         </div>
 
-        <div class="recipes-grid">
-            {% for recipe in featured_recipes %}
-            <article class="recipe-card">
+        <div class="recipes-grid faral-grid">
+            {% for p in products %}
+            <article class="recipe-card faral-card">
                 <div class="card-image-wrap">
-                    <img src="{{ recipe.image }}" alt="{{ recipe.title }}" loading="lazy" class="card-img">
-                    <span class="diet-badge {{ recipe.category }}">{{ recipe.diet_tag }}</span>
-                    <span class="time-badge"><i class="far fa-clock"></i> {{ recipe.total_time }} {{ t.min }}</span>
+                    <img src="{{ p.image }}" alt="{{ p.name }}" loading="lazy" class="card-img">
+                    {% if p.is_bestseller %}
+                    <span class="bestseller-badge">★ {{ t.bestseller }}</span>
+                    {% endif %}
+                    <span class="diet-badge snack">शुद्ध शाकाहारी</span>
                 </div>
                 <div class="card-body">
                     <div class="card-meta">
-                        <span class="cat-tag">{{ recipe.category_name }}</span>
-                        <span class="diff-tag"><i class="fas fa-signal"></i> {{ recipe.difficulty }}</span>
+                        <span class="cat-tag">{{ p.category_name }}</span>
+                        <span class="shelf-tag"><i class="far fa-calendar-alt"></i> {{ p.shelf_life }}</span>
                     </div>
+
                     <h3 class="card-title">
-                        <a href="{{ url_for('recipe_detail', slug=recipe.slug) }}">{{ recipe.title }}</a>
+                        <a href="{{ url_for('product_detail', slug=p.slug) }}">{{ p.name }}</a>
                     </h3>
-                    <p class="card-excerpt">{{ recipe.summary }}</p>
-                    
-                    <div class="card-footer">
-                        <div class="servings-info">
-                            <i class="fas fa-user-friends"></i> {{ recipe.servings }} {{ t.servings }}
+                    <p class="card-excerpt">{{ p.tagline }}</p>
+
+                    <!-- Pack Size & Pricing Pill -->
+                    <div class="pack-price-table">
+                        <div class="price-chip active">
+                            <span class="chip-weight">500g</span>
+                            <strong class="chip-cost">₹{{ p.price_500g }}</strong>
                         </div>
-                        <a href="{{ url_for('recipe_detail', slug=recipe.slug) }}" class="btn-read-recipe">
-                            {{ t.view_recipe }} <i class="fas fa-chevron-right"></i>
+                        <div class="price-chip">
+                            <span class="chip-weight">250g</span>
+                            <span class="chip-cost">₹{{ p.price_250g }}</span>
+                        </div>
+                        <div class="price-chip">
+                            <span class="chip-weight">1kg</span>
+                            <span class="chip-cost">₹{{ p.price_1kg }}</span>
+                        </div>
+                    </div>
+
+                    <!-- Card Actions -->
+                    <div class="faral-card-actions">
+                        <a href="{{ url_for('order_whatsapp', item=p.name, pack='500g', price=p.price_500g) }}" target="_blank" rel="noopener" class="btn-whatsapp-card full-width">
+                            <i class="fab fa-whatsapp"></i> {{ t.order_whatsapp }}
+                        </a>
+                        <a href="{{ url_for('product_detail', slug=p.slug) }}" class="btn-view-details">
+                            {% if current_lang == 'hi' %}तपशील पहा{% else %}View Details{% endif %} &rarr;
                         </a>
                     </div>
                 </div>
@@ -161,128 +170,123 @@
     </div>
 </section>
 
-<!-- Instagram Reel Showcase / Video Section -->
-<section class="reels-spotlight-section">
+<!-- Diwali Gift Hampers Spotlight -->
+<section class="hampers-spotlight-section">
     <div class="container">
         <div class="section-header center">
-            <span class="sub-title-badge"><i class="fab fa-instagram"></i> {{ t.trending_now }}</span>
+            <span class="sub-title-badge">🎁 {{ t.hampers }}</span>
             <h2 class="section-title">
-                {% if current_lang == 'hi' %}
-                    छोटे वीडियो, बड़ा स्वाद — रील्स पर देखें!
-                {% else %}
-                    Quick Video Recipes & Behind-the-Scenes
-                {% endif %}
+                {% if current_lang == 'hi' %}शाही दिवाळी फराळ गिफ्ट बॉक्सेस{% else %}Luxury Diwali Faral Gift Hampers{% endif %}
             </h2>
             <p class="section-subtitle">
                 {% if current_lang == 'hi' %}
-                    हर रेसिपी का आसान वीडियो ट्यूटोरियल देखें और सीधे हमारे इंस्टाग्राम परिवार से जुड़ें।
+                    नातेवाईक, मित्रपरिवार आणि ऑफिसच्या सहकाऱ्यांसाठी परिपूर्ण भेटवस्तू. सुंदर गिफ्ट बॉक्स व पणतीसह!
                 {% else %}
-                    Follow @vanshikacooks for daily recipe reels, quick hacks, and aesthetic food photography.
+                    Delight your family, friends, and corporate teams with assorted authentic Diwali hampers.
                 {% endif %}
             </p>
         </div>
 
-        <div class="reels-grid">
-            {% for r in all_recipes[:4] %}
-            <div class="reel-card">
-                <div class="reel-preview-wrap">
-                    <img src="{{ r.image }}" alt="{{ r.title }}" class="reel-img">
-                    <div class="reel-overlay">
-                        <a href="{{ r.instagram_reel }}" target="_blank" rel="noopener" class="play-button" title="Watch on Instagram">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                    </div>
-                    <div class="reel-badge">
-                        <i class="fas fa-play"></i> Watch Reel
-                    </div>
+        <div class="hampers-grid">
+            {% for h in hampers %}
+            <div class="hamper-card">
+                <div class="hamper-image-col">
+                    <img src="{{ h.image }}" alt="{{ h.name }}" class="hamper-img">
+                    <span class="hamper-badge">{{ h.badge }}</span>
                 </div>
-                <div class="reel-info">
-                    <h4>{{ r.title }}</h4>
-                    <div class="reel-action-row">
-                        <a href="{{ url_for('recipe_detail', slug=r.slug) }}" class="text-link">
-                            <i class="fas fa-book-open"></i> {{ t.view_recipe }}
-                        </a>
-                        <a href="{{ r.instagram_reel }}" target="_blank" rel="noopener" class="ig-link">
-                            <i class="fab fa-instagram"></i> @vanshikacooks
+                <div class="hamper-info-col">
+                    <span class="hamper-weight-pill"><i class="fas fa-weight-hanging"></i> {{ h.weight }}</span>
+                    <h3 class="hamper-title">{{ h.name }}</h3>
+                    <p class="hamper-desc">{{ h.description }}</p>
+
+                    <div class="hamper-items-list">
+                        <strong>{{ t.items_included }}</strong>
+                        <ul>
+                            {% for item in h.items_included %}
+                            <li><i class="fas fa-check"></i> {{ item }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+
+                    <div class="hamper-price-row">
+                        <div class="hamper-cost">
+                            <span class="cost-currency">₹</span>
+                            <span class="cost-amount">{{ h.price_inr }}</span>
+                            <span class="cost-gbp">/ £{{ h.price_gbp }}</span>
+                        </div>
+                        <a href="{{ url_for('order_whatsapp', item=h.name, pack=h.weight, price=h.price_inr) }}" target="_blank" rel="noopener" class="btn-whatsapp-header">
+                            <i class="fab fa-whatsapp"></i> {{ t.order_whatsapp }}
                         </a>
                     </div>
                 </div>
             </div>
             {% endfor %}
         </div>
-
-        <div class="reels-cta-banner">
-            <div class="reels-cta-text">
-                <h3>{% if current_lang == 'hi' %}क्या आपने इंस्टाग्राम पर फॉलो किया?{% else %}Join 100K+ Food Lovers on Instagram!{% endif %}</h3>
-                <p>{{ t.follow_sub }}</p>
-            </div>
-            <a href="https://www.instagram.com/vanshikacooks/" target="_blank" rel="noopener" class="btn-instagram-glow">
-                <i class="fab fa-instagram"></i> {{ t.follow_instagram }}
-            </a>
-        </div>
     </div>
 </section>
 
-<!-- Kitchen Tips & Secrets Section -->
-<section class="kitchen-tips-section">
+<!-- Why Choose Vanshika Swadisht Faral -->
+<section class="why-us-section">
     <div class="container">
-        <div class="section-header">
-            <div>
-                <span class="sub-title-badge">💡 {{ t.latest_tips }}</span>
-                <h2 class="section-title">
-                    {% if current_lang == 'hi' %}रसोई के खास राज़ जो आपका खाना बनाएं लाजवाब{% else %}Kitchen Secrets Every Home Cook Must Know{% endif %}
-                </h2>
-                <p class="section-subtitle">{{ t.tips_sub }}</p>
-            </div>
-            <a href="{{ url_for('kitchen_tips') }}" class="btn-outline-text">
-                {{ t.explore_more }} <i class="fas fa-arrow-right"></i>
-            </a>
+        <div class="section-header center">
+            <span class="sub-title-badge">⭐ {{ t.why_choose_us }}</span>
+            <h2 class="section-title">
+                {% if current_lang == 'hi' %}आमच्या हातच्या फराळाची खास वैशिष्ट्ये{% else %}The Taste of Pure Tradition{% endif %}
+            </h2>
         </div>
 
-        <div class="tips-grid">
-            {% for tip in tips %}
-            <div class="tip-card">
-                <div class="tip-icon-box">
-                    <i class="fas {{ tip.icon }}"></i>
-                </div>
-                <span class="tip-category">{{ tip.category }}</span>
-                <h3 class="tip-title">{{ tip.title }}</h3>
-                <p class="tip-content">{{ tip.content }}</p>
+        <div class="pillars-grid four-pillars">
+            <div class="pillar-card">
+                <div class="pillar-icon"><i class="fas fa-leaf"></i></div>
+                <h4>{{ t.trust_1_title }}</h4>
+                <p>{{ t.trust_1_desc }}</p>
             </div>
-            {% endfor %}
+            <div class="pillar-card">
+                <div class="pillar-icon"><i class="fas fa-fire-alt"></i></div>
+                <h4>{{ t.trust_2_title }}</h4>
+                <p>{{ t.trust_2_desc }}</p>
+            </div>
+            <div class="pillar-card">
+                <div class="pillar-icon"><i class="fas fa-box-open"></i></div>
+                <h4>{{ t.trust_3_title }}</h4>
+                <p>{{ t.trust_3_desc }}</p>
+            </div>
+            <div class="pillar-card">
+                <div class="pillar-icon"><i class="fas fa-shipping-fast"></i></div>
+                <h4>{{ t.trust_4_title }}</h4>
+                <p>{{ t.trust_4_desc }}</p>
+            </div>
         </div>
     </div>
 </section>
 
-<!-- Community Love & Reviews -->
+<!-- Customer Reviews Section -->
 <section class="testimonials-section">
     <div class="container">
         <div class="section-header center">
-            <span class="sub-title-badge">❤️ {{ t.community_reviews }}</span>
+            <span class="sub-title-badge">❤️ {{ t.customer_reviews }}</span>
             <h2 class="section-title">
-                {% if current_lang == 'hi' %}जब हमारे पाठकों ने बनाई ये रेसिपीज़...{% else %}Cooked & Loved Worldwide{% endif %}
+                {% if current_lang == 'hi' %}गेल्या वर्षीच्या ग्राहकांचे मनोगत{% else %}What Our Happy Families Say{% endif %}
             </h2>
             <p class="section-subtitle">{{ t.reviews_sub }}</p>
         </div>
 
         <div class="testimonials-grid">
-            {% for item in testimonials %}
+            {% for r in reviews %}
             <div class="testimonial-card">
                 <div class="star-rating">
-                    {% for _ in range(item.rating) %}★{% endfor %}
+                    {% for _ in range(r.rating) %}★{% endfor %}
                 </div>
-                <p class="quote-text">“{{ item.text }}”</p>
+                <p class="quote-text">“{{ r.text }}”</p>
                 <div class="author-row">
-                    <div class="author-avatar">
-                        {{ item.name[0] }}
-                    </div>
+                    <div class="author-avatar">{{ r.name[0] }}</div>
                     <div class="author-details">
-                        <strong>{{ item.name }}</strong>
-                        <span>{{ item.city }}</span>
+                        <strong>{{ r.name }}</strong>
+                        <span>{{ r.city }}</span>
                     </div>
                 </div>
                 <div class="tried-badge">
-                    <i class="fas fa-check-circle"></i> {% if current_lang == 'hi' %}बनाया:{% else %}Tried:{% endif %} {{ item.recipe_tried }}
+                    <i class="fas fa-shopping-bag"></i> {% if current_lang == 'hi' %}मागवलेला फराळ:{% else %}Ordered:{% endif %} {{ r.item }}
                 </div>
             </div>
             {% endfor %}
@@ -290,73 +294,62 @@
     </div>
 </section>
 
-<!-- About Vanshika Teaser Banner -->
-<section class="about-teaser-section">
+<!-- Quick Pre-Order Booking Form -->
+<section class="preorder-booking-section" id="booking">
     <div class="container">
-        <div class="about-card-box">
-            <div class="about-card-content">
-                <span class="sub-title-badge">👩‍🍳 {{ t.about_sub }}</span>
-                <h2>{{ t.about_heading }}</h2>
-                <p class="about-para">
+        <div class="booking-card-box">
+            <div class="booking-content-col">
+                <span class="sub-title-badge">📝 {{ t.pre_order_now }}</span>
+                <h2>{% if current_lang == 'hi' %}दिवाळी फराळ घरपोच मागवण्यासाठी फॉर्म भरा{% else %}Book Your Diwali Faral Fresh Delivery{% endif %}</h2>
+                <p class="booking-lead">
                     {% if current_lang == 'hi' %}
-                        खाने का असली मज़ा तब है जब वह प्यार, परंपरा और थोड़ी सी आधुनिक तकनीक के साथ पकाया जाए। मैं मानती हूँ कि कुकिंग कोई बोझ नहीं, बल्कि हर रोज खुद को और अपने परिवार को खुश करने का सबसे खूबसूरत तरीका है।
+                        फराळाची मागणी खूप जास्त असल्याने मर्यादित स्लॉट उपलब्ध आहेत. आपले नाव, संपर्क व आवश्यक फराळाची यादी पाठवा, आम्ही त्वरित व्हॉट्सॲपवर संपर्क करू.
                     {% else %}
-                        Food is the purest language of care. On @vanshikacooks, I decode traditional recipes with easy everyday pantry ingredients, foolproof proportions, and modern culinary science so you can cook with pure confidence.
+                        Due to high demand and small hygienic batch preparation, pre-order slots are limited. Fill out the form or WhatsApp us directly to confirm your dispatch date!
                     {% endif %}
                 </p>
-                <div class="about-features-list">
-                    <div class="feature-item">
-                        <i class="fas fa-check"></i>
-                        <span>{% if current_lang == 'hi' %}विस्तृत सामग्री माप (ग्राम एवं कप){% else %}Precise measurements in Grams & Cups{% endif %}</span>
-                    </div>
-                    <div class="feature-item">
-                        <i class="fas fa-check"></i>
-                        <span>{% if current_lang == 'hi' %}आसान स्टेप-दर-स्टेप तस्वीरें एवं वीडियो{% else %}Step-by-step clear instructions & videos{% endif %}</span>
-                    </div>
-                    <div class="feature-item">
-                        <i class="fas fa-check"></i>
-                        <span>{% if current_lang == 'hi' %}अंग्रेजी और हिन्दी दोनों में उपलब्ध{% else %}Full English and Hindi bilingual toggle{% endif %}</span>
-                    </div>
-                </div>
-                <div class="about-btn-group">
-                    <a href="{{ url_for('about') }}" class="btn-primary-gradient">
-                        {{ t.read_more }} <i class="fas fa-arrow-right"></i>
-                    </a>
-                    <a href="https://www.instagram.com/vanshikacooks/" target="_blank" rel="noopener" class="btn-outline-text">
-                        <i class="fab fa-instagram"></i> @vanshikacooks
-                    </a>
-                </div>
-            </div>
-            <div class="about-card-visual">
-                <div class="visual-wrapper">
-                    <img src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=800&q=80" alt="Vanshika in the kitchen" class="about-hero-img">
-                    <div class="badge-floating">
-                        <i class="fas fa-heart" style="color: #e11d48;"></i>
-                        <span>Crafted with Heart</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 
-<!-- Newsletter Section -->
-<section class="newsletter-section">
-    <div class="container newsletter-box">
-        <div class="newsletter-icon">
-            <i class="fas fa-pepper-hot"></i>
+                <div class="direct-wa-callout">
+                    <i class="fab fa-whatsapp"></i>
+                    <div>
+                        <strong>{% if current_lang == 'hi' %}थेट व्हॉट्सॲपवर मेसेज करा:{% else %}Prefer instant WhatsApp booking?{% endif %}</strong>
+                        <p>{% if current_lang == 'hi' %}एका क्लिकवर ऑर्डर नोंदवा आणि खात्रीशीर ताजी डिलिव्हरी मिळवा.{% else %}Send your list directly to Vanshika's team for immediate confirmation.{% endif %}</p>
+                    </div>
+                    <a href="{{ url_for('order_whatsapp', item='Diwali Faral Direct Order') }}" target="_blank" rel="noopener" class="btn-whatsapp-header">
+                        WhatsApp Now
+                    </a>
+                </div>
+            </div>
+
+            <div class="booking-form-col">
+                <form action="{{ url_for('contact') }}" method="POST" class="styled-booking-form">
+                    <div class="form-group">
+                        <label for="name">{% if current_lang == 'hi' %}तुमचे नाव (Full Name) *{% else %}Your Name *{% endif %}</label>
+                        <input type="text" id="name" name="name" required placeholder="e.g. Smita Patil">
+                    </div>
+
+                    <div class="form-row-2">
+                        <div class="form-group">
+                            <label for="phone">{% if current_lang == 'hi' %}व्हॉट्सॲप नंबर (WhatsApp No) *{% else %}WhatsApp Phone *{% endif %}</label>
+                            <input type="tel" id="phone" name="phone" required placeholder="+91 98765 43210">
+                        </div>
+                        <div class="form-group">
+                            <label for="city">{% if current_lang == 'hi' %}शहर / डिलिव्हरी ठिकाण *{% else %}Delivery City *{% endif %}</label>
+                            <input type="text" id="city" name="city" required placeholder="e.g. Mumbai / Pune / Nashik">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="items">{% if current_lang == 'hi' %}हवे असलेले फराळ पदार्थ व वजन *{% else %}Items & Quantity Required *{% endif %}</label>
+                        <textarea id="items" name="items" rows="3" required placeholder="{% if current_lang == 'hi' %}उदा. १ किलो भाजणी चकली, ५०० ग्रॅम बेसन लाडू, १ संपूर्ण फराळ हॅम्पर...{% else %}e.g. 1kg Bhajani Chakli, 500g Besan Ladoo, 1 Sampoorna Hamper...{% endif %}"></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-primary-gradient full-width">
+                        <i class="fas fa-paper-plane"></i> {{ t.submit_inquiry }}
+                    </button>
+                </form>
+            </div>
         </div>
-        <h2 class="newsletter-title">{{ t.newsletter_title }}</h2>
-        <p class="newsletter-subtext">{{ t.newsletter_sub }}</p>
-        
-        <form id="homeNewsletterForm" class="home-newsletter-form">
-            <input type="email" id="homeNewsletterEmail" placeholder="{% if current_lang == 'hi' %}अपना ईमेल पता यहाँ दर्ज करें...{% else %}Enter your best email address...{% endif %}" required>
-            <button type="submit" class="btn-primary-gradient">
-                <i class="fas fa-envelope-open-text"></i> {{ t.subscribe }}
-            </button>
-        </form>
-        <div id="homeNewsletterAlert" class="newsletter-feedback"></div>
-        <span class="spam-disclaimer">🔒 {% if current_lang == 'hi' %}कोई स्पैम नहीं। कभी भी एक क्लिक में अनसब्सक्राइब करें।{% else %}Zero spam. Unsubscribe anytime with one click.{% endif %}</span>
     </div>
 </section>
 {% endblock %}

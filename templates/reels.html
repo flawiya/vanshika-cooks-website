@@ -8,12 +8,12 @@
 <div class="page-header-banner">
     <div class="container text-center">
         <span class="sub-title-badge"><i class="fab fa-instagram"></i> @vanshikacooks</span>
-        <h1 class="page-title">{{ t.reels }}</h1>
+        <h1 class="page-title">{% if current_lang == 'hi' %}फराळ बनवतानाचे व्हिडिओ रील्स{% else %}Behind the Scenes: Fresh Faral Making{% endif %}</h1>
         <p class="page-subtitle">
             {% if current_lang == 'hi' %}
-                झटपट 60-सेकंड की कुकिंग रील्स, पर्दे के पीछे की मस्ती और वायरल रेसिपीज़।
+                कढईतील खमंग फोडणी, साजूक तुपातील खमंग भाजणी आणि हवाबंद पॅकिंगचे सुंदर व्हिडिओ पहा!
             {% else %}
-                Catch bite-sized 60-second video recipes, viral plating, and behind-the-scenes moments from our kitchen!
+                Catch 60-second video reels of our kitchen: spiky chakli spirals, golden ghee ladoo rolling, and airtight festive packing!
             {% endif %}
         </p>
     </div>
@@ -38,25 +38,25 @@
         </div>
 
         <div class="reels-catalog-grid">
-            {% for r in recipes %}
+            {% for p in products %}
             <div class="reel-item-card">
                 <div class="reel-video-mockup">
-                    <img src="{{ r.image }}" alt="{{ r.title }}" class="reel-mockup-img">
+                    <img src="{{ p.image }}" alt="{{ p.name }}" class="reel-mockup-img">
                     <div class="reel-tint-overlay">
-                        <a href="{{ r.instagram_reel }}" target="_blank" rel="noopener" class="reel-play-btn" title="Watch on Instagram">
+                        <a href="https://www.instagram.com/vanshikacooks/" target="_blank" rel="noopener" class="reel-play-btn" title="Watch on Instagram">
                             <i class="fab fa-instagram"></i>
                         </a>
                     </div>
-                    <span class="reel-length-badge"><i class="fas fa-play"></i> 0:60</span>
+                    <span class="reel-length-badge"><i class="fas fa-play"></i> Reels</span>
                 </div>
                 <div class="reel-card-meta">
-                    <span class="reel-cat">{{ r.category_name }}</span>
-                    <h3 class="reel-title">{{ r.title }}</h3>
+                    <span class="reel-cat">{{ p.category_name }}</span>
+                    <h3 class="reel-title">{{ p.name }}</h3>
                     <div class="reel-btn-row">
-                        <a href="{{ url_for('recipe_detail', slug=r.slug) }}" class="btn-sm-text">
-                            <i class="fas fa-file-alt"></i> {{ t.view_recipe }}
+                        <a href="{{ url_for('product_detail', slug=p.slug) }}" class="btn-sm-text">
+                            <i class="fas fa-shopping-bag"></i> View & Order
                         </a>
-                        <a href="{{ r.instagram_reel }}" target="_blank" rel="noopener" class="btn-sm-ig">
+                        <a href="https://www.instagram.com/vanshikacooks/" target="_blank" rel="noopener" class="btn-sm-ig">
                             <i class="fab fa-instagram"></i> Open Reel
                         </a>
                     </div>
@@ -65,23 +65,23 @@
             {% endfor %}
         </div>
 
-        <!-- Tag to Feature Banner -->
+        <!-- Social Proof Banner -->
         <div class="reels-feature-card">
             <div class="feature-icon-box">
-                <i class="fas fa-camera-retro"></i>
+                <span style="font-size: 2rem;">🪔</span>
             </div>
             <div class="feature-content">
-                <h3>{% if current_lang == 'hi' %}क्या आपने हमारी कोई रेसिपी बनाई?{% else %}Show Us Your Kitchen Creations!{% endif %}</h3>
+                <h3>{% if current_lang == 'hi' %}दिवाळी फराळाचा आनंद शेअर करा!{% else %}Celebrate with @vanshikacooks this Diwali!{% endif %}</h3>
                 <p>
                     {% if current_lang == 'hi' %}
-                        अपनी बनाई हुई डिश की तस्वीर या वीडियो इंस्टाग्राम पर पोस्ट करते समय <strong>@vanshikacooks</strong> को टैग करें और हैशटैग <strong>#VanshikaCooks</strong> इस्तेमाल करें। हम आपकी डिश को अपनी स्टोरी पर फीचर करेंगे!
+                        आमचा फराळ आवडल्यास इंस्टाग्रामवर फोटो शेअर करताना <strong>@vanshikacooks</strong> ला टॅग करा आणि <strong>#VanshikaFaral</strong> वापरा.
                     {% else %}
-                        Snap a photo or reel of your dish, tag <strong>@vanshikacooks</strong>, and use the hashtag <strong>#VanshikaCooks</strong> on Instagram. We repost our favorite community recreations every week!
+                        Share your Diwali faral thali on Instagram, tag <strong>@vanshikacooks</strong>, and use <strong>#VanshikaFaral</strong>. We love reposting our community festive moments!
                     {% endif %}
                 </p>
             </div>
             <a href="https://www.instagram.com/vanshikacooks/" target="_blank" rel="noopener" class="btn-primary-gradient">
-                <i class="fab fa-instagram"></i> Tag @vanshikacooks
+                <i class="fab fa-instagram"></i> Follow @vanshikacooks
             </a>
         </div>
 

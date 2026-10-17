@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ t.faral_menu }} — {{ t.brand_name }}
+{% endblock %}
+
+{% block content %}
+<div class="page-header-banner">
+    <div class="container text-center">
+        <span class="sub-title-badge">🪔 {% if current_lang == 'hi' %}दिवाळी फराळ मेन्यू व भावसूची{% else %}Diwali Faral Menu & Pricing{% endif %}</span>
+        <h1 class="page-title">{{ t.faral_menu }}</h1>
+        <p class="page-subtitle">
+            {% if current_lang == 'hi' %}
+                १००% शुद्ध साजूक तूप, ताजे तेल आणि घरगुती प्रेमाने तयार केलेला खमंग फराळ. मुंबई, पुणे, नाशिक व संपूर्ण भारतात घरपोच डिलिव्हरी.
+            {% else %}
+                Handmade in small hygienic kitchen batches using pure desi cow ghee and authentic heritage spices. Fast doorstep dispatch before Diwali.
+            {% endif %}
+        </p>
+
+        <!-- Search Bar -->
+        <div class="catalog-search-wrap">
+            <form action="{{ url_for('faral_menu') }}" method="GET" class="catalog-search-form">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" name="q" value="{{ search_query }}" placeholder="{% if current_lang == 'hi' %}फराळ शोधा (उदा. चकली, लाडू, करंजी, चिवडा)...{% else %}Search faral (e.g. chakli, ladoo, karanji, chivda)...{% endif %}" class="catalog-input">
+                <input type="hidden" name="category" value="{{ selected_category }}">
+                {% if search_query %}
+                <a href="{{ url_for('faral_menu', category=selected_category) }}" class="clear-search-btn">&times;</a>
+                {% endif %}
+                <button type="submit" class="btn-search-submit">
+                    {% if current_lang == 'hi' %}शोधा{% else %}Search{% endif %}
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<section class="catalog-content-section">
+    <div class="container">
+        <!-- Filter Tabs -->
+        <div class="category-tabs-container">
+            <a href="{{ url_for('faral_menu', q=search_query) }}" class="cat-tab {% if selected_category == 'all' or not selected_category %}active{% endif %}">
+                <i class="fas fa-th-large"></i> {{ t.filter_all }}
+            </a>
+            <a href="{{ url_for('faral_menu', category='snack', q=search_query) }}" class="cat-tab {% if selected_category == 'snack' %}active{% endif %}">
+                <i class="fas fa-cookie-bite"></i> {{ t.filter_snacks }}
+            </a>
+            <a href="{{ url_for('faral_menu', category='sweet', q=search_query) }}" class="cat-tab {% if selected_category == 'sweet' %}active{% endif %}">
+                <i class="fas fa-ice-cream"></i> {{ t.filter_sweets }}
+            </a>
+            <a href="{{ url_for('hampers_page') }}" class="cat-tab">
+                <i class="fas fa-gift"></i> {{ t.filter_hampers }}
+            </a>
+        </div>
+
+        <!-- Products Grid -->
+        <div class="recipes-grid faral-grid">
+            {% for p in products %}
+            <article class="recipe-card faral-card">
+                <div class="card-image-wrap">
+                    <img src="{{ p.image }}" alt="{{ p.name }}" loading="lazy" class="card-img">
+                    {% if p.is_bestseller %}
+                    <span class="bestseller-badge">★ {{ t.bestseller }}</span>
+                    {% endif %}
+                    <span class="diet-badge snack">शुद्ध शाकाहारी</span>
+                </div>
+                <div class="card-body">
+                    <div class="card-meta">
+                        <span class="cat-tag">{{ p.category_name }}</span>
+                        <span class="shelf-tag"><i class="far fa-calendar-alt"></i> {{ p.shelf_life }}</span>
+                    </div>
+
+                    <h3 class="card-title">
+                        <a href="{{ url_for('product_detail', slug=p.slug) }}">{{ p.name }}</a>
+                    </h3>
+                    <p class="card-excerpt">{{ p.tagline }}</p>
+
+                    <!-- Pack Sizes & Prices -->
+                    <div class="pack-price-table">
+                        <div class="price-chip active">
+                            <span class="chip-weight">500g</span>
+                            <strong class="chip-cost">₹{{ p.price_500g }}</strong>
+                        </div>
+                        <div class="price-chip">
+                            <span class="chip-weight">250g</span>
+                            <span class="chip-cost">₹{{ p.price_250g }}</span>
+                        </div>
+                        <div class="price-chip">
+                            <span class="chip-weight">1kg</span>
+                            <span class="chip-cost">₹{{ p.price_1kg }}</span>
+                        </div>
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="faral-card-actions">
+                        <a href="{{ url_for('order_whatsapp', item=p.name, pack='500g', price=p.price_500g) }}" target="_blank" rel="noopener" class="btn-whatsapp-card full-width">
+                            <i class="fab fa-whatsapp"></i> {{ t.order_whatsapp }}
+                        </a>
+                        <a href="{{ url_for('product_detail', slug=p.slug) }}" class="btn-view-details">
+                            {% if current_lang == 'hi' %}तपशील व साहित्य पहा{% else %}View Product Details{% endif %} &rarr;
+                        </a>
+                    </div>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+
+        <!-- Corporate / Bulk Callout -->
+        <div class="bulk-order-callout-card">
+            <div class="bulk-callout-inner">
+                <i class="fas fa-boxes"></i>
+                <div>
+                    <h3>{% if current_lang == 'hi' %}मोठ्या प्रमाणावर (Bulk / Corporate) ऑर्डर हवी आहे?{% else %}Need Bulk or Corporate Festive Orders?{% endif %}</h3>
+                    <p>{% if current_lang == 'hi' %}कंपनी, संस्था किंवा मोठ्या परिवारासाठी खास सवलतीत आणि आकर्षक पॅकिंगमध्ये फराळ उपलब्ध आहे.{% else %}Special corporate discount rates and customized gift box packaging available for teams and large family gatherings.{% endif %}</p>
+                </div>
+                <a href="{{ url_for('contact') }}" class="btn-primary-gradient">
+                    {% if current_lang == 'hi' %}चौकशी करा{% else %}Inquire Now{% endif %}
+                </a>
+            </div>
+        </div>
+
+    </div>
+</section>
+{% endblock %}

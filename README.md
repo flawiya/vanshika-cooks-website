@@ -1,39 +1,56 @@
-# Vanshika Cooks — Official Bilingual Recipe Platform 🍳
-**The official website for [@vanshikacooks](https://www.instagram.com/vanshikacooks/)**
+# Vanshika Swadisht Faral (वंशिका स्वादिष्ट फराळ 🪔)
+**Official Diwali Faral & Festive Sweets E-Commerce Store for [@vanshikacooks](https://www.instagram.com/vanshikacooks/)**
 
-An artisanal, modern culinary web platform featuring authentic homemade Indian recipes, kitchen secrets, video reels, and a seamless **English / हिन्दी** bilingual switch for all pages, recipe ingredients, instructions, and pro tips.
+An artisanal, modern festive food and e-commerce selling website offering authentic homemade traditional Maharashtrian & Indian Diwali Faral, pure desi ghee sweets, and luxury festive gift hampers with a seamless **English / मराठी-हिन्दी** bilingual toggle and direct **1-Click WhatsApp Ordering**.
 
 ---
 
 ## 🌟 Key Features
 
-1. **Full English / Hindi (हिन्दी) Bilingual Toggle:**
-   - One-click language switcher in the header and mobile drawer.
-   - Switch language on any page or individual recipe without losing your place.
-   - Dual-language recipe titles, descriptions, categories, exact ingredient names/measurements, step-by-step instructions, and pro secrets.
-   - Persistent language choice stored in session and cookies.
+1. **Dedicated Diwali Faral & Sweets Selling Platform:**
+   - Handcrafted traditional festive foods: *Bhajani Chakli, Pure Desi Ghee Besan Ladoo, Fresh Coconut Karanji, Poha Chivda, Shankarpali, Tikha Lasun Sev, Motichoor Ladoo, and Authentic Anarse*.
+   - Pack selection with clear weight-based pricing: **250g, 500g, and 1kg**.
+   - Currency switcher supporting Indian Rupees (₹ INR) and British Pounds (£ GBP).
 
-2. **Interactive Recipe Experience:**
-   - **Dynamic Servings Scaler:** Adjust portions with `+` / `-` buttons; ingredient amounts recalculate automatically in real time!
-   - **Interactive Ingredient Checklist:** Check off ingredients as you prepare them in the kitchen.
-   - **Cook Mode (Distraction-Free):** Fullscreen view with oversized kitchen-friendly text, collapsible ingredients, step checkmarks, and **Screen Wake Lock API** (keeps your phone screen from dimming while cooking).
-   - **Print Recipe:** Clean, ink-friendly CSS print stylesheet.
-   - **Share Recipe:** Native Web Share API + clipboard fallback with feedback toasts.
+2. **Full English / मराठी-हिन्दी Bilingual Toggle:**
+   - One-click language switcher in the header and mobile navigation drawer.
+   - Dual-language product titles, festive descriptions, ingredient listings, shelf-life indicators, and taste profiles.
+   - Preserves active selection and language preference across all pages via cookies and sessions.
 
-3. **Instagram Reels & Social Integration:**
-   - Dedicated Reels spotlight showcasing [@vanshikacooks](https://www.instagram.com/vanshikacooks/) content.
-   - Direct Instagram links on every recipe card.
-   - Community tag instructions (`#VanshikaCooks`).
+3. **Luxury Diwali Gift Hampers & Corporate Inquiries:**
+   - **Sampoorna Faral Festive Box (1.5 kg)** — Complete celebration box with decorative Diwali Diya and greeting card.
+   - **Shahi Ghee Sweets & Crunch Hamper (1.0 kg)** — Executive assortment packed in premium gold-foil packaging.
+   - Corporate & bulk pre-order booking inquiry form with automated inquiry logging.
 
-4. **Kitchen Tips & Secrets (किचन टिप्स):**
-   - Practical culinary science hacks (cotton-soft rotis, preventing burnt spices, keeping paneer tender, preserving fresh herbs).
-   - One-click copy/share tip feature.
+4. **1-Click Direct WhatsApp Ordering:**
+   - Instant mobile checkout via WhatsApp without needing complex payment gateways.
+   - Automatically pre-fills product name, selected pack weight, and price into the customer's chat with Vanshika.
 
-5. **Tested Home Cook Reviews:**
-   - Authentic community testimonials from Delhi, Mumbai, Chandigarh, and Pune.
+5. **Customer Reviews & Trust Badges:**
+   - Verified feedback from buyers across Maharashtra (Mumbai, Pune, Nashik, Thane).
+   - Core quality promises: 100% Pure Desi Cow Ghee, Zero Artificial Preservatives, Airtight Packaging, and Guaranteed Freshness.
 
-6. **Brand Collaboration & Inquiries:**
-   - Professional contact form for brand sponsorships, workshops, and cooking inquiries.
-   - Direct WhatsApp quick-chat routing.
+6. **Instagram Reels Showcase:**
+   - Embedded showcase of [@vanshikacooks](https://www.instagram.com/vanshikacooks/) artisanal Faral preparation and kitchen behind-the-scenes.
 
 ---
+
+## 🛠️ Tech Stack
+
+- **Backend:** Python / Flask
+- **Database:** SQLite3 (`vanshika_cooks.db`) with automatic self-initialization (`init_db.py`)
+- **Frontend:** Jinja2 Templates, Modern Responsive CSS3 (Warm Saffron, Deep Maroon & Gold Diwali Festive Palette)
+- **Deployment:** Render (Gunicorn WSGI)
+
+---
+
+## 🚀 Running Locally
+
+```bash
+git clone https://github.com/flawiya/vanshika-cooks-website.git
+cd vanshika-cooks-website
+pip install -r requirements.txt
+python init_db.py
+python app.py
+```
+Open [http://localhost:5001](http://localhost:5001) in your browser.

@@ -1,0 +1,199 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ product.name }} — {{ t.brand_name }}
+{% endblock %}
+
+{% block content %}
+<!-- Breadcrumb -->
+<div class="breadcrumb-bar">
+    <div class="container">
+        <a href="{{ url_for('home') }}">{{ t.home }}</a> &gt; 
+        <a href="{{ url_for('faral_menu') }}">{{ t.faral_menu }}</a> &gt; 
+        <span>{{ product.name }}</span>
+    </div>
+</div>
+
+<article class="product-detail-section">
+    <div class="container">
+        <div class="product-layout-grid">
+            
+            <!-- Left: Product Image & Badges -->
+            <div class="product-media-col">
+                <div class="product-main-image-wrap">
+                    <img src="{{ product.image }}" alt="{{ product.name }}" class="product-main-img" id="productMainImg">
+                    {% if product.is_bestseller %}
+                    <span class="bestseller-badge">★ {{ t.bestseller }}</span>
+                    {% endif %}
+                </div>
+
+                <div class="product-trust-tags">
+                    <span><i class="fas fa-certificate" style="color: #ea580c;"></i> १००% शुद्ध साजूक तूप / शुद्ध तेल</span>
+                    <span><i class="fas fa-shield-alt" style="color: #16a34a;"></i> केमिकल व प्रिजर्व्हेटिव्ह विरहित</span>
+                    <span><i class="fas fa-box" style="color: #f59e0b;"></i> सुरक्षित हवाबंद पॅकिंग</span>
+                </div>
+            </div>
+
+            <!-- Right: Product Details & Order Form -->
+            <div class="product-info-col">
+                <span class="cat-tag">{{ product.category_name }}</span>
+                <h1 class="product-title-lg">{{ product.name }}</h1>
+                <p class="product-tagline-lead">{{ product.tagline }}</p>
+
+                <!-- Interactive Pack Size & Price Selector -->
+                <div class="pack-selector-card">
+                    <label class="pack-selector-label">
+                        <i class="fas fa-balance-scale"></i> {{ t.price_per_pack }}
+                    </label>
+
+                    <div class="pack-options-grid">
+                        <label class="pack-radio-label active" onclick="selectPack('250g', {{ product.price_250g }}, this)">
+                            <input type="radio" name="pack_size" value="250g" checked>
+                            <span class="radio-custom"></span>
+                            <div class="pack-text">
+                                <strong>250g Pack</strong>
+                                <span class="pack-price">₹{{ product.price_250g }}</span>
+                            </div>
+                        </label>
+
+                        <label class="pack-radio-label" onclick="selectPack('500g', {{ product.price_500g }}, this)">
+                            <input type="radio" name="pack_size" value="500g">
+                            <span class="radio-custom"></span>
+                            <div class="pack-text">
+                                <strong>500g Pack</strong>
+                                <span class="pack-price">₹{{ product.price_500g }}</span>
+                                <small class="val-tag">Popular</small>
+                            </div>
+                        </label>
+
+                        <label class="pack-radio-label" onclick="selectPack('1kg', {{ product.price_1kg }}, this)">
+                            <input type="radio" name="pack_size" value="1kg">
+                            <span class="radio-custom"></span>
+                            <div class="pack-text">
+                                <strong>1 kg Pack</strong>
+                                <span class="pack-price">₹{{ product.price_1kg }}</span>
+                                <small class="val-tag">Best Value</small>
+                            </div>
+                        </label>
+                    </div>
+
+                    <!-- Selected Price Display -->
+                    <div class="selected-price-summary">
+                        <span class="summary-label">Total for Selected Pack:</span>
+                        <div class="summary-price-box">
+                            <span class="curr-symbol">₹</span>
+                            <span class="curr-val" id="displayPrice">{{ product.price_250g }}</span>
+                            <span class="intl-price">(or £{{ product.price_gbp }} UK Orders)</span>
+                        </div>
+                    </div>
+
+                    <!-- Direct WhatsApp Ordering Button -->
+                    <div class="order-action-box">
+                        <a href="{{ url_for('order_whatsapp', item=product.name, pack='250g', price=product.price_250g) }}" id="dynamicWhatsAppBtn" target="_blank" rel="noopener" class="btn-whatsapp-order-big">
+                            <i class="fab fa-whatsapp"></i>
+                            <span>{{ t.order_whatsapp }}</span>
+                        </a>
+                        <p class="order-note-sub">
+                            <i class="fas fa-lock"></i> Direct chat with Vanshika's kitchen. We confirm dispatch date and share tracking.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Product Description -->
+                <div class="product-description-block">
+                    <h3>{% if current_lang == 'hi' %}पदार्थाची माहिती व अस्सल चव{% else %}About This Faral Item{% endif %}</h3>
+                    <p>{{ product.description }}</p>
+                </div>
+
+                <!-- Metadata Cards Grid -->
+                <div class="product-meta-specs-grid">
+                    <div class="spec-card">
+                        <i class="fas fa-calendar-check"></i>
+                        <div>
+                            <strong>{{ t.shelf_life }}</strong>
+                            <span>{{ product.shelf_life }}</span>
+                        </div>
+                    </div>
+
+                    <div class="spec-card">
+                        <i class="fas fa-utensils"></i>
+                        <div>
+                            <strong>{{ t.taste_profile }}</strong>
+                            <span>{{ product.taste_profile }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pure Ingredients List -->
+                <div class="product-ingredients-block">
+                    <h3><i class="fas fa-leaf" style="color: #16a34a;"></i> {{ t.pure_ingredients }}</h3>
+                    <div class="ingredients-tags-wrap">
+                        {% for ing in product.ingredients %}
+                        <span class="ing-tag-chip"><i class="fas fa-check"></i> {{ ing }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</article>
+
+<!-- Related Faral Products -->
+{% if related_products %}
+<section class="related-faral-section">
+    <div class="container">
+        <div class="section-header">
+            <div>
+                <span class="sub-title-badge">🪔 {% if current_lang == 'hi' %}आणखी काही खमंग फराळ{% else %}You Might Also Like{% endif %}</span>
+                <h2 class="section-title">{% if current_lang == 'hi' %}इतर फराळ पदार्थ{% else %}More Diwali Delicacies{% endif %}</h2>
+            </div>
+            <a href="{{ url_for('faral_menu') }}" class="btn-outline-text">
+                {{ t.view_menu }} <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+
+        <div class="recipes-grid faral-grid">
+            {% for r in related_products %}
+            <article class="recipe-card faral-card">
+                <div class="card-image-wrap">
+                    <img src="{{ r.image }}" alt="{{ r.name }}" loading="lazy" class="card-img">
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title"><a href="{{ url_for('product_detail', slug=r.slug) }}">{{ r.name }}</a></h3>
+                    <p class="card-excerpt">{{ r.tagline }}</p>
+                    <div class="pack-price-table">
+                        <div class="price-chip active"><span class="chip-weight">500g</span> <strong>₹{{ r.price_500g }}</strong></div>
+                    </div>
+                    <div class="faral-card-actions">
+                        <a href="{{ url_for('product_detail', slug=r.slug) }}" class="btn-read-recipe">
+                            {% if current_lang == 'hi' %}पहा व ऑर्डर करा{% else %}View & Order{% endif %} &rarr;
+                        </a>
+                    </div>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function selectPack(pack, price, el) {
+    document.querySelectorAll('.pack-radio-label').forEach(lbl => lbl.classList.remove('active'));
+    el.classList.add('active');
+    
+    document.getElementById('displayPrice').textContent = price;
+    
+    // Update dynamic WhatsApp link
+    const waBtn = document.getElementById('dynamicWhatsAppBtn');
+    const productName = encodeURIComponent("{{ product.name }}");
+    const packSize = encodeURIComponent(pack);
+    const msg = encodeURIComponent(`🪔 *Namaste Vanshika!* I would like to order:\n\n• *Item:* {{ product.name }}\n• *Pack Size:* ${pack}\n• *Price:* ₹${price}\n\nPlease share availability and delivery timeframe. Thank you!`);
+    waBtn.href = `https://api.whatsapp.com/send?text=${msg}`;
+}
+</script>
+{% endblock %}
