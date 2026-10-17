@@ -143,14 +143,9 @@
             </nav>
 
             <div class="drawer-footer">
-                <div class="flex flex-col gap-2">
-                    <a href="{{ url_for('order_whatsapp', channel=1) }}" target="_blank" rel="noopener" class="btn-whatsapp-header full-width">
-                        <i class="fab fa-whatsapp"></i> {% if current_lang == 'hi' %}व्हॉट्सॲप संवाद १{% else %}WhatsApp Chat 1{% endif %}
-                    </a>
-                    <a href="{{ url_for('order_whatsapp', channel=2) }}" target="_blank" rel="noopener" class="btn-whatsapp-header full-width" style="background: #128c7e;">
-                        <i class="fab fa-whatsapp"></i> {% if current_lang == 'hi' %}व्हॉट्सॲप संवाद २{% else %}WhatsApp Chat 2{% endif %}
-                    </a>
-                </div>
+                <a href="{{ url_for('checkout') }}" class="btn-primary-gradient full-width text-center" style="display: block; padding: 12px 18px; border-radius: 8px; color: #fff; font-weight: 700; text-decoration: none; text-align: center;">
+                    <i class="fas fa-shopping-bag mr-2"></i> {{ t.order_now }}
+                </a>
             </div>
         </div>
     </div>
@@ -213,16 +208,19 @@
                     </ul>
                 </div>
 
-                <!-- Col 4: Quick Order on WhatsApp -->
-                <div class="footer-col whatsapp-box-col">
-                    <h4 class="footer-heading">🪔 {% if current_lang == 'hi' %}थेट ऑर्डर व व्हॉट्सॲप मदत{% else %}Direct Order & WhatsApp Support{% endif %}</h4>
-                    <p class="footer-desc">{% if current_lang == 'hi' %}ऑर्डर निश्चित करण्यासाठी व ५०% ॲडव्हान्स भरण्यासाठी आमच्या टीमशी व्हॉट्सॲपवर संपर्क करा:{% else %}Connect directly with our kitchen team on WhatsApp to place orders, confirm delivery slots, or pay 50% advance:{% endif %}</p>
-                    <div class="flex flex-col gap-2 mt-3">
-                        <a href="{{ url_for('order_whatsapp', channel=1) }}" target="_blank" rel="noopener" class="btn-whatsapp-footer">
-                            <i class="fab fa-whatsapp"></i> {% if current_lang == 'hi' %}व्हॉट्सॲप मदत केंद्र १{% else %}WhatsApp Support 1{% endif %}
-                        </a>
-                        <a href="{{ url_for('order_whatsapp', channel=2) }}" target="_blank" rel="noopener" class="btn-whatsapp-footer" style="background: #128c7e;">
-                            <i class="fab fa-whatsapp"></i> {% if current_lang == 'hi' %}व्हॉट्सॲप मदत केंद्र २{% else %}WhatsApp Support 2{% endif %}
+                <!-- Col 4: Order & Customer Support -->
+                <div class="footer-col">
+                    <h4 class="footer-heading">🪔 {% if current_lang == 'hi' %}ऑर्डर व ग्राहक सेवा{% else %}Order & Customer Support{% endif %}</h4>
+                    <p class="footer-desc">
+                        {% if current_lang == 'hi' %}
+                        ऑनलाइन ऑर्डर नोंदवा किंवा मेन्यू तपासा. आम्ही ताजी फराळ पेटी थेट तुमच्या दारात पोहोचवू.
+                        {% else %}
+                        Place your order online or explore our fresh menu. Pure festive indulgence delivered to your doorstep.
+                        {% endif %}
+                    </p>
+                    <div class="mt-3">
+                        <a href="{{ url_for('checkout') }}" class="btn-primary-gradient" style="display: inline-block; padding: 10px 20px; font-size: 0.88rem; border-radius: 8px; text-decoration: none; color: #fff; font-weight: 700;">
+                            <i class="fas fa-shopping-bag mr-2"></i> {{ t.order_now }}
                         </a>
                     </div>
                     
