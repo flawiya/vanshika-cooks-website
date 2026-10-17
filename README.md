@@ -54,14 +54,3 @@ An artisanal, modern festive food and e-commerce selling website offering authen
 - **Deployment:** Render (Gunicorn WSGI)
 
 ---
-
-## 🚀 Running Locally
-
-```bash
-git clone https://github.com/flawiya/vanshika-cooks-website.git
-cd vanshika-cooks-website
-pip install -r requirements.txt
-python init_db.py
-python app.py
-```
-Open [http://localhost:5001](http://localhost:5001) in your browser.
