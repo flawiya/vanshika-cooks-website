@@ -35,9 +35,9 @@
                     <li>
                         <strong>{% if current_lang == 'hi' %}डिलिव्हरी क्षेत्र व दर:{% else %}Delivery Location & Charges:{% endif %}</strong>
                         {% if current_lang == 'hi' %}
-                        <strong>औरंगाबाद / छत्रपती संभाजीनगर, महाराष्ट्र, भारत मध्ये थेट घरपोच डिलिव्हरी</strong>. डिलिव्हरी शुल्क: संपूर्ण कार्ट ₹७०० खाली असल्यास <strong>₹६०</strong>; ₹७०० आणि त्याहून अधिक असल्यास फक्त <strong>₹३०</strong>. इतर शहरांसाठी (पुणे, मुंबई, नाशिक इ.) <a href="{{ url_for('outstation_inquiry') }}" class="alert-link">येथे क्लिक करून चौकशी करा</a>.
+                        <strong>औरंगाबाद / छत्रपती संभाजीनगर, महाराष्ट्र, भारत मध्ये थेट घरपोच डिलिव्हरी</strong>. डिलिव्हरी शुल्क: संपूर्ण कार्ट ₹७०० खाली असल्यास <strong>₹६०</strong>; ₹७०० आणि त्याहून अधिक असल्यास <strong>मोफत डिलिव्हरी (FREE Delivery)</strong>. इतर शहरांसाठी (पुणे, मुंबई, नाशिक इ.) <a href="{{ url_for('outstation_inquiry') }}" class="alert-link">येथे क्लिक करून चौकशी करा</a>.
                         {% else %}
-                        <strong>Doorstep delivery across Aurangabad/Chhatrapati Sambhajinagar, Maharashtra, India.</strong> Delivery fee: <strong>₹60 INR</strong> if total cart sum is below ₹700 INR; <strong>₹30 INR</strong> if total cart sum is ₹700 INR or above. For other cities/locations, <a href="{{ url_for('outstation_inquiry') }}" class="alert-link">click here for outstation booking</a>.
+                        <strong>Doorstep delivery across Aurangabad/Chhatrapati Sambhajinagar, Maharashtra, India.</strong> Delivery fee: <strong>₹60 INR</strong> if total cart sum is below ₹700 INR; <strong>FREE Delivery</strong> if total cart sum is ₹700 INR or above. For other cities/locations, <a href="{{ url_for('outstation_inquiry') }}" class="alert-link">click here for outstation booking</a>.
                         {% endif %}
                     </li>
                     <li>
@@ -119,16 +119,16 @@
                                 <div class="loc-card-body">
                                     <div class="loc-card-top">
                                         <span class="loc-badge-local">🛵 {% if current_lang == 'hi' %}थेट घरपोच डिलिव्हरी{% else %}Doorstep Delivery{% endif %}</span>
-                                        <span class="loc-fee-badge" id="locFeeBadgeDisplay">₹60 / ₹30</span>
+                                        <span class="loc-fee-badge" id="locFeeBadgeDisplay">₹60 / FREE</span>
                                     </div>
                                     <h4 class="loc-title">
                                         Doorstep delivery across Aurangabad/Chhatrapati Sambhajinagar, Maharashtra, India.
                                     </h4>
                                     <p class="loc-desc">
                                         {% if current_lang == 'hi' %}
-                                        डिलिव्हरी शुल्क: कार्ट ₹७०० च्या आत असल्यास <strong>₹६०</strong>; ₹७०० व त्यापुढे फक्त <strong>₹३०</strong>. ५०% ॲडव्हान्ससह कॅश ऑन डिलिव्हरी उपलब्ध.
+                                        डिलिव्हरी शुल्क: कार्ट ₹७०० च्या आत असल्यास <strong>₹६०</strong>; ₹७०० व त्यापुढे <strong>मोफत डिलिव्हरी (FREE Delivery)</strong>. ५०% ॲडव्हान्ससह कॅश ऑन डिलिव्हरी उपलब्ध.
                                         {% else %}
-                                        Delivery charge: <strong>₹60 INR</strong> for orders below ₹700 INR; <strong>₹30 INR</strong> for orders ₹700 INR and above. Cash on Delivery with 50% initial payment.
+                                        Delivery charge: <strong>₹60 INR</strong> for orders below ₹700 INR; <strong>FREE Delivery</strong> for orders ₹700 INR and above. Cash on Delivery with 50% initial payment.
                                         {% endif %}
                                     </p>
                                 </div>
@@ -285,21 +285,21 @@
 
                         <!-- Submit Order Button -->
                         <button type="submit" id="submitOrderBtn" class="btn-place-order">
-                            <i class="fab fa-whatsapp text-xl mr-2"></i>
+                            <i class="fas fa-check-circle text-xl mr-2"></i>
                             <span>
-                                {% if current_lang == 'hi' %}ऑर्डर नोंदवा आणि व्हॉट्सॲपवर पाठवा{% else %}Place Order & Open WhatsApp{% endif %}
+                                {% if current_lang == 'hi' %}ऑर्डर नोंदवा{% else %}Place Order{% endif %}
                             </span>
                         </button>
 
                         <div class="owners-contact-info">
                             <span>{% if current_lang == 'hi' %}थेट संपर्क व ऑर्डर हेल्पलाईन:{% else %}Owner Direct WhatsApp Helplines:{% endif %}</span>
                             <div class="owner-phones">
-                                <a href="https://api.whatsapp.com/send?phone=918623865447" target="_blank" rel="noopener">
-                                    <i class="fab fa-whatsapp text-green-600"></i> +91 8623865447
+                                <a href="{{ url_for('order_whatsapp', channel=1) }}" target="_blank" rel="noopener">
+                                    <i class="fab fa-whatsapp text-green-600"></i> {% if current_lang == 'hi' %}व्हॉट्सॲप हेल्पलाईन १{% else %}WhatsApp Helpline 1{% endif %}
                                 </a>
                                 <span class="sep">•</span>
-                                <a href="https://api.whatsapp.com/send?phone=918999585283" target="_blank" rel="noopener">
-                                    <i class="fab fa-whatsapp text-green-600"></i> +91 8999585283
+                                <a href="{{ url_for('order_whatsapp', channel=2) }}" target="_blank" rel="noopener">
+                                    <i class="fab fa-whatsapp text-green-600"></i> {% if current_lang == 'hi' %}व्हॉट्सॲप हेल्पलाईन २{% else %}WhatsApp Helpline 2{% endif %}
                                 </a>
                             </div>
                         </div>
@@ -320,10 +320,10 @@
 <!-- Client-side Script to manage items, pricing, delivery selection and prefill -->
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-    // Delivery fee logic: ₹60 if cart subtotal is below ₹700; ₹30 if ₹700 or above
+    // Delivery fee logic: ₹60 if cart subtotal is below ₹700; FREE (₹0) if ₹700 or above
     function computeClientDeliveryFee(subtotal) {
         if (currentDeliveryZone !== "aurangabad") return 0;
-        return subtotal < 700 ? 60 : 30;
+        return subtotal < 700 ? 60 : 0;
     }
     let currentDeliveryZone = "aurangabad";
 
@@ -520,11 +520,11 @@ document.addEventListener("DOMContentLoaded", function() {
 
         if (currentDeliveryZone === "aurangabad") {
             if (subtotal >= 700) {
-                feeElem.innerHTML = `₹30 <span style="font-size: 0.75rem; color: #16a34a; font-weight: 700; display: block;">🎉 ₹30 Discount Rate Applied!</span>`;
-                if (locBadgeElem) locBadgeElem.innerText = "₹30.00 (Cart ₹700+)";
+                feeElem.innerHTML = `<span style="text-decoration: line-through; color: #9ca3af; margin-right: 4px;">₹60</span> FREE <span style="font-size: 0.75rem; color: #16a34a; font-weight: 700; display: block;">🎉 FREE Delivery Applied (Cart ₹700+)!</span>`;
+                if (locBadgeElem) locBadgeElem.innerText = "FREE (Cart ₹700+)";
             } else {
                 const diff = 700 - subtotal;
-                feeElem.innerHTML = `₹60 <span style="font-size: 0.72rem; color: #ea580c; display: block;">(Add ₹${diff} more to get ₹30 delivery!)</span>`;
+                feeElem.innerHTML = `₹60 <span style="font-size: 0.72rem; color: #ea580c; display: block;">(Add ₹${diff} more for FREE Delivery!)</span>`;
                 if (locBadgeElem) locBadgeElem.innerText = "₹60.00 (Cart < ₹700)";
             }
             feeElem.className = "font-semibold text-green-700";

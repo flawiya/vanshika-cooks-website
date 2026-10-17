@@ -15,9 +15,9 @@
             </h1>
             <p class="text-gray-700 max-w-xl mx-auto text-base">
                 {% if current_lang == 'hi' %}
-                आमची <strong>औरंगाबाद / छत्रपती संभाजीनगर, महाराष्ट्र, भारत मध्ये थेट घरपोच डिलिव्हरी</strong> (डिलिव्हरी शुल्क: ₹७०० च्या आत ₹६०, ₹७०० व त्यापुढे फक्त ₹३०) उपलब्ध आहे. इतर सर्व ठिकाणांसाठी (उदा. पुणे, मुंबई, नाशिक, जालना, नागपूर, किंवा इतर राज्ये) कृपया खालील फॉर्मद्वारे चौकशी करा. आम्ही एक्सप्रेस पार्सलने फराळ पाठवतो!
+                आमची <strong>औरंगाबाद / छत्रपती संभाजीनगर, महाराष्ट्र, भारत मध्ये थेट घरपोच डिलिव्हरी</strong> (डिलिव्हरी शुल्क: ₹७०० च्या आत ₹६०, ₹७०० व त्यापुढे <strong>मोफत डिलिव्हरी (FREE Delivery)</strong>) उपलब्ध आहे. इतर सर्व ठिकाणांसाठी (उदा. पुणे, मुंबई, नाशिक, जालना, नागपूर, किंवा इतर राज्ये) कृपया खालील फॉर्मद्वारे चौकशी करा. आम्ही एक्सप्रेस पार्सलने फराळ पाठवतो!
                 {% else %}
-                We provide <strong>Doorstep delivery across Aurangabad/Chhatrapati Sambhajinagar, Maharashtra, India.</strong> (Delivery fee: ₹60 below ₹700, ₹30 for ₹700 and above). For all other locations, please submit your inquiry below so our team can quote parcel courier charges.
+                We provide <strong>Doorstep delivery across Aurangabad/Chhatrapati Sambhajinagar, Maharashtra, India.</strong> (Delivery fee: ₹60 below ₹700, <strong>FREE Delivery</strong> for ₹700 and above). For all other locations, please submit your inquiry below so our team can quote parcel courier charges.
                 {% endif %}
             </p>
         </div>
@@ -90,8 +90,8 @@
 
                     <div class="mt-6">
                         <button type="submit" class="btn-place-order">
-                            <i class="fab fa-whatsapp text-xl mr-2"></i>
-                            <span>{% if current_lang == 'hi' %}चौकशी नोंदवा व व्हॉट्सॲपवर पाठवा{% else %}Submit Inquiry & Open WhatsApp{% endif %}</span>
+                            <i class="fas fa-paper-plane mr-2"></i>
+                            <span>{% if current_lang == 'hi' %}चौकशी नोंदवा{% else %}Submit Inquiry{% endif %}</span>
                         </button>
                     </div>
                 </form>
@@ -101,14 +101,14 @@
         <!-- Direct WhatsApp Contact Box -->
         <div class="direct-wa-box text-center mt-6 p-6 bg-orange-50 border border-orange-200 rounded-xl">
             <h4 class="font-bold text-gray-800 mb-2">
-                {% if current_lang == 'hi' %}किंवा आमच्या मालकांशी थेट व्हॉट्सॲपवर संपर्क करा:{% else %}Or Message Our Owners Directly on WhatsApp:{% endif %}
+                {% if current_lang == 'hi' %}किंवा आमच्याशी थेट व्हॉट्सॲपवर संपर्क करा:{% else %}Or Message Our Team Directly on WhatsApp:{% endif %}
             </h4>
             <div class="flex justify-center gap-4 flex-wrap mt-3">
-                <a href="https://api.whatsapp.com/send?phone=918623865447&text=Hello%20Vanshika%2C%20I%20need%20outstation%20Diwali%20Faral%20delivery." target="_blank" rel="noopener" class="btn-wa-pill">
-                    <i class="fab fa-whatsapp"></i> +91 8623865447
+                <a href="{{ url_for('order_whatsapp', channel=1, item='Outstation Diwali Faral Inquiry') }}" target="_blank" rel="noopener" class="btn-wa-pill">
+                    <i class="fab fa-whatsapp"></i> {% if current_lang == 'hi' %}व्हॉट्सॲप सपोर्ट १{% else %}WhatsApp Support 1{% endif %}
                 </a>
-                <a href="https://api.whatsapp.com/send?phone=918999585283&text=Hello%20Vanshika%2C%20I%20need%20outstation%20Diwali%20Faral%20delivery." target="_blank" rel="noopener" class="btn-wa-pill">
-                    <i class="fab fa-whatsapp"></i> +91 8999585283
+                <a href="{{ url_for('order_whatsapp', channel=2, item='Outstation Diwali Faral Inquiry') }}" target="_blank" rel="noopener" class="btn-wa-pill">
+                    <i class="fab fa-whatsapp"></i> {% if current_lang == 'hi' %}व्हॉट्सॲप सपोर्ट २{% else %}WhatsApp Support 2{% endif %}
                 </a>
             </div>
         </div>

@@ -26,9 +26,9 @@
                 <span>
                     <strong>{{ t.booking_banner_title }}</strong>
                     {% if current_lang == 'hi' %}
-                    <strong>औरंगाबाद / छत्रपती संभाजीनगर, महाराष्ट्र, भारत मध्ये थेट घरपोच डिलिव्हरी</strong> (डिलिव्हरी: ₹७०० खाली ₹६० | ₹७००+ वर ₹३०) • ५०% ॲडव्हान्ससह COD उपलब्ध • <a href="{{ url_for('outstation_inquiry') }}" class="underline text-yellow-200 hover:text-white">इतर शहरे? येथे संपर्क करा</a>
+                    <strong>औरंगाबाद / छत्रपती संभाजीनगर, महाराष्ट्र, भारत मध्ये थेट घरपोच डिलिव्हरी</strong> (डिलिव्हरी: ₹७०० खाली ₹६० | ₹७००+ वर मोफत डिलिव्हरी!) • ५०% ॲडव्हान्ससह COD उपलब्ध • <a href="{{ url_for('outstation_inquiry') }}" class="underline text-yellow-200 hover:text-white">इतर शहरे? येथे संपर्क करा</a>
                     {% else %}
-                    <strong>Doorstep delivery across Aurangabad/Chhatrapati Sambhajinagar, Maharashtra, India.</strong> (Delivery: ₹60 below ₹700 | ₹30 for ₹700+) • COD with 50% Advance • <a href="{{ url_for('outstation_inquiry') }}" class="underline text-yellow-200 hover:text-white">Other Cities? Contact here</a>
+                    <strong>Doorstep delivery across Aurangabad/Chhatrapati Sambhajinagar, Maharashtra, India.</strong> (Delivery: ₹60 below ₹700 | FREE Delivery for orders ₹700+) • COD with 50% Advance • <a href="{{ url_for('outstation_inquiry') }}" class="underline text-yellow-200 hover:text-white">Other Cities? Contact here</a>
                     {% endif %}
                 </span>
             </div>
@@ -98,7 +98,7 @@
                 </div>
 
                 <!-- WhatsApp Quick Order -->
-                <a href="https://api.whatsapp.com/send?phone=918623865447&text=🪔%20Namaste%20Vanshika!%20I%20would%20like%20to%20order%20Diwali%20Faral%20in%20Chhatrapati%20Sambhaji%20Nagar." target="_blank" rel="noopener" class="btn-whatsapp-header" title="Order on WhatsApp">
+                <a href="{{ url_for('order_whatsapp') }}" target="_blank" rel="noopener" class="btn-whatsapp-header" title="Order on WhatsApp">
                     <i class="fab fa-whatsapp"></i>
                     <span>{{ t.order_whatsapp }}</span>
                 </a>
@@ -144,11 +144,11 @@
 
             <div class="drawer-footer">
                 <div class="flex flex-col gap-2">
-                    <a href="https://api.whatsapp.com/send?phone=918623865447&text=🪔%20Namaste%20Vanshika!%20I%20would%20like%20to%20order%20Diwali%20Faral." target="_blank" rel="noopener" class="btn-whatsapp-header full-width">
-                        <i class="fab fa-whatsapp"></i> WhatsApp: +91 8623865447
+                    <a href="{{ url_for('order_whatsapp', channel=1) }}" target="_blank" rel="noopener" class="btn-whatsapp-header full-width">
+                        <i class="fab fa-whatsapp"></i> {% if current_lang == 'hi' %}व्हॉट्सॲप संवाद १{% else %}WhatsApp Chat 1{% endif %}
                     </a>
-                    <a href="https://api.whatsapp.com/send?phone=918999585283&text=🪔%20Namaste%20Vanshika!%20I%20would%20like%20to%20order%20Diwali%20Faral." target="_blank" rel="noopener" class="btn-whatsapp-header full-width" style="background: #128c7e;">
-                        <i class="fab fa-whatsapp"></i> WhatsApp: +91 8999585283
+                    <a href="{{ url_for('order_whatsapp', channel=2) }}" target="_blank" rel="noopener" class="btn-whatsapp-header full-width" style="background: #128c7e;">
+                        <i class="fab fa-whatsapp"></i> {% if current_lang == 'hi' %}व्हॉट्सॲप संवाद २{% else %}WhatsApp Chat 2{% endif %}
                     </a>
                 </div>
             </div>
@@ -177,10 +177,10 @@
                         <strong>📍 {% if current_lang == 'hi' %}डिलिव्हरी व पेमेंट नियम:{% else %}Delivery & Payment Rules:{% endif %}</strong>
                         <p class="mt-1">
                             {% if current_lang == 'hi' %}
-                            <strong>औरंगाबाद / छत्रपती संभाजीनगर, महाराष्ट्र, भारत मध्ये थेट घरपोच डिलिव्हरी</strong> (डिलिव्हरी शुल्क: ₹७०० च्या आत <strong>₹६०</strong>, ₹७०० व त्यापुढे फक्त <strong>₹३०</strong>). ५०% ॲडव्हान्स बुकिंगसह कॅश ऑन डिलिव्हरी उपलब्ध.
+                            <strong>औरंगाबाद / छत्रपती संभाजीनगर, महाराष्ट्र, भारत मध्ये थेट घरपोच डिलिव्हरी</strong> (डिलिव्हरी शुल्क: ₹७०० च्या आत <strong>₹६०</strong>, ₹७०० व त्यापुढे <strong>मोफत डिलिव्हरी!</strong>). ५०% ॲडव्हान्स बुकिंगसह कॅश ऑन डिलिव्हरी उपलब्ध.
                             <br><a href="{{ url_for('outstation_inquiry') }}" class="underline text-yellow-300">इतर शहरांसाठी पार्सल कुरिअर चौकशी येथे करा &rarr;</a>
                             {% else %}
-                            <strong>Doorstep delivery across Aurangabad/Chhatrapati Sambhajinagar, Maharashtra, India.</strong> (Delivery fee: <strong>₹60</strong> below ₹700, <strong>₹30</strong> for ₹700 and above). Cash on Delivery with 50% advance booking.
+                            <strong>Doorstep delivery across Aurangabad/Chhatrapati Sambhajinagar, Maharashtra, India.</strong> (Delivery fee: <strong>₹60</strong> below ₹700, <strong>FREE Delivery</strong> for ₹700 and above). Cash on Delivery with 50% advance booking.
                             <br><a href="{{ url_for('outstation_inquiry') }}" class="underline text-yellow-300">Outside Sambhaji Nagar? Click for courier inquiry &rarr;</a>
                             {% endif %}
                         </p>
@@ -215,14 +215,14 @@
 
                 <!-- Col 4: Quick Order on WhatsApp -->
                 <div class="footer-col whatsapp-box-col">
-                    <h4 class="footer-heading">🪔 Direct Order & Owners WhatsApp</h4>
-                    <p class="footer-desc">Connect directly with the kitchen owners to place orders, confirm delivery slots, or make 50% advance payments:</p>
+                    <h4 class="footer-heading">🪔 {% if current_lang == 'hi' %}थेट ऑर्डर व व्हॉट्सॲप मदत{% else %}Direct Order & WhatsApp Support{% endif %}</h4>
+                    <p class="footer-desc">{% if current_lang == 'hi' %}ऑर्डर निश्चित करण्यासाठी व ५०% ॲडव्हान्स भरण्यासाठी आमच्या टीमशी व्हॉट्सॲपवर संपर्क करा:{% else %}Connect directly with our kitchen team on WhatsApp to place orders, confirm delivery slots, or pay 50% advance:{% endif %}</p>
                     <div class="flex flex-col gap-2 mt-3">
-                        <a href="https://api.whatsapp.com/send?phone=918623865447&text=🪔%20Namaste%20Vanshika!%20I%20would%20like%20to%20order%20Diwali%20Faral." target="_blank" rel="noopener" class="btn-whatsapp-footer">
-                            <i class="fab fa-whatsapp"></i> WhatsApp: +91 8623865447
+                        <a href="{{ url_for('order_whatsapp', channel=1) }}" target="_blank" rel="noopener" class="btn-whatsapp-footer">
+                            <i class="fab fa-whatsapp"></i> {% if current_lang == 'hi' %}व्हॉट्सॲप मदत केंद्र १{% else %}WhatsApp Support 1{% endif %}
                         </a>
-                        <a href="https://api.whatsapp.com/send?phone=918999585283&text=🪔%20Namaste%20Vanshika!%20I%20would%20like%20to%20order%20Diwali%20Faral." target="_blank" rel="noopener" class="btn-whatsapp-footer" style="background: #128c7e;">
-                            <i class="fab fa-whatsapp"></i> WhatsApp: +91 8999585283
+                        <a href="{{ url_for('order_whatsapp', channel=2) }}" target="_blank" rel="noopener" class="btn-whatsapp-footer" style="background: #128c7e;">
+                            <i class="fab fa-whatsapp"></i> {% if current_lang == 'hi' %}व्हॉट्सॲप मदत केंद्र २{% else %}WhatsApp Support 2{% endif %}
                         </a>
                     </div>
                     

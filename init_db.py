@@ -234,8 +234,8 @@ REVIEWS = [
         "rating": 5,
         "item_en": "Coconut Mawa Karanji & Poha Chivda",
         "item_hi": "नारळ करंजी व पोहा चिवडा",
-        "text_en": "The karanji pastry was so flaky and stuffed generously with dry coconut & mawa. Loved the ₹30 discounted delivery for my ₹800 order!",
-        "text_hi": "करंजी एकदम खुसखुशीत आणि आतलं खोबरं-खव्याचं सारण अप्रतिम होतं! ₹७०० पेक्षा जास्त ऑर्डरवर फक्त ₹३० डिलिव्हरी शुल्क लागल्यामुळे खूप आनंद झाला."
+        "text_en": "The karanji pastry was so flaky and stuffed generously with dry coconut & mawa. Loved the FREE delivery for my ₹800 order!",
+        "text_hi": "करंजी एकदम खुसखुशीत आणि आतलं खोबरं-खव्याचं सारण अप्रतिम होतं! ₹७०० पेक्षा जास्त ऑर्डरवर मोफत डिलिव्हरी (FREE Delivery) मिळाल्यामुळे खूप आनंद झाला."
     }
 ]
 
