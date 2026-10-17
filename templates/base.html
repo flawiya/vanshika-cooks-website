@@ -26,9 +26,9 @@
                 <span>
                     <strong>{{ t.booking_banner_title }}</strong>
                     {% if current_lang == 'hi' %}
-                    थेट घरपोच डिलिव्हरी <strong>फक्त छत्रपती संभाजीनगर (औरंगाबाद), MH</strong> मध्ये (फ्लॅट ₹६०) • ५०% ॲडव्हान्ससह COD उपलब्ध • <a href="{{ url_for('outstation_inquiry') }}" class="underline text-yellow-200 hover:text-white">इतर शहरे? येथे क्लिक करा</a>
+                    <strong>औरंगाबाद / छत्रपती संभाजीनगर, महाराष्ट्र, भारत मध्ये थेट घरपोच डिलिव्हरी</strong> (डिलिव्हरी: ₹७०० खाली ₹६० | ₹७००+ वर ₹३०) • ५०% ॲडव्हान्ससह COD उपलब्ध • <a href="{{ url_for('outstation_inquiry') }}" class="underline text-yellow-200 hover:text-white">इतर शहरे? येथे संपर्क करा</a>
                     {% else %}
-                    Direct Delivery in <strong>Chhatrapati Sambhaji Nagar (Aurangabad), MH only</strong> (Flat ₹60) • COD with 50% Advance • <a href="{{ url_for('outstation_inquiry') }}" class="underline text-yellow-200 hover:text-white">Other Cities? Click here</a>
+                    <strong>Doorstep delivery across Aurangabad/Chhatrapati Sambhajinagar, Maharashtra, India.</strong> (Delivery: ₹60 below ₹700 | ₹30 for ₹700+) • COD with 50% Advance • <a href="{{ url_for('outstation_inquiry') }}" class="underline text-yellow-200 hover:text-white">Other Cities? Contact here</a>
                     {% endif %}
                 </span>
             </div>
@@ -71,9 +71,6 @@
                 <a href="{{ url_for('faral_menu') }}" class="nav-link {% if request.endpoint == 'faral_menu' %}active{% endif %}">
                     {{ t.faral_menu }}
                 </a>
-                <a href="{{ url_for('hampers_page') }}" class="nav-link {% if request.endpoint == 'hampers_page' %}active{% endif %}">
-                    {{ t.hampers }}
-                </a>
                 <a href="{{ url_for('checkout') }}" class="nav-link nav-btn-order {% if request.endpoint == 'checkout' %}active{% endif %}">
                     <i class="fas fa-shopping-bag text-orange-500"></i>
                     <span>{{ t.order_now }}</span>
@@ -84,9 +81,6 @@
                 </a>
                 <a href="{{ url_for('about') }}" class="nav-link {% if request.endpoint == 'about' %}active{% endif %}">
                     {{ t.about }}
-                </a>
-                <a href="{{ url_for('reels') }}" class="nav-link {% if request.endpoint == 'reels' %}active{% endif %}">
-                    <i class="fab fa-instagram" style="color: #e1306c;"></i> {{ t.reels }}
                 </a>
                 <a href="{{ url_for('contact') }}" class="nav-link {% if request.endpoint == 'contact' %}active{% endif %}">
                     {{ t.contact }}
@@ -143,10 +137,8 @@
                 <a href="{{ url_for('checkout') }}" class="drawer-link font-bold text-orange-600"><i class="fas fa-shopping-bag"></i> {{ t.order_now }} (Faral Box)</a>
                 <a href="{{ url_for('home') }}" class="drawer-link"><i class="fas fa-home"></i> {{ t.home }}</a>
                 <a href="{{ url_for('faral_menu') }}" class="drawer-link"><i class="fas fa-cookie"></i> {{ t.faral_menu }}</a>
-                <a href="{{ url_for('hampers_page') }}" class="drawer-link"><i class="fas fa-gift"></i> {{ t.hampers }}</a>
                 <a href="{{ url_for('outstation_inquiry') }}" class="drawer-link"><i class="fas fa-truck"></i> {% if current_lang == 'hi' %}संभाजीनगरबाहेरील डिलिव्हरी{% else %}Outstation Delivery{% endif %}</a>
                 <a href="{{ url_for('about') }}" class="drawer-link"><i class="fas fa-heart"></i> {{ t.about }}</a>
-                <a href="{{ url_for('reels') }}" class="drawer-link"><i class="fab fa-instagram"></i> {{ t.reels }}</a>
                 <a href="{{ url_for('contact') }}" class="drawer-link"><i class="fas fa-phone-alt"></i> {{ t.contact }}</a>
             </nav>
 
@@ -185,10 +177,10 @@
                         <strong>📍 {% if current_lang == 'hi' %}डिलिव्हरी व पेमेंट नियम:{% else %}Delivery & Payment Rules:{% endif %}</strong>
                         <p class="mt-1">
                             {% if current_lang == 'hi' %}
-                            थेट घरपोच डिलिव्हरी <strong>फक्त छत्रपती संभाजीनगर (औरंगाबाद), MH</strong> मध्ये (फ्लॅट <strong>₹६०</strong> डिलिव्हरी शुल्क). ५०% ॲडव्हान्स बुकिंगसह कॅश ऑन डिलिव्हरी उपलब्ध.
+                            <strong>औरंगाबाद / छत्रपती संभाजीनगर, महाराष्ट्र, भारत मध्ये थेट घरपोच डिलिव्हरी</strong> (डिलिव्हरी शुल्क: ₹७०० च्या आत <strong>₹६०</strong>, ₹७०० व त्यापुढे फक्त <strong>₹३०</strong>). ५०% ॲडव्हान्स बुकिंगसह कॅश ऑन डिलिव्हरी उपलब्ध.
                             <br><a href="{{ url_for('outstation_inquiry') }}" class="underline text-yellow-300">इतर शहरांसाठी पार्सल कुरिअर चौकशी येथे करा &rarr;</a>
                             {% else %}
-                            Direct doorstep delivery in <strong>Chhatrapati Sambhaji Nagar (Aurangabad), MH only</strong> (Flat <strong>₹60</strong> delivery fee). Cash on Delivery with 50% advance booking.
+                            <strong>Doorstep delivery across Aurangabad/Chhatrapati Sambhajinagar, Maharashtra, India.</strong> (Delivery fee: <strong>₹60</strong> below ₹700, <strong>₹30</strong> for ₹700 and above). Cash on Delivery with 50% advance booking.
                             <br><a href="{{ url_for('outstation_inquiry') }}" class="underline text-yellow-300">Outside Sambhaji Nagar? Click for courier inquiry &rarr;</a>
                             {% endif %}
                         </p>
@@ -208,14 +200,15 @@
                     </ul>
                 </div>
 
-                <!-- Col 3: Hampers & Gifting -->
+                <!-- Col 3: Quick Links & Information -->
                 <div class="footer-col">
-                    <h4 class="footer-heading">{{ t.hampers }}</h4>
+                    <h4 class="footer-heading">{% if current_lang == 'hi' %}महत्त्वाच्या लिंक्स{% else %}Quick Links{% endif %}</h4>
                     <ul class="footer-links-list">
-                        <li><a href="{{ url_for('hampers_page') }}">1.5kg Sampoorna Faral Hamper</a></li>
-                        <li><a href="{{ url_for('hampers_page') }}">1.0kg Corporate & Family Box</a></li>
                         <li><a href="{{ url_for('checkout') }}">Order Faral Online (ऑर्डर करा)</a></li>
-                        <li><a href="{{ url_for('outstation_inquiry') }}">Outstation Courier Delivery</a></li>
+                        <li><a href="{{ url_for('faral_menu') }}">Faral Menu (मेन्यू व भाव)</a></li>
+                        <li><a href="{{ url_for('outstation_inquiry') }}">Outstation Courier Inquiry</a></li>
+                        <li><a href="{{ url_for('about') }}">About Our Tradition (आमची माहिती)</a></li>
+                        <li><a href="{{ url_for('contact') }}">Contact Us (संपर्क)</a></li>
                         <li><a href="https://www.instagram.com/vanshikacooks/" target="_blank">Instagram @vanshikacooks</a></li>
                     </ul>
                 </div>

@@ -102,9 +102,9 @@
                         <p class="order-note-sub mt-2">
                             <i class="fas fa-truck text-orange-600"></i>
                             {% if current_lang == 'hi' %}
-                            थेट घरपोच डिलिव्हरी <strong>फक्त छत्रपती संभाजीनगर (औरंगाबाद), MH</strong> मध्ये (फ्लॅट ₹६०). इतर शहरांसाठी कुरिअर सुविधा.
+                            <strong>औरंगाबाद / छत्रपती संभाजीनगर, महाराष्ट्र, भारत मध्ये थेट घरपोच डिलिव्हरी</strong> (डिलिव्हरी शुल्क ₹७०० खाली ₹६०, ₹७००+ वर ₹३०). इतर शहरांसाठी पार्सल कुरिअर उपलब्ध.
                             {% else %}
-                            Direct delivery in <strong>Chhatrapati Sambhaji Nagar (Aurangabad), MH only</strong> (Flat ₹60). Outstation courier available.
+                            <strong>Doorstep delivery across Aurangabad/Chhatrapati Sambhajinagar, Maharashtra, India.</strong> (Delivery fee: ₹60 below ₹700, ₹30 for ₹700 & above). Outstation courier available.
                             {% endif %}
                         </p>
                     </div>
@@ -208,7 +208,7 @@ function selectPack(pack, price, el) {
     // Update dynamic WhatsApp link
     const waBtn = document.getElementById('dynamicWhatsAppBtn');
     if (waBtn) {
-        const msg = encodeURIComponent(`🪔 *Namaste Vanshika Swadisht Faral!* I would like to order:\n\n• *Item:* {{ product.name }}\n• *Pack Size:* ${pack}\n• *Price:* ₹${price}\n• *Delivery Zone:* Chhatrapati Sambhaji Nagar (Aurangabad), MH\n\nPlease share fresh batch availability. Thank you!`);
+        const msg = encodeURIComponent(`🪔 *Namaste Vanshika Swadisht Faral!* I would like to order:\n\n• *Item:* {{ product.name }}\n• *Pack Size:* ${pack}\n• *Price:* ₹${price}\n• *Delivery Location:* Doorstep delivery across Aurangabad/Chhatrapati Sambhajinagar, Maharashtra, India.\n\nPlease share fresh batch availability. Thank you!`);
         waBtn.href = `https://api.whatsapp.com/send?phone=918623865447&text=${msg}`;
     }
 }

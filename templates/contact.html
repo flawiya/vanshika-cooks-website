@@ -67,7 +67,7 @@
 
                         <div class="form-group">
                             <label for="items">{% if current_lang == 'hi' %}हवे असलेले फराळ पदार्थ व वजन *{% else %}Items & Required Quantity *{% endif %}</label>
-                            <textarea id="items" name="items" rows="3" required placeholder="{% if current_lang == 'hi' %}उदा. १ किलो चकली, ५०० ग्रॅम बेसन लाडू, २ संपूण फराळ हॅम्पर...{% else %}e.g. 1kg Bhajani Chakli, 500g Besan Ladoo, 2 Hampers...{% endif %}"></textarea>
+                            <textarea id="items" name="items" rows="3" required placeholder="{% if current_lang == 'hi' %}उदा. १ किलो चकली, ५०० ग्रॅम बेसन लाडू, ५०० ग्रॅम करंजी...{% else %}e.g. 1kg Bhajani Chakli, 500g Besan Ladoo, 500g Karanji...{% endif %}"></textarea>
                         </div>
 
                         <div class="form-group">
@@ -101,7 +101,7 @@
                 <div class="info-card-box">
                     <i class="fab fa-instagram info-icon" style="color: #e1306c;"></i>
                     <h4>Instagram @vanshikacooks</h4>
-                    <p>Follow our daily reels of fresh Chakli pressing, Ladoo rolling, and festive packaging!</p>
+                    <p>Follow our daily updates of authentic Diwali faral making and fresh kitchen preparations!</p>
                     <a href="https://www.instagram.com/vanshikacooks/" target="_blank" class="text-link">
                         Open Instagram &rarr;
                     </a>
@@ -109,8 +109,14 @@
 
                 <div class="info-card-box">
                     <i class="fas fa-truck-moving info-icon"></i>
-                    <h4>{% if current_lang == 'hi' %}डिलिव्हरी व कुरियर कव्हरेज{% else %}Delivery Coverage{% endif %}</h4>
-                    <p>Doorstep delivery across Mumbai, Pune, Thane, Navi Mumbai, Nashik, Aurangabad, all Indian metros, and international courier dispatch to the UK.</p>
+                    <h4>{% if current_lang == 'hi' %}डिलिव्हरी व कव्हरेज{% else %}Delivery Coverage{% endif %}</h4>
+                    <p>
+                        {% if current_lang == 'hi' %}
+                        <strong>औरंगाबाद / छत्रपती संभाजीनगर, महाराष्ट्र, भारत मध्ये थेट घरपोच डिलिव्हरी</strong> (डिलिव्हरी शुल्क: ₹७०० खाली ₹६०, ₹७००+ वर ₹३०). इतर सर्व शहरांसाठी पार्सल कुरिअर उपलब्ध.
+                        {% else %}
+                        <strong>Doorstep delivery across Aurangabad/Chhatrapati Sambhajinagar, Maharashtra, India.</strong> (Delivery fee: ₹60 below ₹700, ₹30 for ₹700 and above). Outstation orders shipped via parcel courier.
+                        {% endif %}
+                    </p>
                 </div>
             </div>
 

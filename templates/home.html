@@ -41,9 +41,6 @@
             <a href="{{ url_for('faral_menu') }}" class="btn-outline-hero btn-lg">
                 <i class="fas fa-cookie"></i> {{ t.view_menu }}
             </a>
-            <a href="{{ url_for('hampers_page') }}" class="btn-outline-hero btn-lg">
-                <i class="fas fa-gift"></i> {{ t.view_hampers }}
-            </a>
             <a href="https://api.whatsapp.com/send?phone=918623865447&text=🪔%20Namaste%20Vanshika!%20I%20would%20like%20to%20order%20Diwali%20Faral." target="_blank" rel="noopener" class="btn-whatsapp-hero btn-lg">
                 <i class="fab fa-whatsapp"></i> {{ t.order_whatsapp }}
             </a>
@@ -91,9 +88,6 @@
             <a href="{{ url_for('faral_menu', category='sweet') }}" class="pill-btn">
                 <i class="fas fa-ice-cream"></i> {{ t.filter_sweets }}
             </a>
-            <a href="{{ url_for('hampers_page') }}" class="pill-btn" style="background: #fff7ed; border-color: #fdba74; color: #c2410c; font-weight: 700;">
-                <i class="fas fa-gift"></i> {{ t.filter_hampers }}
-            </a>
         </div>
     </div>
 </section>
@@ -105,16 +99,24 @@
             <span style="font-size: 1.6rem;">🛵</span>
             <div>
                 <strong style="color: #7c2d12; font-size: 1rem;">
-                    {% if current_lang == 'hi' %}थेट घरपोच डिलिव्हरी फक्त छत्रपती संभाजीनगर (औरंगाबाद), महाराष्ट्र मध्ये (फ्लॅट ₹६०){% else %}Direct Home Delivery in Chhatrapati Sambhaji Nagar (Aurangabad), MH Only (Flat ₹60 Fee){% endif %}
+                    {% if current_lang == 'hi' %}
+                    औरंगाबाद / छत्रपती संभाजीनगर, महाराष्ट्र, भारत मध्ये थेट घरपोच डिलिव्हरी
+                    {% else %}
+                    Doorstep delivery across Aurangabad/Chhatrapati Sambhajinagar, Maharashtra, India.
+                    {% endif %}
                 </strong>
                 <p style="margin: 0; color: #9a3412; font-size: 0.85rem;">
-                    {% if current_lang == 'hi' %}५०% ॲडव्हान्ससह कॅश ऑन डिलिव्हरी उपलब्ध. इतर शहरांसाठी (पुणे, मुंबई, नाशिक इ.) कुरिअर पार्सल सुविधा.{% else %}Cash on Delivery with 50% initial advance. For other cities (Pune, Mumbai, Nashik, etc.) express courier is available.{% endif %}
+                    {% if current_lang == 'hi' %}
+                    डिलिव्हरी शुल्क: ₹७०० खाली <strong>₹६०</strong> | ₹७०० आणि त्यावरील ऑर्डर्ससाठी फक्त <strong>₹३०</strong> • ५०% ॲडव्हान्ससह कॅश ऑन डिलिव्हरी उपलब्ध.
+                    {% else %}
+                    Delivery Charges: <strong>₹60 INR</strong> for orders below ₹700 INR | <strong>₹30 INR</strong> for orders ₹700 INR & above • Cash on Delivery with 50% initial payment.
+                    {% endif %}
                 </p>
             </div>
         </div>
         <div style="display: flex; gap: 8px;">
             <a href="{{ url_for('checkout') }}" style="background: #ea580c; color: #ffffff; padding: 8px 16px; border-radius: 8px; font-weight: 700; font-size: 0.85rem; text-decoration: none;">
-                <i class="fas fa-shopping-bag"></i> {% if current_lang == 'hi' %}ऑर्डर करा{% else %}Order Online{% endif %}
+                <i class="fas fa-shopping-bag"></i> {% if current_lang == 'hi' %}ऑर्डर करा (COD){% else %}Order Online (COD){% endif %}
             </a>
             <a href="{{ url_for('outstation_inquiry') }}" style="background: #fff7ed; color: #9a3412; border: 1px solid #fed7aa; padding: 8px 14px; border-radius: 8px; font-weight: 700; font-size: 0.85rem; text-decoration: none;">
                 <i class="fas fa-truck"></i> {% if current_lang == 'hi' %}इतर शहरे?{% else %}Outstation?{% endif %}
@@ -198,60 +200,6 @@
     </div>
 </section>
 
-<!-- Diwali Gift Hampers Spotlight -->
-<section class="hampers-spotlight-section">
-    <div class="container">
-        <div class="section-header center">
-            <span class="sub-title-badge">🎁 {{ t.hampers }}</span>
-            <h2 class="section-title">
-                {% if current_lang == 'hi' %}शाही दिवाळी फराळ गिफ्ट बॉक्सेस{% else %}Luxury Diwali Faral Gift Hampers{% endif %}
-            </h2>
-            <p class="section-subtitle">
-                {% if current_lang == 'hi' %}
-                    नातेवाईक, मित्रपरिवार आणि ऑफिसच्या सहकाऱ्यांसाठी परिपूर्ण भेटवस्तू. सुंदर गिफ्ट बॉक्स व पणतीसह!
-                {% else %}
-                    Delight your family, friends, and corporate teams with assorted authentic Diwali hampers.
-                {% endif %}
-            </p>
-        </div>
-
-        <div class="hampers-grid">
-            {% for h in hampers %}
-            <div class="hamper-card">
-                <div class="hamper-image-col">
-                    <img src="{{ h.image }}" alt="{{ h.name }}" class="hamper-img">
-                    <span class="hamper-badge">{{ h.badge }}</span>
-                </div>
-                <div class="hamper-info-col">
-                    <span class="hamper-weight-pill"><i class="fas fa-weight-hanging"></i> {{ h.weight }}</span>
-                    <h3 class="hamper-title">{{ h.name }}</h3>
-                    <p class="hamper-desc">{{ h.description }}</p>
-
-                    <div class="hamper-items-list">
-                        <strong>{{ t.items_included }}</strong>
-                        <ul>
-                            {% for item in h.items_included %}
-                            <li><i class="fas fa-check"></i> {{ item }}</li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-
-                    <div class="hamper-price-row">
-                        <div class="hamper-cost">
-                            <span class="cost-currency">₹</span>
-                            <span class="cost-amount">{{ h.price_inr }}</span>
-                            <span class="cost-gbp">/ £{{ h.price_gbp }}</span>
-                        </div>
-                        <a href="{{ url_for('order_whatsapp', item=h.name, pack=h.weight, price=h.price_inr) }}" target="_blank" rel="noopener" class="btn-whatsapp-header">
-                            <i class="fab fa-whatsapp"></i> {{ t.order_whatsapp }}
-                        </a>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-    </div>
-</section>
 
 <!-- Why Choose Vanshika Swadisht Faral -->
 <section class="why-us-section">
@@ -363,13 +311,13 @@
                         </div>
                         <div class="form-group">
                             <label for="city">{% if current_lang == 'hi' %}शहर / डिलिव्हरी ठिकाण *{% else %}Delivery City *{% endif %}</label>
-                            <input type="text" id="city" name="city" required placeholder="e.g. Mumbai / Pune / Nashik">
+                            <input type="text" id="city" name="city" required placeholder="e.g. Chhatrapati Sambhaji Nagar / Aurangabad">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label for="items">{% if current_lang == 'hi' %}हवे असलेले फराळ पदार्थ व वजन *{% else %}Items & Quantity Required *{% endif %}</label>
-                        <textarea id="items" name="items" rows="3" required placeholder="{% if current_lang == 'hi' %}उदा. १ किलो भाजणी चकली, ५०० ग्रॅम बेसन लाडू, १ संपूर्ण फराळ हॅम्पर...{% else %}e.g. 1kg Bhajani Chakli, 500g Besan Ladoo, 1 Sampoorna Hamper...{% endif %}"></textarea>
+                        <textarea id="items" name="items" rows="3" required placeholder="{% if current_lang == 'hi' %}उदा. १ किलो भाजणी चकली, ५०० ग्रॅम बेसन लाडू, ५०० ग्रॅम करंजी...{% else %}e.g. 1kg Bhajani Chakli, 500g Besan Ladoo, 500g Karanji...{% endif %}"></textarea>
                     </div>
 
                     <button type="submit" class="btn-primary-gradient full-width">

@@ -15,9 +15,9 @@
             </h1>
             <p class="checkout-page-sub">
                 {% if current_lang == 'hi' %}
-                शुद्ध साजूक तूप • ऑर्डरनुसार ताजे तयार • <strong>थेट घरपोच डिलिव्हरी फक्त छत्रपती संभाजीनगर (औरंगाबाद) मध्ये</strong>
+                शुद्ध साजूक तूप • ऑर्डरनुसार ताजे तयार • <strong>औरंगाबाद / छत्रपती संभाजीनगर, महाराष्ट्र, भारत मध्ये थेट घरपोच डिलिव्हरी</strong>
                 {% else %}
-                Pure Desi Ghee • Freshly Prepared Upon Order • <strong>Direct Home Delivery in Chhatrapati Sambhaji Nagar (Aurangabad), MH Only</strong>
+                Pure Desi Ghee • Freshly Prepared Upon Order • <strong>Doorstep delivery across Aurangabad/Chhatrapati Sambhajinagar, Maharashtra, India.</strong>
                 {% endif %}
             </p>
         </div>
@@ -33,11 +33,11 @@
                 </h4>
                 <ul class="alert-list">
                     <li>
-                        <strong>{% if current_lang == 'hi' %}डिलिव्हरी क्षेत्र:{% else %}Delivery Location:{% endif %}</strong>
+                        <strong>{% if current_lang == 'hi' %}डिलिव्हरी क्षेत्र व दर:{% else %}Delivery Location & Charges:{% endif %}</strong>
                         {% if current_lang == 'hi' %}
-                        थेट घरपोच डिलिव्हरी सध्या <strong>फक्त छत्रपती संभाजीनगर (औरंगाबाद), महाराष्ट्र</strong> येथे उपलब्ध आहे (फ्लॅट डिलिव्हरी शुल्क: <strong>₹६०</strong>). इतर शहरांसाठी (पुणे, मुंबई, नाशिक इ.) <a href="{{ url_for('outstation_inquiry') }}" class="alert-link">येथे क्लिक करा</a>.
+                        <strong>औरंगाबाद / छत्रपती संभाजीनगर, महाराष्ट्र, भारत मध्ये थेट घरपोच डिलिव्हरी</strong>. डिलिव्हरी शुल्क: संपूर्ण कार्ट ₹७०० खाली असल्यास <strong>₹६०</strong>; ₹७०० आणि त्याहून अधिक असल्यास फक्त <strong>₹३०</strong>. इतर शहरांसाठी (पुणे, मुंबई, नाशिक इ.) <a href="{{ url_for('outstation_inquiry') }}" class="alert-link">येथे क्लिक करून चौकशी करा</a>.
                         {% else %}
-                        Direct doorstep delivery is currently available in <strong>Chhatrapati Sambhaji Nagar (Aurangabad), MH only</strong> (Flat Delivery Fee: <strong>₹60</strong>). For other cities/locations, <a href="{{ url_for('outstation_inquiry') }}" class="alert-link">click here for outstation booking</a>.
+                        <strong>Doorstep delivery across Aurangabad/Chhatrapati Sambhajinagar, Maharashtra, India.</strong> Delivery fee: <strong>₹60 INR</strong> if total cart sum is below ₹700 INR; <strong>₹30 INR</strong> if total cart sum is ₹700 INR or above. For other cities/locations, <a href="{{ url_for('outstation_inquiry') }}" class="alert-link">click here for outstation booking</a>.
                         {% endif %}
                     </li>
                     <li>
@@ -71,34 +71,21 @@
                         <div class="quick-add-wrap mt-4">
                             <label class="font-bold text-gray-800 mb-2 block">
                                 <i class="fas fa-plus-circle text-orange-600"></i>
-                                {% if current_lang == 'hi' %}आणखी फराळ किंवा गिफ्ट बॉक्स जोडा:{% else %}Add More Faral or Hampers to Box:{% endif %}
+                                {% if current_lang == 'hi' %}आणखी फराळ जोडा:{% else %}Add More Faral to Box:{% endif %}
                             </label>
                             <div class="quick-add-controls">
                                 <select id="faralProductSelector" class="form-select">
                                     <option value="">-- {% if current_lang == 'hi' %}फराळ निवडा{% else %}Select Faral Item{% endif %} --</option>
-                                    <optgroup label="{% if current_lang == 'hi' %}पारंपरिक फराळ (Faral Items){% else %}Artisanal Faral Items{% endif %}">
-                                        {% for p in products %}
-                                        <option value="{{ p.slug }}"
-                                                data-name="{{ p.name }}"
-                                                data-p250="{{ p.price_250g }}"
-                                                data-p500="{{ p.price_500g }}"
-                                                data-p1000="{{ p.price_1kg }}"
-                                                data-image="{{ p.image }}">
-                                            {{ p.name }} (250g: ₹{{ p.price_250g }} / 500g: ₹{{ p.price_500g }} / 1kg: ₹{{ p.price_1kg }})
-                                        </option>
-                                        {% endfor %}
-                                    </optgroup>
-                                    <optgroup label="{% if current_lang == 'hi' %}दिवाळी गिफ्ट बॉक्सेस (Hampers){% else %}Diwali Gift Hampers{% endif %}">
-                                        {% for h in hampers %}
-                                        <option value="{{ h.slug }}"
-                                                data-name="{{ h.name }}"
-                                                data-p500="{{ h.price_inr }}"
-                                                data-fixed-pack="{{ h.weight }}"
-                                                data-image="{{ h.image }}">
-                                            🎁 {{ h.name }} ({{ h.weight }} - ₹{{ h.price_inr }})
-                                        </option>
-                                        {% endfor %}
-                                    </optgroup>
+                                    {% for p in products %}
+                                    <option value="{{ p.slug }}"
+                                            data-name="{{ p.name }}"
+                                            data-p250="{{ p.price_250g }}"
+                                            data-p500="{{ p.price_500g }}"
+                                            data-p1000="{{ p.price_1kg }}"
+                                            data-image="{{ p.image }}">
+                                        {{ p.name }} (250g: ₹{{ p.price_250g }} / 500g: ₹{{ p.price_500g }} / 1kg: ₹{{ p.price_1kg }})
+                                    </option>
+                                    {% endfor %}
                                 </select>
 
                                 <select id="faralPackSelector" class="form-select" style="max-width: 140px;">
@@ -131,17 +118,17 @@
                                 <input type="radio" name="delivery_zone" value="aurangabad" checked id="radioZoneLocal">
                                 <div class="loc-card-body">
                                     <div class="loc-card-top">
-                                        <span class="loc-badge-local">🛵 {% if current_lang == 'hi' %}थेट घरपोच डिलिव्हरी{% else %}Standard Local Delivery{% endif %}</span>
-                                        <span class="loc-fee-badge">₹60.00</span>
+                                        <span class="loc-badge-local">🛵 {% if current_lang == 'hi' %}थेट घरपोच डिलिव्हरी{% else %}Doorstep Delivery{% endif %}</span>
+                                        <span class="loc-fee-badge" id="locFeeBadgeDisplay">₹60 / ₹30</span>
                                     </div>
                                     <h4 class="loc-title">
-                                        Chhatrapati Sambhaji Nagar (Aurangabad), MH
+                                        Doorstep delivery across Aurangabad/Chhatrapati Sambhajinagar, Maharashtra, India.
                                     </h4>
                                     <p class="loc-desc">
                                         {% if current_lang == 'hi' %}
-                                        थेट घरपोच डिलिव्हरी. फ्लॅट <strong>₹६० डिलिव्हरी शुल्क</strong>. ५०% ॲडव्हान्ससह कॅश ऑन डिलिव्हरी उपलब्ध.
+                                        डिलिव्हरी शुल्क: कार्ट ₹७०० च्या आत असल्यास <strong>₹६०</strong>; ₹७०० व त्यापुढे फक्त <strong>₹३०</strong>. ५०% ॲडव्हान्ससह कॅश ऑन डिलिव्हरी उपलब्ध.
                                         {% else %}
-                                        Direct home delivery across Aurangabad / Chhatrapati Sambhaji Nagar. Flat <strong>₹60 delivery fee</strong>. Cash on Delivery with 50% advance.
+                                        Delivery charge: <strong>₹60 INR</strong> for orders below ₹700 INR; <strong>₹30 INR</strong> for orders ₹700 INR and above. Cash on Delivery with 50% initial payment.
                                         {% endif %}
                                     </p>
                                 </div>
@@ -333,8 +320,11 @@
 <!-- Client-side Script to manage items, pricing, delivery selection and prefill -->
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-    // Delivery fee constants
-    const DELIVERY_FEE = 60;
+    // Delivery fee logic: ₹60 if cart subtotal is below ₹700; ₹30 if ₹700 or above
+    function computeClientDeliveryFee(subtotal) {
+        if (currentDeliveryZone !== "aurangabad") return 0;
+        return subtotal < 700 ? 60 : 30;
+    }
     let currentDeliveryZone = "aurangabad";
 
     // Products lookup table
@@ -346,14 +336,6 @@ document.addEventListener("DOMContentLoaded", function() {
             p500: {{ p.price_500g }},
             p1000: {{ p.price_1kg }},
             image: "{{ p.image }}"
-        },
-        {% endfor %}
-        {% for h in hampers %}
-        "{{ h.slug }}": {
-            name: "🎁 {{ h.name }}",
-            p500: {{ h.price_inr }},
-            fixedPack: "{{ h.weight }}",
-            image: "{{ h.image }}"
         },
         {% endfor %}
     };
@@ -465,7 +447,7 @@ document.addEventListener("DOMContentLoaded", function() {
             row.className = "cart-item-row";
             row.innerHTML = `
                 <div class="item-img-wrap">
-                    <img src="${item.image || 'https://images.unsplash.com/photo-1605197150495-a2267b2d2f70?auto=format&fit=crop&w=150&q=80'}" alt="${item.name}">
+                    <img src="${item.image || '{{ url_for("static", filename="images/vanshika_profile.jpg") }}'}" alt="${item.name}">
                 </div>
                 <div class="item-info">
                     <div class="item-title">${item.name}</div>
@@ -527,19 +509,29 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function updateSummary(subtotal) {
-        const fee = (currentDeliveryZone === "aurangabad") ? DELIVERY_FEE : 0;
+        const fee = computeClientDeliveryFee(subtotal);
         const total = subtotal + fee;
         const advance = Math.round(total / 2.0);
         const cod = total - advance;
 
         document.getElementById("summarySubtotal").innerText = `₹${subtotal}`;
         const feeElem = document.getElementById("summaryDeliveryFee");
+        const locBadgeElem = document.getElementById("locFeeBadgeDisplay");
+
         if (currentDeliveryZone === "aurangabad") {
-            feeElem.innerText = `₹${DELIVERY_FEE}`;
+            if (subtotal >= 700) {
+                feeElem.innerHTML = `₹30 <span style="font-size: 0.75rem; color: #16a34a; font-weight: 700; display: block;">🎉 ₹30 Discount Rate Applied!</span>`;
+                if (locBadgeElem) locBadgeElem.innerText = "₹30.00 (Cart ₹700+)";
+            } else {
+                const diff = 700 - subtotal;
+                feeElem.innerHTML = `₹60 <span style="font-size: 0.72rem; color: #ea580c; display: block;">(Add ₹${diff} more to get ₹30 delivery!)</span>`;
+                if (locBadgeElem) locBadgeElem.innerText = "₹60.00 (Cart < ₹700)";
+            }
             feeElem.className = "font-semibold text-green-700";
         } else {
             feeElem.innerText = `{% if current_lang == 'hi' %}व्हॉट्सॲपवर कोट होईल{% else %}Quoted via WhatsApp{% endif %}`;
             feeElem.className = "font-semibold text-amber-700";
+            if (locBadgeElem) locBadgeElem.innerText = "Courier Quote";
         }
 
         document.getElementById("summaryTotal").innerText = `₹${total}`;

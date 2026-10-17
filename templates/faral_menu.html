@@ -47,9 +47,6 @@
             <a href="{{ url_for('faral_menu', category='sweet', q=search_query) }}" class="cat-tab {% if selected_category == 'sweet' %}active{% endif %}">
                 <i class="fas fa-ice-cream"></i> {{ t.filter_sweets }}
             </a>
-            <a href="{{ url_for('hampers_page') }}" class="cat-tab">
-                <i class="fas fa-gift"></i> {{ t.filter_hampers }}
-            </a>
         </div>
 
         <!-- Direct Delivery Zone Banner -->
@@ -58,10 +55,18 @@
                 <span style="font-size: 1.6rem;">🛵</span>
                 <div>
                     <strong style="color: #7c2d12; font-size: 1rem;">
-                        {% if current_lang == 'hi' %}थेट घरपोच डिलिव्हरी फक्त छत्रपती संभाजीनगर (औरंगाबाद), महाराष्ट्र मध्ये (फ्लॅट ₹६०){% else %}Direct Home Delivery in Chhatrapati Sambhaji Nagar (Aurangabad), MH Only (Flat ₹60 Fee){% endif %}
+                        {% if current_lang == 'hi' %}
+                        औरंगाबाद / छत्रपती संभाजीनगर, महाराष्ट्र, भारत मध्ये थेट घरपोच डिलिव्हरी
+                        {% else %}
+                        Doorstep delivery across Aurangabad/Chhatrapati Sambhajinagar, Maharashtra, India.
+                        {% endif %}
                     </strong>
                     <p style="margin: 0; color: #9a3412; font-size: 0.85rem;">
-                        {% if current_lang == 'hi' %}५०% ॲडव्हान्ससह कॅश ऑन डिलिव्हरी उपलब्ध. इतर शहरांसाठी (पुणे, मुंबई, नाशिक इ.) कुरिअर पार्सल सुविधा.{% else %}Cash on Delivery with 50% initial advance. For other cities (Pune, Mumbai, Nashik, etc.) express courier is available.{% endif %}
+                        {% if current_lang == 'hi' %}
+                        डिलिव्हरी शुल्क: ₹७०० खाली <strong>₹६०</strong> | ₹७०० आणि त्यावरील ऑर्डर्ससाठी फक्त <strong>₹३०</strong> • ५०% ॲडव्हान्ससह कॅश ऑन डिलिव्हरी उपलब्ध.
+                        {% else %}
+                        Delivery Charges: <strong>₹60 INR</strong> for orders below ₹700 INR | <strong>₹30 INR</strong> for orders ₹700 INR & above • Cash on Delivery with 50% initial payment.
+                        {% endif %}
                     </p>
                 </div>
             </div>

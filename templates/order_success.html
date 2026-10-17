@@ -91,7 +91,7 @@
                 </div>
                 <div class="step-bullet">
                     <span class="num">३</span>
-                    <span><strong>{% if current_lang == 'hi' %}घरपोच डिलिव्हरीवर उर्वरित ५०% (COD):{% else %}Pay Remaining 50% on Delivery (COD):{% endif %}</strong> {% if current_lang == 'hi' %}उर्वरित ५०% रक्कम ताजी फराळ पेटी छत्रपती संभाजीनगरमध्ये हातात आल्यावर रोख द्या!{% else %}Pay the remaining 50% balance in Cash on Delivery when your fresh Faral arrives!{% endif %}</span>
+                    <span><strong>{% if current_lang == 'hi' %}घरपोच डिलिव्हरीवर उर्वरित ५०% (COD):{% else %}Pay Remaining 50% on Delivery (COD):{% endif %}</strong> {% if current_lang == 'hi' %}उर्वरित ५०% रक्कम ताजी फराळ पेटी थेट घरपोच आल्यावर रोख द्या!{% else %}Pay the remaining 50% balance in Cash on Delivery when your fresh Faral arrives at your doorstep!{% endif %}</span>
                 </div>
             </div>
         </div>
@@ -160,7 +160,7 @@
                 </div>
                 <div class="inv-row">
                     <span>
-                        {% if current_lang == 'hi' %}डिलिव्हरी शुल्क (छत्रपती संभाजीनगर):{% else %}Delivery Fee (Chhatrapati Sambhaji Nagar):{% endif %}
+                        {% if current_lang == 'hi' %}डिलिव्हरी शुल्क (औरंगाबाद / संभाजीनगर):{% else %}Delivery Fee (Aurangabad/Sambhajinagar):{% endif %}
                     </span>
                     <span>₹{{ order.delivery_fee|round|int }}</span>
                 </div>
