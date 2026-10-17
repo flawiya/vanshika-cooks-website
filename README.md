@@ -24,9 +24,6 @@ An artisanal, modern festive food and e-commerce selling website offering authen
    - Every order generates an unique, human-readable ID (e.g., `#VSF-2026-XXXX` for local orders, `#VSF-OUT-XXXX` for outstation inquiries).
 
 5. **Instant WhatsApp Order Dispatch to Kitchen Owners:**
-   - Direct integration routing complete order receipts to official kitchen owner numbers:
-     - **Owner 1:** `+91 8623865447`
-     - **Owner 2:** `+91 8999585283`
    - Messages are formatted automatically with:
      - 🆔 Unique Order ID
      - 👤 Customer Name
