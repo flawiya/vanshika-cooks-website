@@ -1,7 +1,7 @@
 # Vanshika Swadisht Faral (वंशिका स्वादिष्ट फराळ 🪔)
 **Official Diwali Faral & Festive Sweets E-Commerce Store for [@vanshikacooks](https://www.instagram.com/vanshikacooks/)**
 
-An artisanal, modern festive food and e-commerce selling website offering authentic homemade traditional Maharashtrian & Indian Diwali Faral, pure desi ghee sweets, and luxury festive gift hampers with a seamless **English / मराठी-हिन्दी** bilingual toggle, **Interactive Faral Box Checkout**, and direct **Dual WhatsApp Notification** to owners (`+91 8623865447` / `+91 8999585283`).
+An artisanal, modern festive food and e-commerce selling website offering authentic homemade traditional Maharashtrian & Indian Diwali Faral, pure desi ghee sweets, and luxury festive gift hampers with a seamless **English / मराठी-हिन्दी** bilingual toggle, **Interactive Faral Box Checkout**.
 
 ---
 
