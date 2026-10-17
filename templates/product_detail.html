@@ -93,7 +93,7 @@
                                 <i class="fas fa-shopping-bag mr-2"></i>
                                 <span>{% if current_lang == 'hi' %}आताच ऑर्डर करा (Order Online){% else %}Order Now (Cash on Delivery + 50% Adv){% endif %}</span>
                             </a>
-                            <a href="{{ url_for('order_whatsapp', item=product.name, pack='250g', price=product.price_250g) }}" id="dynamicWhatsAppBtn" target="_blank" rel="noopener" class="btn-whatsapp-order-big">
+                            <a href="{{ url_for('order_whatsapp', item=product.name) }}" id="dynamicWhatsAppBtn" target="_blank" rel="noopener" class="btn-whatsapp-order-big">
                                 <i class="fab fa-whatsapp"></i>
                                 <span>{{ t.order_whatsapp }}</span>
                             </a>
@@ -207,7 +207,7 @@ function selectPack(pack, price, el) {
     // Update dynamic WhatsApp link
     const waBtn = document.getElementById('dynamicWhatsAppBtn');
     if (waBtn) {
-        waBtn.href = `{{ url_for('order_whatsapp') }}?item=${encodeURIComponent('{{ product.name }}')}&pack=${encodeURIComponent(pack)}&price=${price}`;
+        waBtn.href = `{{ url_for('order_whatsapp') }}?item=${encodeURIComponent('{{ product.name }}')}`;
     }
 }
 </script>

@@ -604,18 +604,13 @@ def order_whatsapp():
     channel = request.args.get("channel", "1")
     target_phone = WHATSAPP_NUMBER_2 if str(channel) == "2" else WHATSAPP_NUMBER_1
 
-    item = request.args.get("item", "Diwali Faral Assorted Box")
-    pack = request.args.get("pack", "")
-    price = request.args.get("price", "")
+    item = (request.args.get("item") or "").strip()
 
-    msg = f"🪔 *Namaste Vanshika Swadisht Faral!* I would like to order Diwali Faral:\n\n"
-    msg += f"• *Item:* {item}\n"
-    if pack:
-        msg += f"• *Pack Size:* {pack}\n"
-    if price:
-        msg += f"• *Price:* ₹{price}\n"
-    msg += f"\n📍 *Delivery Location:* Doorstep delivery across Aurangabad/Chhatrapati Sambhajinagar, Maharashtra, India.\n"
-    msg += f"Please confirm fresh batch availability and delivery schedule. Thank you!"
+    generic_items = ["", "Diwali Faral Assorted Box", "Direct Diwali Faral Inquiry", "Diwali Faral Direct Order", "Outstation Diwali Faral Inquiry", "Diwali Faral"]
+    if item and item not in generic_items:
+        msg = f"🪔 *Namaste Vanshika!* I would like to order *{item}*."
+    else:
+        msg = "🪔 *Namaste Vanshika!* I would like to order Diwali Faral."
 
     encoded_msg = urllib.parse.quote(msg)
     wa_url = f"https://api.whatsapp.com/send?phone={target_phone}&text={encoded_msg}"

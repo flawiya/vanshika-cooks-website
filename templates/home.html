@@ -291,7 +291,7 @@
                         <strong>{% if current_lang == 'hi' %}थेट व्हॉट्सॲपवर मेसेज करा:{% else %}Prefer instant WhatsApp booking?{% endif %}</strong>
                         <p>{% if current_lang == 'hi' %}एका क्लिकवर ऑर्डर नोंदवा आणि खात्रीशीर ताजी डिलिव्हरी मिळवा.{% else %}Send your list directly to Vanshika's team for immediate confirmation.{% endif %}</p>
                     </div>
-                    <a href="{{ url_for('order_whatsapp', item='Diwali Faral Direct Order') }}" target="_blank" rel="noopener" class="btn-whatsapp-header">
+                    <a href="{{ url_for('order_whatsapp') }}" target="_blank" rel="noopener" class="btn-whatsapp-header">
                         WhatsApp Now
                     </a>
                 </div>
